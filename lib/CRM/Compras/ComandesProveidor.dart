@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Comandes extends StatelessWidget{
+class ComandesProveidor extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

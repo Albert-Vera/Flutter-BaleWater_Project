@@ -1,4 +1,9 @@
 
+import 'package:Balewaterproject/HomePage.dart';
+import 'package:Balewaterproject/MenuDrawer.dart';
+import 'package:Balewaterproject/Menus/MenuPrincipal.dart';
+import 'package:Balewaterproject/MyApp.dart';
+import 'package:Balewaterproject/main.dart';
 import 'package:flutter/material.dart';
 
 import 'LoginPage.dart';
@@ -13,11 +18,11 @@ class StartPage extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          Image.asset("image/banner_1.png"),
+          Image.asset("image/banner.png"),
 
           RaisedButton(
             onPressed: () {
-              pushPage(context, LoginPage());
+              pushPage(context, HomePage());
             },
             child: Text("Access Staff"),
           ),

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'Start_Page.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MiApp());
 
-class MyApp extends StatelessWidget {
+class MiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
