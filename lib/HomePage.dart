@@ -1,4 +1,6 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/LioPadre.dart';
+import 'package:Balewaterproject/LoadDataFromFirestone.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:Balewaterproject/Menus/MenuFactures.dart';
 import 'package:Balewaterproject/Menus/MenuInvetari.dart';
@@ -159,7 +161,7 @@ class ScreenHome extends StatelessWidget{
             children: <Widget>[
               GestureDetector(
 
-                onTap: () => pushPage(context, MenuVendes()),
+                onTap: () => pushPage(context, LoadDataFromFirestore()),
 
                 child: Card(
                   elevation: 57,
