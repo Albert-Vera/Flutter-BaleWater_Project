@@ -1,4 +1,7 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/Menus/MenuCompras.dart';
+import 'package:Balewaterproject/Menus/MenuFactures.dart';
+import 'package:Balewaterproject/Menus/MenuInvetari.dart';
 import 'package:Balewaterproject/Menus/MenuPrincipal.dart';
 import 'package:Balewaterproject/Menus/MenuVendes.dart';
 import 'package:Balewaterproject/MyApp.dart';
@@ -62,13 +65,13 @@ class HomePageState extends State<HomePage> {
       child =  MenuVendes();
     }
     else if (settings.name == '/compres') {
-      child =  OtherScreen('Compres');
+      child =  MenuCompras();
     }
     else if (settings.name == '/factures') {
-      child =  OtherScreen('Factures');
+      child =  MenuFactures();
     }
     else if (settings.name == '/inventari') {
-      child =  OtherScreen('Inventari');
+      child =  MenuInventari();
     }
     if (child != null) {
       return  MaterialPageRoute(builder: (c) => child);
@@ -163,18 +166,13 @@ class ScreenHome extends StatelessWidget{
 
                   child: Column(
                     children: <Widget>[
-                      Icon(
-                          Icons.add_shopping_cart,
-                        size: 45.0,
-                      ),
+                      Image.asset("image/carro.jpeg",
+                          height: 50.0,
+                          width: 50.0),
                       Container(
                         width: 100.0,
                         padding: const EdgeInsets.only(
                             top: 10.0),
-//                      splashColor: Colors.blue.withAlpha(30),
-//                      onTap: () {
-//                        print('Card tapped.');
-//                      },
                         child: Text('Comandes a servir',
                           style: TextStyle(fontSize: 18.0,
                               color: Colors.black ),
@@ -237,10 +235,7 @@ class ScreenHome extends StatelessWidget{
                         width: 100.0,
                         padding: const EdgeInsets.only(
                             top: 10.0),
-//                      splashColor: Colors.blue.withAlpha(30),
-//                      onTap: () {
-//                        print('Card tapped.');
-//                      },
+
                         child: Text('Comandes a servir',
                           style: TextStyle(fontSize: 18.0,
                               color: Colors.black ),
@@ -264,14 +259,8 @@ class ScreenHome extends StatelessWidget{
                       Container(
                         width: 100.0,
                         padding: const EdgeInsets.only(
-
-
                             top: 10.0
                         ),
-//                      splashColor: Colors.blue.withAlpha(30),
-//                      onTap: () {
-//                        print('Card tapped.');
-//                      },
                         child: Text('Comandes a recollir',
                           style: TextStyle(fontSize: 18.0,
                               color: Colors.black ),

@@ -4,8 +4,9 @@ import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:flutter/material.dart';
 
 import '../util.dart';
+import 'MenuVendes.dart';
 
-class MenuCompras extends StatelessWidget{
+class MenuInventari extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +80,7 @@ class MenuCompras extends StatelessWidget{
               children: <Widget>[
                 GestureDetector(
 
-                  onTap: () => pushPage(context, MenuCompras()),
+                  onTap: () => pushPage(context, MenuVendes()),
 
                   child: Card(
                     elevation: 57,
@@ -98,7 +99,7 @@ class MenuCompras extends StatelessWidget{
 //                      onTap: () {
 //                        print('Card tapped.');
 //                      },
-                          child: Text('Cosas',
+                          child: Text('Clients',
                             style: TextStyle(fontSize: 18.0,
                                 color: Colors.black ),
                           ),
@@ -109,7 +110,7 @@ class MenuCompras extends StatelessWidget{
                 ),
 
                 GestureDetector(
-                  onTap: () => pushPage(context, MenuCompras()),
+                  onTap: () => pushPage(context, MenuVendes()),
                   child: Card(
                     elevation: 57,
                     child: Column(
@@ -145,7 +146,7 @@ class MenuCompras extends StatelessWidget{
               children: <Widget>[
                 GestureDetector(
 
-                  onTap: () => pushPage(context, MenuCompras()),
+                  onTap: () => pushPage(context, MenuVendes()),
 
                   child: Card(
                     elevation: 57,
@@ -175,7 +176,7 @@ class MenuCompras extends StatelessWidget{
                 ),
 
                 GestureDetector(
-                  onTap: () => pushPage(context, MenuCompras()),
+                  onTap: () => pushPage(context, MenuVendes()),
                   child: Card(
                     elevation: 57,
                     child: Column(

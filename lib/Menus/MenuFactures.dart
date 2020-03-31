@@ -1,7 +1,10 @@
-
-import 'package:balewater/medio_basura/Home.dart';
-import 'package:balewater/util.dart';
+import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
+import 'package:Balewaterproject/LoadDataFromFirestone.dart';
+import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:flutter/material.dart';
+
+import '../util.dart';
+import 'MenuVendes.dart';
 
 class MenuFactures extends StatelessWidget{
   @override
@@ -32,21 +35,17 @@ class MenuFactures extends StatelessWidget{
 
                 gradient: new LinearGradient(
                     colors: [
-                      Color(0xFFbdae84),
+                      Color(0xFFF3F4F7),
                       Color(0xFF281236)
                     ],
                     begin: const FractionalOffset(1.0,0.1 ),
-                    end: const FractionalOffset(1.0, 0.9)
+                    end: const FractionalOffset(1.0, 1)
                 )
             ),
             child: Column(
               children: <Widget>[
                 bannerLogin(),
-                btnClients(context),
-                btnProductes(context),
-                btnPresupostos(context),
-                btnComandes(context),
-                btnComandesServidas(context)
+                graella(context)
               ],
             ),
           )
@@ -56,98 +55,164 @@ class MenuFactures extends StatelessWidget{
     );
   }
 
-  Container bannerLogin() {
+  Widget bannerLogin() {
     return Container(
       margin: EdgeInsets.only(
           top: 35.0,
           left: 40.0,
           right: 40.0
       ),
-      child:  Image.asset("image/banner_1.png"),
+      child:  Image.asset("image/banner.png"),
     );
   }
-  Container btnClients(BuildContext context){
-    return Container(
-      margin: EdgeInsets.only(
-          top: 65.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      width: 150.0,
-      child:  RaisedButton(
-        onPressed: () {
-          pushPage(context, Home());
-        },
-        child: Text("Clients"),
-      ),
-    );
-  }
-  Container btnProductes(BuildContext context){
-    return Container(
-      margin: EdgeInsets.only(
-          top: 35.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      width: 150.0,
+  Widget graella(BuildContext context) {
 
-      child:  RaisedButton(
-        onPressed: () {
-          pushPage(context, Home());
-        },
-        child: Text("Productes"),
-      ),
-    );
-  }
-  Container btnPresupostos(BuildContext context){
     return Container(
-      margin: EdgeInsets.only(
-          top: 35.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      width: 150.0,
+        margin: EdgeInsets.only(
+            top: 100.0,
+            left: 20.0),
+        height: 300,
 
-      child:  RaisedButton(
-        onPressed: () {
-          pushPage(context, Home());
-        },
-        child: Text("Presopostos"),
-      ),
-    );
-  }
-  Container btnComandes(BuildContext context){
-    return Container(
-      margin: EdgeInsets.only(
-          top: 35.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      width: 150.0,
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                GestureDetector(
 
-      child:  RaisedButton(
-        onPressed: () {
-          pushPage(context, Home());
-        },
-        child: Text("Comandes"),
-      ),
-    );
-  }
-  Container btnComandesServidas(BuildContext context){
-    return Container(
-      margin: EdgeInsets.only(
-          top: 35.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      width: 150.0,
+                  onTap: () => pushPage(context, MenuVendes()),
 
-      child:  RaisedButton(
-        onPressed: () {
-          pushPage(context, Home());
-        },
-        child: Text("Comandes Servidas"),
-      ),
+                  child: Card(
+                    elevation: 57,
+
+                    child: Column(
+                      children: <Widget>[
+                        Icon(
+                          Icons.add_shopping_cart,
+                          size: 45.0,
+                        ),
+                        Container(
+                          width: 100.0,
+                          padding: const EdgeInsets.only(
+                              top: 10.0),
+//                      splashColor: Colors.blue.withAlpha(30),
+//                      onTap: () {
+//                        print('Card tapped.');
+//                      },
+                          child: Text('Clients',
+                            style: TextStyle(fontSize: 18.0,
+                                color: Colors.black ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                GestureDetector(
+                  onTap: () => pushPage(context, MenuVendes()),
+                  child: Card(
+                    elevation: 57,
+                    child: Column(
+                      children: <Widget>[
+                        Icon(
+                          Icons.transit_enterexit,
+                          size: 45.0,
+                        ),
+                        Container(
+                          width: 100.0,
+                          padding: const EdgeInsets.only(
+
+
+                              top: 10.0
+                          ),
+//                      splashColor: Colors.blue.withAlpha(30),
+//                      onTap: () {
+//                        print('Card tapped.');
+//                      },
+                          child: Text('Comandes',
+                            style: TextStyle(fontSize: 18.0,
+                                color: Colors.black ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                GestureDetector(
+
+                  onTap: () => pushPage(context, MenuVendes()),
+
+                  child: Card(
+                    elevation: 57,
+
+                    child: Column(
+                      children: <Widget>[
+                        Icon(
+                          Icons.add_shopping_cart,
+                          size: 45.0,
+                        ),
+                        Container(
+                          width: 100.0,
+                          padding: const EdgeInsets.only(
+                              top: 10.0),
+//                      splashColor: Colors.blue.withAlpha(30),
+//                      onTap: () {
+//                        print('Card tapped.');
+//                      },
+                          child: Text('Presupostos',
+                            style: TextStyle(fontSize: 18.0,
+                                color: Colors.black ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                GestureDetector(
+                  onTap: () => pushPage(context, MenuVendes()),
+                  child: Card(
+                    elevation: 57,
+                    child: Column(
+                      children: <Widget>[
+                        Icon(
+                          Icons.transit_enterexit,
+                          size: 45.0,
+                        ),
+                        Container(
+                          width: 100.0,
+                          padding: const EdgeInsets.only(
+
+
+                              top: 10.0
+                          ),
+//                      splashColor: Colors.blue.withAlpha(30),
+//                      onTap: () {
+//                        print('Card tapped.');
+//                      },
+                          child: Text('Comandes servidas',
+                            style: TextStyle(fontSize: 18.0,
+                                color: Colors.black ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
+        )
+
+
     );
+
+
   }
 }
