@@ -205,10 +205,7 @@ class ScreenHome extends StatelessWidget{
 
                             top: 10.0
                         ),
-//                      splashColor: Colors.blue.withAlpha(30),
-//                      onTap: () {
-//                        print('Card tapped.');
-//                      },
+
                         child: Text('Comandes a recollir',
                           style: TextStyle(fontSize: 18.0,
                               color: Colors.black ),
