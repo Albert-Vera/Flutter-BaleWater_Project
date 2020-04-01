@@ -64,7 +64,7 @@ class _ClientsState extends State<Clients> {
               child: Column(
                 children: <Widget>[
                   BannerBaleWater(),
-                  //writeBBDD_Client(),
+                 // writeBBDD_Client(),
                   impresiodeDades(screenSize),
                 ],
               ),
@@ -85,19 +85,26 @@ class _ClientsState extends State<Clients> {
         queryAcomparar = resultsAComparar;
       });
     });
-//  int tamany = queryAcomparar.documents.length;
-//  List<String> emailString = new List(queryAcomparar.documents.length);
+
 //
-//  for ( int i = 0, i < tamany, i++){
-//    emailString.add(queryAcomparar.documents[i].data['email']);
 //
+//
+//
+//    var tamany = querySnapshot.documents.length ;
+////  //var cosas = querySnapshot.documents.getRange(0, tamany).
+////
+//  List<String> emailString =  List();
+// // emailString[0] = "0";
+//
+//  for ( int i = 0; i < tamany; i++){
+//    if ( !emailString[i].contains("${querySnapshot.documents[i].data['email]']}")){
+//      emailString[i] = "${querySnapshot.documents[i].data['email]']}";
+//      print("maravilloso-.........");
+//    }
 //  }
-
-
   }
-
   Widget impresiodeDades(Size screenSize) {
-    List<String> pajarito = new List(querySnapshot.documents.length);
+    List<String> pajarito = new List(querySnapshot.documents.length +1 );
 
     return SingleChildScrollView(
 //          height: screenSize.height,
@@ -111,10 +118,11 @@ class _ClientsState extends State<Clients> {
             padding: EdgeInsets.all(12),
             itemBuilder: (context, i) {
 
-              for (int j = 0; j < pajarito.length; j++) {
-                String a = pajarito[j];
-                if (a != null && !a.contains("${querySnapshot.documents[i].data['email]']}")){
-                  pajarito.add("${querySnapshot.documents[i].data['email]']}");
+             // for (int j = 0; j < querySnapshot.documents.length; j++) {
+
+             //   if ( pajarito[j] == null || !pajarito[j].contains("${querySnapshot.documents[i].data['email]']}")){
+
+               //   pajarito.add("${querySnapshot.documents[i].data['email]']}");
                   return Container(
 
                     margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -176,11 +184,11 @@ class _ClientsState extends State<Clients> {
                     ),
                   );
 
-                }
-              }
-              return Container(
-
-              );
+//                }
+//              }
+//              return Container(
+//
+//              );
 
             },
           ),
