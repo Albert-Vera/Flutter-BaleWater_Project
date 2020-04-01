@@ -24,6 +24,7 @@ class _ClientsState extends State<Clients> {
   QuerySnapshot querySnapshot, queryAcomparar;
   @override
   Widget build(BuildContext context) {
+
     final screenSize = MediaQuery.of(context).size;
     //check if querysnapshot is null
     if (querySnapshot != null) {
@@ -96,7 +97,8 @@ class _ClientsState extends State<Clients> {
   }
 
   Widget impresiodeDades(Size screenSize) {
-    
+    List<String> pajarito = new List(querySnapshot.documents.length);
+
     return SingleChildScrollView(
 //          height: screenSize.height,
 //          width:  screenSize.width,
@@ -108,56 +110,77 @@ class _ClientsState extends State<Clients> {
             itemCount: querySnapshot.documents.length,
             padding: EdgeInsets.all(12),
             itemBuilder: (context, i) {
+              pajarito.add(querySnapshot.documents[i].data['email]']);
+              for (int j = 0; j < pajarito.length; j++) {
+                String a = pajarito[j];
+                if (!a.contains(querySnapshot.documents[i].data['email'])){
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                    height: 80.0,
+                    // color: Colors.tealAccent,
+                    child: Card(
+                      child: Column(
+
+                        mainAxisAlignment: MainAxisAlignment.center,
+
+                        children: <Widget>[
+                          Container(
+
+                              width: screenSize.width,
+                              //color: Colors.tealAccent,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text("id: 023" + "   ",
+                                      textAlign: TextAlign.justify,),
+                                  ),
+                                  Expanded(
+                                    child: Text("${querySnapshot.documents[i]
+                                        .data['nom']}" + "   " +
+                                        "${querySnapshot.documents[i]
+                                            .data['cognoms']}",
+                                      textAlign: TextAlign.center,),
+                                  )
+                                ],
+                              )
+
+
+                          ),
+
+                          Container(
+                              width: screenSize.width,
+                              //  color: Colors.red,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text("Data Comanda: " +
+                                        "${querySnapshot.documents[i]
+                                            .data['dataComanda']}",
+                                      textAlign: TextAlign.left,),
+                                  ),
+                                  Expanded(
+                                    child: Text("Data Servei: " +
+                                        "${querySnapshot.documents[i]
+                                            .data['dataServei']}",
+                                      textAlign: TextAlign.right,),
+                                  )
+                                ],
+                              )
+                          ),
+
+                        ],
+                      ),
+                      //scrollDirection: Axis.horizontal,
+
+                    ),
+                  );
+
+                }
+              }
               return Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                height: 80.0,
-                // color: Colors.tealAccent,
-                child: Card(
-                  child: Column(
 
-                    mainAxisAlignment: MainAxisAlignment.center,
-
-                    children: <Widget>[
-                      Container(
-
-                          width: screenSize.width,
-                          //color: Colors.tealAccent,
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text("id: 023" + "   " , textAlign: TextAlign.justify,),
-                              ),
-                              Expanded(
-                                child: Text("${querySnapshot.documents[i].data['nom']}"+ "   "+"${querySnapshot.documents[i].data['cognoms']}", textAlign: TextAlign.center,),
-                              )
-                            ],
-                          )
-
-
-
-                      ),
-
-                      Container(
-                          width: screenSize.width,
-                          //  color: Colors.red,
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text("Data Comanda: " + "${querySnapshot.documents[i].data['dataComanda']}" , textAlign: TextAlign.left,),
-                              ),
-                              Expanded(
-                                child: Text("Data Servei: " + "${querySnapshot.documents[i].data['dataServei']}", textAlign: TextAlign.right,),
-                              )
-                            ],
-                          )
-                      ),
-
-                    ],
-                  ),
-                  //scrollDirection: Axis.horizontal,
-
-                ),
               );
+
             },
           ),
         );
