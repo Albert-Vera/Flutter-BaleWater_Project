@@ -64,7 +64,7 @@ class _ClientsState extends State<Clients> {
               child: Column(
                 children: <Widget>[
                   BannerBaleWater(),
-                 // writeBBDD_Client(),
+                 writeBBDD_Client(),
                   impresiodeDades(screenSize),
                 ],
               ),
@@ -80,12 +80,14 @@ class _ClientsState extends State<Clients> {
   }
   Widget writeBBDD_Client(){
 
-    getComandesList().then((resultsAComparar) {
-      setState(() {
-        queryAcomparar = resultsAComparar;
-      });
-    });
 
+    for (int i=0; i < querySnapshot.documents.length; i++) {
+      Firestore.instance.collection("client").document("CL00$i")
+          .setData({
+      'nom': '${querySnapshot.documents[i].data['nom']}',
+      'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
+      'email': '${querySnapshot.documents[i].data['email']}'});
+    }
 //
 //
 //
@@ -104,7 +106,7 @@ class _ClientsState extends State<Clients> {
 //  }
   }
   Widget impresiodeDades(Size screenSize) {
-    List<String> pajarito = new List(querySnapshot.documents.length +1 );
+   // List<String> pajarito = new List(querySnapshot.documents.length +1 );
 
     return SingleChildScrollView(
 //          height: screenSize.height,
