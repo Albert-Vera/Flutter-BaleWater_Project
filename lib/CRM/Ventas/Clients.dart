@@ -113,7 +113,7 @@ class _ClientsState extends State<Clients> {
 
               for (int j = 0; j < pajarito.length; j++) {
                 String a = pajarito[j];
-                if (a != null && a.contains("${querySnapshot.documents[i].data['email]']}")){
+                if (a != null && !a.contains("${querySnapshot.documents[i].data['email]']}")){
                   pajarito.add("${querySnapshot.documents[i].data['email]']}");
                   return Container(
 
