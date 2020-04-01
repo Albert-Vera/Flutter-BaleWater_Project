@@ -110,11 +110,13 @@ class _ClientsState extends State<Clients> {
             itemCount: querySnapshot.documents.length,
             padding: EdgeInsets.all(12),
             itemBuilder: (context, i) {
-              pajarito.add("${querySnapshot.documents[i].data['email]']}");
+
               for (int j = 0; j < pajarito.length; j++) {
                 String a = pajarito[j];
-                if (!a.contains("${querySnapshot.documents[i].data['email]']}")){
+                if (a != null && a.contains("${querySnapshot.documents[i].data['email]']}")){
+                  pajarito.add("${querySnapshot.documents[i].data['email]']}");
                   return Container(
+
                     margin: EdgeInsets.symmetric(vertical: 10.0),
                     height: 80.0,
                     // color: Colors.tealAccent,
