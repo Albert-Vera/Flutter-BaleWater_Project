@@ -4,6 +4,7 @@ import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:flutter/material.dart';
 
 import '../util.dart';
+import 'BannerBaleWater.dart';
 import 'MenuCompras.dart';
 import 'MenuVendes.dart';
 
@@ -45,7 +46,7 @@ class MenuPrincipal extends StatelessWidget{
             ),
             child: Column(
               children: <Widget>[
-                bannerLogin(),
+                BannerBaleWater(),
                 btnCompras(context),
                 btnVentas(context),
                 btnFacturas(context),
@@ -56,17 +57,6 @@ class MenuPrincipal extends StatelessWidget{
 
         ],
       ),
-    );
-  }
-
-  Container bannerLogin() {
-    return Container(
-      margin: EdgeInsets.only(
-          top: 35.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      child:  Image.asset("image/banner_1.png"),
     );
   }
 

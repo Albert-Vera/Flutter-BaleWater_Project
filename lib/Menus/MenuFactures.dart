@@ -4,6 +4,7 @@ import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:flutter/material.dart';
 
 import '../util.dart';
+import 'BannerBaleWater.dart';
 import 'MenuVendes.dart';
 
 class MenuFactures extends StatelessWidget{
@@ -44,7 +45,7 @@ class MenuFactures extends StatelessWidget{
             ),
             child: Column(
               children: <Widget>[
-                bannerLogin(),
+                BannerBaleWater(),
                 graella(context)
               ],
             ),
@@ -55,16 +56,6 @@ class MenuFactures extends StatelessWidget{
     );
   }
 
-  Widget bannerLogin() {
-    return Container(
-      margin: EdgeInsets.only(
-          top: 35.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      child:  Image.asset("image/banner.png"),
-    );
-  }
   Widget graella(BuildContext context) {
 
     return Container(
@@ -130,7 +121,7 @@ class MenuFactures extends StatelessWidget{
 //                      onTap: () {
 //                        print('Card tapped.');
 //                      },
-                          child: Text('Comandes',
+                          child: Text('Proveidors',
                             style: TextStyle(fontSize: 18.0,
                                 color: Colors.black ),
                           ),
@@ -142,6 +133,7 @@ class MenuFactures extends StatelessWidget{
               ],
             ),
             Row(
+
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 GestureDetector(
@@ -158,14 +150,14 @@ class MenuFactures extends StatelessWidget{
                           size: 45.0,
                         ),
                         Container(
-                          width: 100.0,
+                          width: 150.0,
                           padding: const EdgeInsets.only(
                               top: 10.0),
 //                      splashColor: Colors.blue.withAlpha(30),
 //                      onTap: () {
 //                        print('Card tapped.');
 //                      },
-                          child: Text('Presupostos',
+                          child: Text('Pagaments',
                             style: TextStyle(fontSize: 18.0,
                                 color: Colors.black ),
                           ),
@@ -175,37 +167,37 @@ class MenuFactures extends StatelessWidget{
                   ),
                 ),
 
-                GestureDetector(
-                  onTap: () => pushPage(context, MenuVendes()),
-                  child: Card(
-                    elevation: 57,
-                    child: Column(
-                      children: <Widget>[
-                        Icon(
-                          Icons.transit_enterexit,
-                          size: 45.0,
-                        ),
-                        Container(
-                          width: 100.0,
-                          padding: const EdgeInsets.only(
-
-
-                              top: 10.0
-                          ),
-//                      splashColor: Colors.blue.withAlpha(30),
-//                      onTap: () {
-//                        print('Card tapped.');
-//                      },
-                          child: Text('Comandes servidas',
-                            style: TextStyle(fontSize: 18.0,
-                                color: Colors.black ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
+//                GestureDetector(
+//                  onTap: () => pushPage(context, MenuVendes()),
+//                  child: Card(
+//                    elevation: 57,
+//                    child: Column(
+//                      children: <Widget>[
+//                        Icon(
+//                          Icons.transit_enterexit,
+//                          size: 45.0,
+//                        ),
+//                        Container(
+//                          width: 100.0,
+//                          padding: const EdgeInsets.only(
+//
+//
+//                              top: 10.0
+//                          ),
+////                      splashColor: Colors.blue.withAlpha(30),
+////                      onTap: () {
+////                        print('Card tapped.');
+////                      },
+//                          child: Text('Comandes servidas',
+//                            style: TextStyle(fontSize: 18.0,
+//                                color: Colors.black ),
+//                          ),
+//                        ),
+//                      ],
+//                    ),
+//                  ),
+//                )
+    ],
             ),
           ],
         )

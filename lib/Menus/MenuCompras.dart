@@ -1,5 +1,6 @@
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
 import 'package:Balewaterproject/LoadDataFromFirestone.dart';
+import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,7 @@ class MenuCompras extends StatelessWidget{
             ),
             child: Column(
               children: <Widget>[
-                bannerLogin(),
+                BannerBaleWater(),
                 graella(context)
               ],
             ),
@@ -54,16 +55,6 @@ class MenuCompras extends StatelessWidget{
     );
   }
 
-  Widget bannerLogin() {
-    return Container(
-      margin: EdgeInsets.only(
-          top: 35.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      child:  Image.asset("image/banner.png"),
-    );
-  }
   Widget graella(BuildContext context) {
 
     return Container(
@@ -98,7 +89,7 @@ class MenuCompras extends StatelessWidget{
 //                      onTap: () {
 //                        print('Card tapped.');
 //                      },
-                          child: Text('Cosas',
+                          child: Text('Proveidors',
                             style: TextStyle(fontSize: 18.0,
                                 color: Colors.black ),
                           ),
@@ -164,7 +155,7 @@ class MenuCompras extends StatelessWidget{
 //                      onTap: () {
 //                        print('Card tapped.');
 //                      },
-                          child: Text('Presupostos',
+                          child: Text('Productes',
                             style: TextStyle(fontSize: 18.0,
                                 color: Colors.black ),
                           ),
@@ -195,7 +186,7 @@ class MenuCompras extends StatelessWidget{
 //                      onTap: () {
 //                        print('Card tapped.');
 //                      },
-                          child: Text('Comandes servidas',
+                          child: Text('Product. a rebre',
                             style: TextStyle(fontSize: 18.0,
                                 color: Colors.black ),
                           ),
@@ -206,6 +197,36 @@ class MenuCompras extends StatelessWidget{
                 )
               ],
             ),
+            GestureDetector(
+              onTap: () => pushPage(context, MenuCompras()),
+              child: Card(
+                elevation: 57,
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.transit_enterexit,
+                      size: 45.0,
+                    ),
+                    Container(
+                      width: 150.0,
+                      padding: const EdgeInsets.only(
+
+
+                          top: 10.0
+                      ),
+//                      splashColor: Colors.blue.withAlpha(30),
+//                      onTap: () {
+//                        print('Card tapped.');
+//                      },
+                      child: Text('Fact. proveidors',
+                        style: TextStyle(fontSize: 18.0,
+                            color: Colors.black ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
         )
 

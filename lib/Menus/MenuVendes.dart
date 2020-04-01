@@ -1,5 +1,7 @@
+import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
 import 'package:Balewaterproject/LoadDataFromFirestone.dart';
+import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +45,7 @@ class MenuVendes extends StatelessWidget{
             ),
             child: Column(
               children: <Widget>[
-                bannerLogin(),
+                BannerBaleWater(),
                graella(context)
               ],
             ),
@@ -51,17 +53,6 @@ class MenuVendes extends StatelessWidget{
 
         ],
       ),
-    );
-  }
-
-  Widget bannerLogin() {
-    return Container(
-      margin: EdgeInsets.only(
-          top: 35.0,
-          left: 40.0,
-          right: 40.0
-      ),
-      child:  Image.asset("image/banner.png"),
     );
   }
   Widget graella(BuildContext context) {
@@ -79,7 +70,7 @@ class MenuVendes extends StatelessWidget{
               children: <Widget>[
                 GestureDetector(
 
-                  onTap: () => pushPage(context, MenuVendes()),
+                  onTap: () => pushPage(context, Clients()),
 
                   child: Card(
                     elevation: 57,

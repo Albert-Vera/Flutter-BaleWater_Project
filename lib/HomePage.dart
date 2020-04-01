@@ -164,7 +164,10 @@ class ScreenHome extends StatelessWidget{
                 onTap: () => pushPage(context, LoadDataFromFirestore()),
 
                 child: Card(
-                  elevation: 57,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  elevation: 17,
 
                   child: Column(
                     children: <Widget>[
@@ -217,63 +220,63 @@ class ScreenHome extends StatelessWidget{
               )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              GestureDetector(
-
-                onTap: () => pushPage(context, MenuVendes()),
-
-                child: Card(
-                  elevation: 57,
-
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.add_shopping_cart,
-                        size: 45.0,
-                      ),
-                      Container(
-                        width: 100.0,
-                        padding: const EdgeInsets.only(
-                            top: 10.0),
-
-                        child: Text('Comandes a servir',
-                          style: TextStyle(fontSize: 18.0,
-                              color: Colors.black ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              GestureDetector(
-                onTap: () => pushPage(context, MenuVendes()),
-                child: Card(
-                  elevation: 57,
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.transit_enterexit,
-                        size: 45.0,
-                      ),
-                      Container(
-                        width: 100.0,
-                        padding: const EdgeInsets.only(
-                            top: 10.0
-                        ),
-                        child: Text('Comandes a recollir',
-                          style: TextStyle(fontSize: 18.0,
-                              color: Colors.black ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//            children: <Widget>[
+//              GestureDetector(
+//
+//                onTap: () => pushPage(context, MenuVendes()),
+//
+//                child: Card(
+//                  elevation: 57,
+//
+//                  child: Column(
+//                    children: <Widget>[
+//                      Icon(
+//                        Icons.add_shopping_cart,
+//                        size: 45.0,
+//                      ),
+//                      Container(
+//                        width: 100.0,
+//                        padding: const EdgeInsets.only(
+//                            top: 10.0),
+//
+//                        child: Text('Comandes a servir',
+//                          style: TextStyle(fontSize: 18.0,
+//                              color: Colors.black ),
+//                        ),
+//                      ),
+//                    ],
+//                  ),
+//                ),
+//              ),
+//
+//              GestureDetector(
+//                onTap: () => pushPage(context, MenuVendes()),
+//                child: Card(
+//                  elevation: 57,
+//                  child: Column(
+//                    children: <Widget>[
+//                      Icon(
+//                        Icons.transit_enterexit,
+//                        size: 45.0,
+//                      ),
+//                      Container(
+//                        width: 100.0,
+//                        padding: const EdgeInsets.only(
+//                            top: 10.0
+//                        ),
+//                        child: Text('Comandes a recollir',
+//                          style: TextStyle(fontSize: 18.0,
+//                              color: Colors.black ),
+//                        ),
+//                      ),
+//                    ],
+//                  ),
+//                ),
+//              )
+//            ],
+//          ),
         ],
       )
 
