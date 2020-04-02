@@ -1,12 +1,10 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
-import 'package:Balewaterproject/LioPadre.dart';
 import 'package:Balewaterproject/LoadDataFromFirestone.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:Balewaterproject/Menus/MenuFactures.dart';
 import 'package:Balewaterproject/Menus/MenuInvetari.dart';
 import 'package:Balewaterproject/Menus/MenuPrincipal.dart';
 import 'package:Balewaterproject/Menus/MenuVendes.dart';
-import 'package:Balewaterproject/MyApp.dart';
 import 'package:Balewaterproject/NavegadorBoton.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:Balewaterproject/util.dart';

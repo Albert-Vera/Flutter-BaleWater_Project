@@ -1,17 +1,9 @@
 
 import 'package:Balewaterproject/HomePage.dart';
-import 'package:Balewaterproject/LioPadre.dart';
-import 'package:Balewaterproject/MenuDrawer.dart';
-import 'package:Balewaterproject/Menus/MenuPrincipal.dart';
-import 'package:Balewaterproject/MyApp.dart';
-import 'package:Balewaterproject/main.dart';
+
 import 'package:flutter/material.dart';
 
-import 'LoginPage.dart';
 import 'util.dart';
-
-
-
 
 class StartPage extends StatelessWidget {
   @override
