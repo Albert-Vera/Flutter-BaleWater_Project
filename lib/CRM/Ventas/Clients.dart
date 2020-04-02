@@ -64,7 +64,7 @@ class _ClientsState extends State<Clients> {
               child: Column(
                 children: <Widget>[
                   BannerBaleWater(),
-                 writeBBDD_Client(),
+               //  writeBBDD_Client(),
                   impresiodeDades(screenSize),
                 ],
               ),
@@ -78,11 +78,11 @@ class _ClientsState extends State<Clients> {
       );
     }
   }
-  Widget writeBBDD_Client(){
+  Widget writeBBDD_Client() {
 
-
+ //  DESACTIVADO DE POCO SIRVE
     for (int i=0; i < querySnapshot.documents.length; i++) {
-      Firestore.instance.collection("client").document("CL00$i")
+       Firestore.instance.collection("client").document("CL00$i")
           .setData({
       'nom': '${querySnapshot.documents[i].data['nom']}',
       'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
@@ -106,7 +106,7 @@ class _ClientsState extends State<Clients> {
 //  }
   }
   Widget impresiodeDades(Size screenSize) {
-   // List<String> pajarito = new List(querySnapshot.documents.length +1 );
+    List<String> pajarito = new List(querySnapshot.documents.length +1 );
 
     return SingleChildScrollView(
 //          height: screenSize.height,
@@ -122,9 +122,9 @@ class _ClientsState extends State<Clients> {
 
              // for (int j = 0; j < querySnapshot.documents.length; j++) {
 
-             //   if ( pajarito[j] == null || !pajarito[j].contains("${querySnapshot.documents[i].data['email]']}")){
-
-               //   pajarito.add("${querySnapshot.documents[i].data['email]']}");
+                if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")){
+    //ESTO DA ERROR... LOS ARRAYLIST NO PIRULAN
+                  pajarito.add("${querySnapshot.documents[i].data['email]']}");
                   return Container(
 
                     margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -186,11 +186,11 @@ class _ClientsState extends State<Clients> {
                     ),
                   );
 
-//                }
+                }else
 //              }
-//              return Container(
-//
-//              );
+              return Container(
+
+              );
 
             },
           ),
