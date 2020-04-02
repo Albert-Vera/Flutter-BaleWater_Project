@@ -124,7 +124,7 @@ class _ClientsState extends State<Clients> {
 
                 if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")){
     //ESTO DA ERROR... LOS ARRAYLIST NO PIRULAN
-                  pajarito.add("${querySnapshot.documents[i].data['email]']}");
+                 // pajarito.add("${querySnapshot.documents[i].data['email]']}");
                   return Container(
 
                     margin: EdgeInsets.symmetric(vertical: 10.0),
