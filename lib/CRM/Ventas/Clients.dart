@@ -106,7 +106,7 @@ class _ClientsState extends State<Clients> {
 //  }
   }
   Widget impresiodeDades(Size screenSize) {
-    List<String> pajarito = new List(querySnapshot.documents.length +1 );
+    List<String> pajarito = new List(querySnapshot.documents.length  );
 
     return SingleChildScrollView(
 //          height: screenSize.height,
@@ -123,8 +123,10 @@ class _ClientsState extends State<Clients> {
              // for (int j = 0; j < querySnapshot.documents.length; j++) {
 
                 if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")){
-    //ESTO DA ERROR... LOS ARRAYLIST NO PIRULAN
-                 // pajarito.add("${querySnapshot.documents[i].data['email]']}");
+
+                  pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
+                  var ddd = pajarito[i];  // sale valor nulo
+                  print("tamany de pajarito $pajarito");
                   return Container(
 
                     margin: EdgeInsets.symmetric(vertical: 10.0),
