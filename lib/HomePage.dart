@@ -1,5 +1,4 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
-import 'package:Balewaterproject/LioPadre.dart';
 import 'package:Balewaterproject/LoadDataFromFirestone.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:Balewaterproject/Menus/MenuFactures.dart';

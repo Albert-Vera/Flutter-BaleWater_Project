@@ -5,12 +5,14 @@ class MenuItem extends StatelessWidget {
   Widget page;
   IconData icon;
   String text;
+  double width;
 
   MenuItem({
     Key key,
     this.page,
     this.icon,
-    this.text
+    this.text,
+    this.width
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class MenuItem extends StatelessWidget {
           children: <Widget>[
             Icon(icon, size: 45.0,),
             Container(
-              width: 100.0,
+              width: width,
               padding: const EdgeInsets.only(top: 10.0),
 //                      splashColor: Colors.blue.withAlpha(30),
 //                      onTap: () {

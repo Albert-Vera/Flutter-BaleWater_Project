@@ -28,15 +28,15 @@ class MenuVendes extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), icon: Icons.add_shopping_cart, text: "Clients"),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes"),
+                MenuItem(page: Clients(), icon: Icons.add_shopping_cart, text: "Clients", width: 100 ),
+                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes", width: 100),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: MenuVendes(), icon: Icons.add_shopping_cart, text: "Presupostus"),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes servides"),
+                MenuItem(page: MenuVendes(), icon: Icons.add_shopping_cart, text: "Presupostus", width: 100),
+                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes servides", width: 100),
               ],
             ),
           ],
