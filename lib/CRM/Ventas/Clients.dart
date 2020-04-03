@@ -79,14 +79,20 @@ class _ClientsState extends State<Clients> {
     }
   }
   Widget writeBBDD_Client() {
-
+    List<String> pajarito = new List(querySnapshot.documents.length  );
  //  DESACTIVADO DE POCO SIRVE
     for (int i=0; i < querySnapshot.documents.length; i++) {
-       Firestore.instance.collection("client").document("CL00$i")
-          .setData({
-      'nom': '${querySnapshot.documents[i].data['nom']}',
-      'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
-      'email': '${querySnapshot.documents[i].data['email']}'});
+      if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")) {
+        Firestore.instance.collection("client").document("CL00$i")
+            .setData({
+          'nom': '${querySnapshot.documents[i].data['nom']}',
+          'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
+          'email': '${querySnapshot.documents[i].data['email']}'});
+
+        pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
+        var ddd = pajarito[i];  // sale valor nulo
+        print("tamany de pajarito $pajarito");
+      }
     }
 //
 //
@@ -106,7 +112,7 @@ class _ClientsState extends State<Clients> {
 //  }
   }
   Widget impresiodeDades(Size screenSize) {
-    List<String> pajarito = new List(querySnapshot.documents.length  );
+   // List<String> pajarito = new List(querySnapshot.documents.length  );
 
     return SingleChildScrollView(
 //          height: screenSize.height,
@@ -122,11 +128,11 @@ class _ClientsState extends State<Clients> {
 
              // for (int j = 0; j < querySnapshot.documents.length; j++) {
 
-                if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")){
-
-                  pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
-                  var ddd = pajarito[i];  // sale valor nulo
-                  print("tamany de pajarito $pajarito");
+//                if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")){
+//
+//                  pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
+//                  var ddd = pajarito[i];  // sale valor nulo
+//                  print("tamany de pajarito $pajarito");
                   return Container(
 
                     margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -188,11 +194,11 @@ class _ClientsState extends State<Clients> {
                     ),
                   );
 
-                }else
+             //   }else
 //              }
-              return Container(
-
-              );
+//              return Container(
+//
+//              );
 
             },
           ),
