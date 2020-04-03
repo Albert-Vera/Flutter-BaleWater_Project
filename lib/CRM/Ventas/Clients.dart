@@ -1,3 +1,4 @@
+import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _ClientsState extends State<Clients> {
   getComandesList() async {
     return await Firestore.instance.collection('comanda').getDocuments();
   }
+
   QuerySnapshot querySnapshot, queryAcomparar;
   @override
   Widget build(BuildContext context) {
@@ -29,47 +31,14 @@ class _ClientsState extends State<Clients> {
     //check if querysnapshot is null
     if (querySnapshot != null) {
       return Scaffold(
-        body: Stack(
-          children: <Widget>[
-            Container(
-              margin:EdgeInsets.only(
-                  top: 30.0,
-                  right: 15.0,
-                  left: 15.0
-              ),
-              height: 600.0,
-              width: 370.0,
-              decoration: new BoxDecoration(
-                  border: Border.all(),
-                  color: Colors.white,
-                  boxShadow: [
-                    new BoxShadow(
-                        color: Color(0xFFc5cdd9),
-
-                        offset: new Offset(10.0, 10.0),
-                        blurRadius: 10.0
-                    )
-                  ],
-                  borderRadius: new BorderRadius.circular(30.0),
-
-                  gradient: new LinearGradient(
-                      colors: [
-                        Color(0xFFF3F4F7),
-                        Color(0xFF281236)
-                      ],
-                      begin: const FractionalOffset(1.0,0.1 ),
-                      end: const FractionalOffset(1.0, 1)
-                  )
-              ),
-              child: Column(
-                children: <Widget>[
-                  BannerBaleWater(),
-               //  writeBBDD_Client(),
-                  impresiodeDades(screenSize),
-                ],
-              ),
-            )
-          ],
+        body: BackGroundPantalla(
+          child:  Column(
+            children: <Widget>[
+              BannerBaleWater(),
+              writeBBDD_Client(),
+              impresiodeDades(screenSize)
+            ],
+          ),
         ),
       );
     } else {
