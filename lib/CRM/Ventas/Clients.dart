@@ -35,7 +35,7 @@ class _ClientsState extends State<Clients> {
           child:  Column(
             children: <Widget>[
               BannerBaleWater(),
-              writeBBDD_Client(),
+              //writeBBDD_Client(),
               impresiodeDades(screenSize)
             ],
           ),

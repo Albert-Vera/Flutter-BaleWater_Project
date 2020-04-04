@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-class NavegadorBoton extends StatefulWidget {
+class NavegadorBarraInferior extends StatefulWidget {
   final String initialRoute;
   final ValueChanged<String> navCallback;
 
-  NavegadorBoton({
+  NavegadorBarraInferior({
     Key key,
     this.initialRoute: '/',
     @required this.navCallback,
@@ -16,7 +16,7 @@ class NavegadorBoton extends StatefulWidget {
   _BottomNavState createState() => new _BottomNavState();
 }
 
-class _BottomNavState extends State<NavegadorBoton> {
+class _BottomNavState extends State<NavegadorBarraInferior> {
   String _currentRoute;
 
   @override

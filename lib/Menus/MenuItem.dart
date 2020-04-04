@@ -20,7 +20,8 @@ class MenuItem extends StatelessWidget {
     return GestureDetector(
 
       onTap: () => pushPage(context, page),
-
+    child: Tooltip(
+    message: text,
       child: Card(
         elevation: 57,
         child: Column(
@@ -30,9 +31,7 @@ class MenuItem extends StatelessWidget {
               width: width,
               padding: const EdgeInsets.only(top: 10.0),
 //                      splashColor: Colors.blue.withAlpha(30),
-//                      onTap: () {
-//                        print('Card tapped.');
-//                      },
+
               child: Text(text,
                 style: TextStyle(fontSize: 18.0,
                     color: Colors.black ),
@@ -41,6 +40,7 @@ class MenuItem extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 }
