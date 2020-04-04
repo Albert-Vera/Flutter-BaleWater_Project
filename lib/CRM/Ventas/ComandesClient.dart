@@ -29,20 +29,24 @@ class _ComandesClientState extends State<ComandesClient> {
   QuerySnapshot querySnapshot;
   @override
   Widget build(BuildContext context) {
-
-
-
     if (querySnapshot != null) {
       return Scaffold(
         body: BackGroundPantalla(
-          child:  Column(
-            children: <Widget>[
-              BannerBaleWater(),
-              mostraComandes()
-            ],
+            child: SingleChildScrollView(
+            child:  Column(
+              children: <Widget>[
+                BannerBaleWater(),
+                mostraComandes()
+              ],
+
+
+
+
+              ),
           ),
         ),
       );
+
     } else {
       return Center(
         child: CircularProgressIndicator(),
@@ -51,10 +55,7 @@ class _ComandesClientState extends State<ComandesClient> {
   }
 
   Widget mostraComandes(){
-    var flip = false;
-
-    return SingleChildScrollView(
-      child: ListView.builder(
+    return  ListView.builder(
           shrinkWrap: true,
           primary: false,
           itemCount: querySnapshot.documents.length,
@@ -65,60 +66,68 @@ class _ComandesClientState extends State<ComandesClient> {
              // de momento ninguna condición
             },
             direction: FlipDirection.VERTICAL,
-            front: Container(
-              margin: EdgeInsets.symmetric(vertical: 10.0),
-              height: 200.0,
-              child: Card(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                     linea( "id Comande: 023   ", "${querySnapshot.documents[i].data['nom']}" + "   " +
-                         "${querySnapshot.documents[i]
-                             .data['cognoms']}"),
-                      Divider(),
-                      linea("Data Comanda: " +
-                          "${querySnapshot.documents[i]
-                              .data['dataComanda']}", "Data Servei: " +
-                          "${querySnapshot.documents[i]
-                              .data['dataServei']}\n"),
-                      linea("Id producte: P1" , "Producte: " +
-                          "${querySnapshot.documents[i]
-                              .data['nomCastle']}\n"),
-                      linea("Lloguer:  4 h." , "Localitat: " +
-                          "${querySnapshot.documents[i]
-                              .data['localitat']}")
-                    ]
-                ),
+            front: front_Card(i),
+            back: alertDialog(context)
+        ),
+      );
+
+  }
+
+  Widget front_Card(int i) {
+    return Container(
+            margin: EdgeInsets.symmetric(vertical: 10.0),
+            height: 200.0,
+            child: Card(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                   linea( "id Comande: 023   ", "${querySnapshot.documents[i].data['nom']}" + "   " +
+                       "${querySnapshot.documents[i]
+                           .data['cognoms']}"),
+                    Divider(),
+                    linea("Data Comanda: " +
+                        "${querySnapshot.documents[i]
+                            .data['dataComanda']}", "Data Servei: " +
+                        "${querySnapshot.documents[i]
+                            .data['dataServei']}\n"),
+                    linea("Id producte: P1" , "Producte: " +
+                        "${querySnapshot.documents[i]
+                            .data['nomCastle']}\n"),
+                    linea("Lloguer:  4 h." , "Localitat: " +
+                        "${querySnapshot.documents[i]
+                            .data['localitat']}")
+                  ]
               ),
             ),
-            back: AlertDialog(
-              title: Text('El producte ha sigut servit'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text('El producte has donará per entregat.'),
-                   // Text('You\’re like me. I’m never satisfied.'),
-                  ],
-                ),
+          );
+  }
+
+  AlertDialog alertDialog(BuildContext context) {
+    return AlertDialog(
+            title: Text('El producte ha sigut servit'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('El producte has donará per entregat.'),
+                 // Text('You\’re like me. I’m never satisfied.'),
+                ],
               ),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('Ok.'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                FlatButton(
-                  child: Text('Cancel.'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            )
-        ),
-      ),
-    );
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok.'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text('Cancel.'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
   }
   Widget linea( String text_1, String text_2){
     final screenSize = MediaQuery.of(context).size;
@@ -139,4 +148,30 @@ class _ComandesClientState extends State<ComandesClient> {
       ),
     );
   }
+  Widget registrarComandes(){
+    return Container(
+
+    );
+  }
 }
+
+//Container(
+//child: DraggableScrollableSheet(
+//initialChildSize: 0.5,
+//minChildSize: 0.2,
+//maxChildSize: 0.6,
+//builder: (BuildContext context, myscrollController) {
+//return Container(
+//child: Column(
+//children: <Widget>[
+//mostraComandes(),
+//
+//],
+//)
+//
+//);
+//},
+//
+//),
+//
+//)
