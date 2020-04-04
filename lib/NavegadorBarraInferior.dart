@@ -35,8 +35,8 @@ class _BottomNavState extends State<NavegadorBarraInferior> {
         child: new Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _buildButton('/',"Home", "Ventas"),
-            _buildButton('/vendes', "Ventas", "Vendes"),
+            _buildButton('/',"Home", "Vendes"),
+            _buildButton('/vendes', "Vendes", "Vendes"),
             _buildButton('/compres', "Compres", "Compres"),
             _buildButton('/factures',"Fact", "Factures"),
             _buildButton('/inventari', "Invent", "Invetari"),
