@@ -1,4 +1,5 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
 import 'package:Balewaterproject/LoadDataFromFirestone.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
@@ -113,7 +114,7 @@ Widget graella(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              MenuItem(page: Clients(), icon: Icons.add_shopping_cart, text: "Comandes a servir", width: 100 ),
+              MenuItem(page: ComandesClient(), icon: Icons.add_shopping_cart, text: "Comandes a servir", width: 100 ),
               MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes a recollir", width: 100),
             ],
           ),

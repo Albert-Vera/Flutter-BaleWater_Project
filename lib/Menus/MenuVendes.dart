@@ -1,6 +1,5 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
-import 'package:Balewaterproject/CRM/Ventas/ClientsPruebaFlip.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuItem.dart';
 import 'package:flutter/material.dart';

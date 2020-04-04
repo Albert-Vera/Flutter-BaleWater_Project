@@ -1,6 +1,7 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
@@ -99,16 +100,12 @@ class _ClientsState extends State<Clients> {
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 height: alt,
                 child: Card(
-
                   child: Column(
-
                       mainAxisAlignment: MainAxisAlignment.center,
-
                       children: <Widget>[
                         Container(
-
                             width: screenSize.width,
-                            //color: Colors.tealAccent,
+                            color: Colors.tealAccent,
                             child: Row(
                               children: <Widget>[
                                 Expanded(
@@ -124,6 +121,7 @@ class _ClientsState extends State<Clients> {
                               ],
                             )
                         ),
+                        Divider(),
                         Container(
                             width: screenSize.width,
                             //  color: Colors.red,
@@ -179,12 +177,9 @@ class _ClientsState extends State<Clients> {
                     ],
                   ),
                 ),
-
-
               )
           ),
         )
     );
   }
-
 }
