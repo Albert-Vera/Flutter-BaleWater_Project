@@ -10,6 +10,8 @@ class Experimento extends StatefulWidget{
 }
 
 class _ExperimentoState extends State<Experimento> {
+
+
   @override
   Widget build(BuildContext context) {
     return _buildBody(context);
@@ -20,6 +22,7 @@ class _ExperimentoState extends State<Experimento> {
 //            child: Column(
 //            children: <Widget>[
 //              BannerBaleWater(),
+    // QUISIERA aqui un DRAGGAbleScrollableSheet
 //              _buildBody(context)
 //            ],
 //          )
@@ -54,23 +57,41 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
       if (record.servida == false){
-        print("He trobat en Pere de la cullera.............");
         return writeFirebase(context, record, "comandesAservir");
-      }else   return writeFirebase(context, record, "perRecollir");
-      return mostraComandes(context, record);
+      }else
+        if (record.recollida == false){
+          deleteFirebase(context, record, "comandesAservir");
+          return writeFirebase(context, record, "perRecollir");
+      }else {
+          deleteFirebase(context, record, "perRecollir");
+          return Container();
+        }
     },
   );
 }
+Widget deleteFirebase(BuildContext context, Record record, String coleccion){
+  Firestore.instance.collection(coleccion).document("0" + record.id.toString())
+      .delete();
+  return mostraComandes(context, record);
+}
  Widget writeFirebase(BuildContext context, Record record, String coleccion) {
 
-    Firestore.instance.collection(coleccion).document(record.id.toString())
+    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .setData({
     'id': record.id,
     'nom': record.nom,
     'cognoms': record.cognoms});
     return mostraComandes(context, record);
 }
-Widget mostraComandes(BuildContext context, Record record, ){
+// Un pedido servido se pasa a estado servido
+Widget cambiarEstatComanda(BuildContext context, Record record){
+  Firestore.instance.collection("comanda").document("0" + record.id.toString())
+      .updateData({
+    'servida': record.servida = true,
+                  });
+  return mostraComandes(context, record);
+}
+Widget mostraComandes(BuildContext context, Record record ){
   return   FlipCard(
 
         onFlip:(){
@@ -91,7 +112,7 @@ Widget impresioDades(BuildContext context, Record record,  ) {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            linea( "id Comande: 023   ", record.nom + "   " +
+            linea( "id Comande: 0" +record.id.toString(), record.nom + "   " +
                 record.cognoms),
             Divider(),
             linea("Data Comanda: " +
@@ -106,6 +127,7 @@ Widget impresioDades(BuildContext context, Record record,  ) {
   );
 }
 AlertDialog alertDialog(BuildContext context, Record record, ) {
+  //GlobalKey<FlipCardState> thisCard = ;
   return AlertDialog(
     title: Text('El producte ha sigut servit ?'),
     content: SingleChildScrollView(
@@ -120,14 +142,17 @@ AlertDialog alertDialog(BuildContext context, Record record, ) {
       FlatButton(
         child: Text('Ok.'),
         onPressed: () {
-          Navigator.of(context).pop();
+          cambiarEstatComanda(context, record);
+         // _buildBody(context);
+          //thisCard.currentState.toggleCard();
         },
       ),
       FlatButton(
         child: Text('Cancel.'),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
+        //onPressed: () {
+         // Navigator.of(context).initState();
+
+        //},
       ),
     ],
   );
@@ -154,7 +179,7 @@ Widget linea( String text_1, String text_2){
 class Record {
   final String nom, cognoms;
   final int id;
-  final bool recollida, servida;
+  bool recollida, servida;
   final DocumentReference reference;
 
   Record.fromMap(Map<String, dynamic> map, {this.reference})
