@@ -55,13 +55,20 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
       if (!snapshot.hasData) return LinearProgressIndicator();
       if (record.servida == false){
         print("He trobat en Pere de la cullera.............");
-        return mostraComandes(context, record);
-      }
-      return Container(
-
-      );
+        return writeFirebase(context, record, "comandesAservir");
+      }else   return writeFirebase(context, record, "perRecollir");
+      return mostraComandes(context, record);
     },
   );
+}
+ Widget writeFirebase(BuildContext context, Record record, String coleccion) {
+
+    Firestore.instance.collection(coleccion).document(record.id.toString())
+      .setData({
+    'id': record.id,
+    'nom': record.nom,
+    'cognoms': record.cognoms});
+    return mostraComandes(context, record);
 }
 Widget mostraComandes(BuildContext context, Record record, ){
   return   FlipCard(
