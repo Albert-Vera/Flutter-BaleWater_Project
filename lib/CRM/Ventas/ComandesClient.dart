@@ -1,8 +1,10 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/Experimento.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ComandesClient extends StatefulWidget{
@@ -32,19 +34,36 @@ class _ComandesClientState extends State<ComandesClient> {
     if (querySnapshot != null) {
       return Scaffold(
         body: BackGroundPantalla(
-            child: SingleChildScrollView(
+          child: SingleChildScrollView(
             child:  Column(
               children: <Widget>[
                 BannerBaleWater(),
-                mostraComandes()
+
+//                Container(
+//                  child: DraggableScrollableSheet(
+//                    initialChildSize: 0.5,
+//                    minChildSize: 0.2,
+//                    maxChildSize: 0.6,
+//                    builder: (BuildContext context, myscrollController) {
+//                      return Container(
+//                          child: Column(
+//                            children: <Widget>[
+//                              mostraComandes(),
+//                            ],
+//                          )
+//                      );
+//                    },
+//                  ),
+//                )
+
+
+                //registrarComandes(),
+                 mostraComandes(),
               ],
-
-
-
-
-              ),
+            ),
           ),
         ),
+
       );
 
     } else {
@@ -56,78 +75,78 @@ class _ComandesClientState extends State<ComandesClient> {
 
   Widget mostraComandes(){
     return  ListView.builder(
-          shrinkWrap: true,
-          primary: false,
-          itemCount: querySnapshot.documents.length,
-          padding: EdgeInsets.all(12),
+      shrinkWrap: true,
+      primary: false,
+      itemCount: querySnapshot.documents.length,
+      padding: EdgeInsets.all(12),
 
-        itemBuilder: (context, i) => FlipCard(
-            onFlip:(){
-             // de momento ninguna condición
-            },
-            direction: FlipDirection.VERTICAL,
-            front: front_Card(i),
-            back: alertDialog(context)
-        ),
-      );
+      itemBuilder: (context, i) => FlipCard(
+          onFlip:(){
+            // de momento ninguna condición
+          },
+          direction: FlipDirection.VERTICAL,
+          front: front_Card(i),
+          back: alertDialog(context)
+      ),
+    );
 
   }
 
   Widget front_Card(int i) {
     return Container(
-            margin: EdgeInsets.symmetric(vertical: 10.0),
-            height: 200.0,
-            child: Card(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                   linea( "id Comande: 023   ", "${querySnapshot.documents[i].data['nom']}" + "   " +
-                       "${querySnapshot.documents[i]
-                           .data['cognoms']}"),
-                    Divider(),
-                    linea("Data Comanda: " +
-                        "${querySnapshot.documents[i]
-                            .data['dataComanda']}", "Data Servei: " +
-                        "${querySnapshot.documents[i]
-                            .data['dataServei']}\n"),
-                    linea("Id producte: P1" , "Producte: " +
-                        "${querySnapshot.documents[i]
-                            .data['nomCastle']}\n"),
-                    linea("Lloguer:  4 h." , "Localitat: " +
-                        "${querySnapshot.documents[i]
-                            .data['localitat']}")
-                  ]
-              ),
-            ),
-          );
+      margin: EdgeInsets.symmetric(vertical: 10.0),
+      height: 200.0,
+      child: Card(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              linea( "id Comande: 023   ", "${querySnapshot.documents[i].data['nom']}" + "   " +
+                  "${querySnapshot.documents[i]
+                      .data['cognoms']}"),
+              Divider(),
+              linea("Data Comanda: " +
+                  "${querySnapshot.documents[i]
+                      .data['dataComanda']}", "Data Servei: " +
+                  "${querySnapshot.documents[i]
+                      .data['dataServei']}\n"),
+              linea("Id producte: P1" , "Producte: " +
+                  "${querySnapshot.documents[i]
+                      .data['nomCastle']}\n"),
+              linea("Lloguer:  4 h." , "Localitat: " +
+                  "${querySnapshot.documents[i]
+                      .data['localitat']}")
+            ]
+        ),
+      ),
+    );
   }
 
   AlertDialog alertDialog(BuildContext context) {
     return AlertDialog(
-            title: Text('El producte ha sigut servit'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('El producte has donará per entregat.'),
-                 // Text('You\’re like me. I’m never satisfied.'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Ok.'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text('Cancel.'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
+      title: Text('El producte ha sigut servit ?'),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            Text('El producte has donará per entregat.'),
+            // Text('You\’re like me. I’m never satisfied.'),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('Ok.'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        FlatButton(
+          child: Text('Cancel.'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
   }
   Widget linea( String text_1, String text_2){
     final screenSize = MediaQuery.of(context).size;
@@ -138,22 +157,35 @@ class _ComandesClientState extends State<ComandesClient> {
         children: <Widget>[
           Expanded(
             child: Text(text_1,
-              textAlign: TextAlign.start),
+                textAlign: TextAlign.start),
           ),
           Expanded(
             child: Text(text_2,
-              textAlign: TextAlign.start),
+                textAlign: TextAlign.start),
           )
         ],
       ),
     );
   }
-  Widget registrarComandes(){
-    return Container(
+  Widget registrarComandes() {
 
-    );
+    if (querySnapshot != null){
+      for (int i=0; i < querySnapshot.documents.length; i ++) {
+        if (!querySnapshot.documents[i].data['servida']) {
+          print("tamos dentro...........$querySnapshot.documents.data['servida']");
+          Firestore.instance.collection("comandesAservir").document("0$i")
+              .setData({
+            'nom': '${querySnapshot.documents[i].data['nom']}',
+            'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
+            'email': '${querySnapshot.documents[i].data['email']}'});
+        }
+      }
+    }
+
   }
 }
+
+
 
 //Container(
 //child: DraggableScrollableSheet(
@@ -165,13 +197,9 @@ class _ComandesClientState extends State<ComandesClient> {
 //child: Column(
 //children: <Widget>[
 //mostraComandes(),
-//
 //],
 //)
-//
 //);
 //},
-//
 //),
-//
 //)
