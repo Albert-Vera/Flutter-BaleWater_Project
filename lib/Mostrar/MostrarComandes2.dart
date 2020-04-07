@@ -4,21 +4,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
-class ComandesClient extends StatefulWidget{
+class MostrarComandes2 extends StatefulWidget{
   @override
-  _ComandesClientState createState() => _ComandesClientState();
+  _MostrarComandes2State createState() => _MostrarComandes2State();
 }
-
-class _ComandesClientState extends State<ComandesClient> {
-
-
+class _MostrarComandes2State extends State<MostrarComandes2> {
   @override
   Widget build(BuildContext context) {
     return _buildBody(context);
-
 //    return Scaffold(
 //      body: BackGroundPantalla(
-
 //            child: Column(
 //            children: <Widget>[
 //              BannerBaleWater(),
@@ -26,19 +21,15 @@ class _ComandesClientState extends State<ComandesClient> {
 //              _buildBody(context)
 //            ],
 //          )
-
 //      ),
 //    );
   }
 }
-
-
 Widget _buildBody(BuildContext context) {
   return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection('comanda').snapshots(),
+    stream: Firestore.instance.collection('perRecollir').snapshots(),
     builder: (context, snapshot) {
-      if (!snapshot.hasData) return LinearProgressIndicator();
-
+      if (!snapshot.hasData) return noHayDatosALeer(context);
       return _buildList(context, snapshot.data.documents);
     },
   );
@@ -53,20 +44,21 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
   final record = Record.fromSnapshot(data);
 
   return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection('comanda').snapshots(),
+    stream: Firestore.instance.collection('perRecollir').snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-      if (record.servida == false){
-        deleteFirebase(context, record, "perRecollir");
-        return writeFirebase(context, record, "comandesAservir");
-      }else
-      if (record.recollida == false){
-        deleteFirebase(context, record, "comandesAservir");
-        return writeFirebase(context, record, "perRecollir");
-      }else {
-        deleteFirebase(context, record, "perRecollir");
-        return Container();
-      }
+//      if (record.servida == false){
+//        deleteFirebase(context, record, "perRecollir");
+//        return writeFirebase(context, record, "comandesAservir");
+//      }else
+//      if (record.recollida == false){
+//        deleteFirebase(context, record, "comandesAservir");
+//        return writeFirebase(context, record, "perRecollir");
+//      }else {
+//        deleteFirebase(context, record, "perRecollir");
+//        return Container();
+//      }
+    return mostraComandes(context, record);
     },
   );
 }
@@ -82,6 +74,7 @@ Widget writeFirebase(BuildContext context, Record record, String coleccion) {
     'id': record.id,
     'nom': record.nom,
     'cognoms': record.cognoms});
+  //return Container();
   return mostraComandes(context, record);
 }
 // Un pedido servido se pasa a estado servido
@@ -90,6 +83,7 @@ Widget cambiarEstatComanda(BuildContext context, Record record){
       .updateData({
     'servida': record.servida = true,
   });
+  //return Container();
   return mostraComandes(context, record);
 }
 Widget mostraComandes(BuildContext context, Record record ){
@@ -127,7 +121,7 @@ Widget impresioDades(BuildContext context, Record record,  ) {
     ),
   );
 }
-AlertDialog alertDialog(BuildContext context, Record record, ) {
+AlertDialog alertDialog(BuildContext context, Record record) {
   //GlobalKey<FlipCardState> thisCard = ;
   return AlertDialog(
     title: Text('El producte ha sigut servit ?'),
@@ -135,7 +129,6 @@ AlertDialog alertDialog(BuildContext context, Record record, ) {
       child: ListBody(
         children: <Widget>[
           Text('El producte has donará per entregat.'),
-          // Text('You\’re like me. I’m never satisfied.'),
         ],
       ),
     ),
@@ -177,6 +170,35 @@ Widget linea( String text_1, String text_2){
     ),
   );
 }
+AlertDialog noHayDatosALeer(BuildContext context) {
+  return AlertDialog(
+    title: Text('El producte ha sigut servit ?'),
+    content: SingleChildScrollView(
+      child: ListBody(
+        children: <Widget>[
+          Text('El producte has donará per entregat.'),
+        ],
+      ),
+    ),
+    actions: <Widget>[
+      FlatButton(
+        child: Text('Ok.'),
+        onPressed: () {
+
+          // _buildBody(context);
+          //thisCard.currentState.toggleCard();
+        },
+      ),
+      FlatButton(
+        child: Text('Cancel.'),
+        onPressed: () {
+         Navigator.of(context).initState();
+
+        },
+      ),
+    ],
+  );
+}
 class Record {
   final String nom, cognoms;
   final int id;
@@ -187,13 +209,13 @@ class Record {
       : assert(map['id'] != null),
         assert(map['nom'] != null),
         assert(map['cognoms'] != null),
-        assert(map['recollida'] != null),
-        assert(map['servida'] != null),
+//        assert(map['recollida'] != null),
+//        assert(map['servida'] != null),
         id = map['id'],
         nom = map['nom'],
-        cognoms = map['cognoms'],
-        recollida = map['recollida'],
-        servida = map['servida'];
+        cognoms = map['cognoms'];
+//        recollida = map['recollida'],
+//        servida = map['servida'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);

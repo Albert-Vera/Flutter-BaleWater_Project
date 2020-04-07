@@ -1,4 +1,4 @@
-import 'package:Balewaterproject/Menus/MenuPrincipal.dart';
+import 'package:Balewaterproject/Menus/HomePage.dart';
 import 'package:Balewaterproject/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
     )).user;
 
     if (user != null) {
-      pushPage(context, MenuPrincipal());
+      pushPage(context, HomePage());
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
+
 class Experimento extends StatefulWidget{
   @override
   _ExperimentoState createState() => _ExperimentoState();
@@ -45,7 +46,7 @@ Widget _buildBody(BuildContext context) {
 }
 Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
   return ListView(
-    padding: const EdgeInsets.only(top: 90.0),
+    padding: const EdgeInsets.only(top: 30.0),
     children: snapshot.map((data) => _buildListItem(context, data)).toList(),
   );
 }
@@ -57,6 +58,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
       if (record.servida == false){
+        deleteFirebase(context, record, "perRecollir");
         return writeFirebase(context, record, "comandesAservir");
       }else
         if (record.recollida == false){
@@ -81,6 +83,7 @@ Widget deleteFirebase(BuildContext context, Record record, String coleccion){
     'id': record.id,
     'nom': record.nom,
     'cognoms': record.cognoms});
+    //return Container();
     return mostraComandes(context, record);
 }
 // Un pedido servido se pasa a estado servido
@@ -89,7 +92,8 @@ Widget cambiarEstatComanda(BuildContext context, Record record){
       .updateData({
     'servida': record.servida = true,
                   });
-  return mostraComandes(context, record);
+  return Container();
+  //return mostraComandes(context, record);
 }
 Widget mostraComandes(BuildContext context, Record record ){
   return   FlipCard(

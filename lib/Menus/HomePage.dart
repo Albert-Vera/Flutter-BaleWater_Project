@@ -7,8 +7,9 @@ import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:Balewaterproject/Menus/MenuFactures.dart';
 import 'package:Balewaterproject/Menus/MenuInvetari.dart';
 import 'package:Balewaterproject/Menus/MenuItem.dart';
-import 'package:Balewaterproject/Menus/MenuPrincipal.dart';
 import 'package:Balewaterproject/Menus/MenuVendes.dart';
+import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
+import 'package:Balewaterproject/Mostrar/MostrarComandes2.dart';
 import 'package:Balewaterproject/MyApp.dart';
 import 'package:Balewaterproject/NavegadorBarraInferior.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
@@ -18,7 +19,7 @@ import 'package:flutter/rendering.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert' show base64;
 
-import 'CRM/Ventas/Clients.dart';
+import '../CRM/Ventas/Clients.dart';
 
 final colorBackground = const Color(0xFFF3F4F7);
 final colorPrimary = const Color(0xFF35465B);
@@ -116,7 +117,7 @@ Widget graella(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               MenuItem(page: Experimento(), icon: Icons.add_shopping_cart, text: "Comandes a servir", width: 100 ),
-              MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes a recollir", width: 100),
+              MenuItem(page: MostrarComandes2(), icon: Icons.transit_enterexit, text: "Comandes a recollir", width: 100),
             ],
           ),
         ],

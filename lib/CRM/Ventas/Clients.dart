@@ -26,7 +26,7 @@ class _ClientsState extends State<Clients> {
     return await Firestore.instance.collection('comanda').getDocuments();
   }
 
-  QuerySnapshot querySnapshot, queryAcomparar;
+  QuerySnapshot querySnapshot;
   @override
   Widget build(BuildContext context) {
 
