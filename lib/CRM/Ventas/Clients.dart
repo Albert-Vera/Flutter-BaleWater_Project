@@ -1,6 +1,10 @@
+import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flip_card/flip_card.dart';
+
 
 class Clients extends StatefulWidget{
   @override
@@ -12,7 +16,7 @@ class _ClientsState extends State<Clients> {
   void initState() {
     super.initState();
     getComandesList().then((results) {
-      setState(() { 
+      setState(() {
         querySnapshot = results;
       });
     });
@@ -21,7 +25,8 @@ class _ClientsState extends State<Clients> {
   getComandesList() async {
     return await Firestore.instance.collection('comanda').getDocuments();
   }
-  QuerySnapshot querySnapshot, queryAcomparar;
+
+  QuerySnapshot querySnapshot;
   @override
   Widget build(BuildContext context) {
 
@@ -29,47 +34,14 @@ class _ClientsState extends State<Clients> {
     //check if querysnapshot is null
     if (querySnapshot != null) {
       return Scaffold(
-        body: Stack(
-          children: <Widget>[
-            Container(
-              margin:EdgeInsets.only(
-                  top: 30.0,
-                  right: 15.0,
-                  left: 15.0
-              ),
-              height: 600.0,
-              width: 370.0,
-              decoration: new BoxDecoration(
-                  border: Border.all(),
-                  color: Colors.white,
-                  boxShadow: [
-                    new BoxShadow(
-                        color: Color(0xFFc5cdd9),
-
-                        offset: new Offset(10.0, 10.0),
-                        blurRadius: 10.0
-                    )
-                  ],
-                  borderRadius: new BorderRadius.circular(30.0),
-
-                  gradient: new LinearGradient(
-                      colors: [
-                        Color(0xFFF3F4F7),
-                        Color(0xFF281236)
-                      ],
-                      begin: const FractionalOffset(1.0,0.1 ),
-                      end: const FractionalOffset(1.0, 1)
-                  )
-              ),
-              child: Column(
-                children: <Widget>[
-                  BannerBaleWater(),
-               //  writeBBDD_Client(),
-                  impresiodeDades(screenSize),
-                ],
-              ),
-            )
-          ],
+        body: BackGroundPantalla(
+          child:  Column(
+            children: <Widget>[
+              BannerBaleWater(),
+              //writeBBDD_Client(),
+              impresiodeDades(screenSize)
+            ],
+          ),
         ),
       );
     } else {
@@ -79,123 +51,135 @@ class _ClientsState extends State<Clients> {
     }
   }
   Widget writeBBDD_Client() {
-
- //  DESACTIVADO DE POCO SIRVE
+    List<String> pajarito = new List(querySnapshot.documents.length  );
+    //  DESACTIVADO DE POCO SIRVE
     for (int i=0; i < querySnapshot.documents.length; i++) {
-       Firestore.instance.collection("client").document("CL00$i")
-          .setData({
-      'nom': '${querySnapshot.documents[i].data['nom']}',
-      'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
-      'email': '${querySnapshot.documents[i].data['email']}'});
+      if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")) {
+        Firestore.instance.collection("client").document("CL00$i")
+            .setData({
+          'nom': '${querySnapshot.documents[i].data['nom']}',
+          'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
+          'email': '${querySnapshot.documents[i].data['email']}'});
+
+        pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
+        var ddd = pajarito[i];  // sale valor nulo
+        print("tamany de pajarito $pajarito");
+      }
     }
-//
-//
-//
-//
-//    var tamany = querySnapshot.documents.length ;
-////  //var cosas = querySnapshot.documents.getRange(0, tamany).
-////
-//  List<String> emailString =  List();
-// // emailString[0] = "0";
-//
-//  for ( int i = 0; i < tamany; i++){
-//    if ( !emailString[i].contains("${querySnapshot.documents[i].data['email]']}")){
-//      emailString[i] = "${querySnapshot.documents[i].data['email]']}";
-//      print("maravilloso-.........");
-//    }
-//  }
+
   }
   Widget impresiodeDades(Size screenSize) {
-    List<String> pajarito = new List(querySnapshot.documents.length  );
+    var alt = 80.0;
+    var flip = false;
+    // List<String> pajarito = new List(querySnapshot.documents.length  );
 
     return SingleChildScrollView(
 //          height: screenSize.height,
 //          width:  screenSize.width,
-          child:   ListView.builder(
+        child:   ListView.builder(
 
-            //scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            primary: false,
-            itemCount: querySnapshot.documents.length,
-            padding: EdgeInsets.all(12),
-            itemBuilder: (context, i) {
-
-             // for (int j = 0; j < querySnapshot.documents.length; j++) {
-
-                if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")){
-
-                  pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
-                  var ddd = pajarito[i];  // sale valor nulo
-                  print("tamany de pajarito $pajarito");
-                  return Container(
-
-                    margin: EdgeInsets.symmetric(vertical: 10.0),
-                    height: 80.0,
-                    // color: Colors.tealAccent,
-                    child: Card(
-                      child: Column(
-
-                        mainAxisAlignment: MainAxisAlignment.center,
-
-                        children: <Widget>[
-                          Container(
-
-                              width: screenSize.width,
-                              //color: Colors.tealAccent,
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Text("id: 023" + "   ",
-                                      textAlign: TextAlign.justify,),
-                                  ),
-                                  Expanded(
-                                    child: Text("${querySnapshot.documents[i].data['nom']}" + "   " +
-                                        "${querySnapshot.documents[i]
-                                            .data['cognoms']}",
-                                      textAlign: TextAlign.center,),
-                                  )
-                                ],
+          //scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          primary: false,
+          itemCount: querySnapshot.documents.length,
+          padding: EdgeInsets.all(12),
+          itemBuilder: (context, i) => FlipCard(
+              onFlip:(){
+                if (!flip) {
+                  flip = true;
+                  alt = 80;
+                  print("false............. $alt");
+                }else {
+                  flip = false;
+                  alt = 180;
+                  print("true..... $alt");
+                }
+              },
+              direction: FlipDirection.VERTICAL,
+              front: Container(
+                margin: EdgeInsets.symmetric(vertical: 10.0),
+                height: alt,
+                child: Card(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                            width: screenSize.width,
+                            color: Colors.tealAccent,
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Text("id: 023" + "   ",
+                                    textAlign: TextAlign.justify,),
+                                ),
+                                Expanded(
+                                  child: Text("${querySnapshot.documents[i].data['nom']}" + "   " +
+                                      "${querySnapshot.documents[i]
+                                          .data['cognoms']}",
+                                    textAlign: TextAlign.center,),
+                                )
+                              ],
+                            )
+                        ),
+                        Divider(),
+                        Container(
+                            width: screenSize.width,
+                            //  color: Colors.red,
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Text("Data Comanda: " +
+                                      "${querySnapshot.documents[i]
+                                          .data['dataComanda']}",
+                                    textAlign: TextAlign.left,),
+                                ),
+                                Expanded(
+                                  child: Text("Data Servei: " +
+                                      "${querySnapshot.documents[i]
+                                          .data['dataServei']}",
+                                    textAlign: TextAlign.right,),
+                                )
+                              ],
+                            )
+                        ),
+                      ]
+                  ),
+                ),
+              ),
+              back: Container(
+                margin: EdgeInsets.symmetric(vertical: 10.0),
+                height: alt,
+                child: Card(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                          width: screenSize.width,
+                          // height: 100.0,
+                          color: Colors.red,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Text("Data Comanda: " +
+                                    "${querySnapshot.documents[i]
+                                        .data['dataComanda']}",
+                                  textAlign: TextAlign.left,),
+                              ),
+                              Expanded(
+                                child: Text("Data Servei: " +
+                                    "${querySnapshot.documents[i]
+                                        .data['dataServei']}",
+                                  textAlign: TextAlign.right,),
                               )
-
-
-                          ),
-
-                          Container(
-                              width: screenSize.width,
-                              //  color: Colors.red,
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Text("Data Comanda: " +
-                                        "${querySnapshot.documents[i]
-                                            .data['dataComanda']}",
-                                      textAlign: TextAlign.left,),
-                                  ),
-                                  Expanded(
-                                    child: Text("Data Servei: " +
-                                        "${querySnapshot.documents[i]
-                                            .data['dataServei']}",
-                                      textAlign: TextAlign.right,),
-                                  )
-                                ],
-                              )
-                          ),
-
-                        ],
-                      ),
-                      //scrollDirection: Axis.horizontal,
-
-                    ),
-                  );
-
-                }else
-//              }
-              return Container(
-
-              );
-
-            },
+                            ],
+                          )
+                      )
+                    ],
+                  ),
+                ),
+              )
           ),
-        );
+        )
+    );
   }
 }

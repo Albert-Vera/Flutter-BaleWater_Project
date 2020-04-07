@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget{
+class BackGroundPantalla extends StatelessWidget{
   final Widget child;
 
-  Home ({@required this.child});
+  BackGroundPantalla ({@required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,7 @@ class Home extends StatelessWidget{
                       end: const FractionalOffset(1.0, 1)
                   )
               ),
-              //child: Image.network('https://firebasestorage.googleapis.com/v0/b/balewaterproject.appspot.com/o/castleImages%2FbouncyCastle.jpeg?alt=media&token=f8df5452-3cdb-42b9-a9e8-80cb8dd317c7'),
-
+              child: child,
             )
     ],
     ),

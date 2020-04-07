@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-class NavegadorBoton extends StatefulWidget {
+class NavegadorBarraInferior extends StatefulWidget {
   final String initialRoute;
   final ValueChanged<String> navCallback;
 
-  NavegadorBoton({
+  NavegadorBarraInferior({
     Key key,
     this.initialRoute: '/',
     @required this.navCallback,
@@ -16,7 +16,7 @@ class NavegadorBoton extends StatefulWidget {
   _BottomNavState createState() => new _BottomNavState();
 }
 
-class _BottomNavState extends State<NavegadorBoton> {
+class _BottomNavState extends State<NavegadorBarraInferior> {
   String _currentRoute;
 
   @override
@@ -35,8 +35,8 @@ class _BottomNavState extends State<NavegadorBoton> {
         child: new Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _buildButton('/',"Home", "Ventas"),
-            _buildButton('/vendes', "Ventas", "Vendes"),
+            _buildButton('/',"Home", "Vendes"),
+            _buildButton('/vendes', "Vendes", "Vendes"),
             _buildButton('/compres', "Compres", "Compres"),
             _buildButton('/factures',"Fact", "Factures"),
             _buildButton('/inventari', "Invent", "Invetari"),
