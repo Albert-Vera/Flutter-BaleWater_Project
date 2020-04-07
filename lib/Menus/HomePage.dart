@@ -10,7 +10,6 @@ import 'package:Balewaterproject/Menus/MenuItem.dart';
 import 'package:Balewaterproject/Menus/MenuVendes.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes2.dart';
-import 'package:Balewaterproject/MyApp.dart';
 import 'package:Balewaterproject/NavegadorBarraInferior.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:Balewaterproject/util.dart';

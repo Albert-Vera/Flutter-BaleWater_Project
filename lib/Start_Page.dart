@@ -1,7 +1,5 @@
 
 import 'package:Balewaterproject/Menus/HomePage.dart';
-import 'package:Balewaterproject/MyApp.dart';
-import 'package:Balewaterproject/main.dart';
 import 'package:flutter/material.dart';
 
 import 'LoginPage.dart';

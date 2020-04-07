@@ -15,21 +15,20 @@ class _ExperimentoState extends State<Experimento> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildBody(context);
+//    return _buildBody(context);
 
-//    return Scaffold(
-//      body: BackGroundPantalla(
+    return Scaffold(
+      body: BackGroundPantalla(
+         child: Column(
+            children: <Widget>[
+              BannerBaleWater(),
+//     QUISIERA aqui un DRAGGAbleScrollableSheet
+              Expanded(child: _buildBody(context))
+            ],
+          )
 
-//            child: Column(
-//            children: <Widget>[
-//              BannerBaleWater(),
-    // QUISIERA aqui un DRAGGAbleScrollableSheet
-//              _buildBody(context)
-//            ],
-//          )
-
-//      ),
-//    );
+      ),
+    );
   }
 }
 
@@ -39,17 +38,18 @@ Widget _buildBody(BuildContext context) {
     stream: Firestore.instance.collection('comanda').snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-
       return _buildList(context, snapshot.data.documents);
     },
   );
 }
+
 Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
   return ListView(
     padding: const EdgeInsets.only(top: 30.0),
     children: snapshot.map((data) => _buildListItem(context, data)).toList(),
   );
 }
+
 Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
   final record = Record.fromSnapshot(data);
 
@@ -71,11 +71,13 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     },
   );
 }
+
 Widget deleteFirebase(BuildContext context, Record record, String coleccion){
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .delete();
   return mostraComandes(context, record);
 }
+
  Widget writeFirebase(BuildContext context, Record record, String coleccion) {
 
     Firestore.instance.collection(coleccion).document("0" + record.id.toString())
@@ -95,6 +97,7 @@ Widget cambiarEstatComanda(BuildContext context, Record record){
   return Container();
   //return mostraComandes(context, record);
 }
+
 Widget mostraComandes(BuildContext context, Record record ){
   return   FlipCard(
 
@@ -108,6 +111,7 @@ Widget mostraComandes(BuildContext context, Record record ){
   );
 
 }
+
 Widget impresioDades(BuildContext context, Record record,  ) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -130,6 +134,7 @@ Widget impresioDades(BuildContext context, Record record,  ) {
     ),
   );
 }
+
 AlertDialog alertDialog(BuildContext context, Record record, ) {
   //GlobalKey<FlipCardState> thisCard = ;
   return AlertDialog(
@@ -161,6 +166,7 @@ AlertDialog alertDialog(BuildContext context, Record record, ) {
     ],
   );
 }
+
 Widget linea( String text_1, String text_2){
  // final screenSize = MediaQuery.of(context).size;
   return  Container(
@@ -180,6 +186,7 @@ Widget linea( String text_1, String text_2){
     ),
   );
 }
+
 class Record {
   final String nom, cognoms;
   final int id;
