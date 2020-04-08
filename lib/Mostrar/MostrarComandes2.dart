@@ -11,18 +11,18 @@ class MostrarComandes2 extends StatefulWidget{
 class _MostrarComandes2State extends State<MostrarComandes2> {
   @override
   Widget build(BuildContext context) {
-    return _buildBody(context);
-//    return Scaffold(
-//      body: BackGroundPantalla(
-//            child: Column(
-//            children: <Widget>[
-//              BannerBaleWater(),
-    // QUISIERA aqui un DRAGGAbleScrollableSheet
-//              _buildBody(context)
-//            ],
-//          )
-//      ),
-//    );
+    return Scaffold(
+      body: BackGroundPantalla(
+          child: Column(
+            children: <Widget>[
+              BannerBaleWater(),
+              Expanded(child:
+              _buildBody(context)
+              ),
+            ],
+          )
+      ),
+    );
   }
 }
 Widget _buildBody(BuildContext context) {
@@ -47,48 +47,43 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     stream: Firestore.instance.collection('perRecollir').snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-//      if (record.servida == false){
-//        deleteFirebase(context, record, "perRecollir");
-//        return writeFirebase(context, record, "comandesAservir");
-//      }else
-//      if (record.recollida == false){
-//        deleteFirebase(context, record, "comandesAservir");
-//        return writeFirebase(context, record, "perRecollir");
-//      }else {
-//        deleteFirebase(context, record, "perRecollir");
-//        return Container();
-//      }
-    return mostraComandes(context, record);
+      if (record.servida == false){
+        _deleteFirebase(context, record, "perRecollir");
+        _writeFirebase(context, record, "comandesAservir");
+        return _mostraComandes(context, record);
+      }else
+      if (record.recollida == false){
+        _deleteFirebase(context, record, "comandesAservir");
+        _writeFirebase(context, record, "perRecollir");
+        return _mostraComandes(context, record);
+      }else {
+        _deleteFirebase(context, record, "perRecollir");
+        return Container();
+      }
     },
   );
 }
-Widget deleteFirebase(BuildContext context, Record record, String coleccion){
+void _deleteFirebase(BuildContext context, Record record, String coleccion){
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .delete();
-  return mostraComandes(context, record);
 }
-Widget writeFirebase(BuildContext context, Record record, String coleccion) {
+void _writeFirebase(BuildContext context, Record record, String coleccion) {
 
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .setData({
     'id': record.id,
     'nom': record.nom,
     'cognoms': record.cognoms});
-  //return Container();
-  return mostraComandes(context, record);
 }
 // Un pedido servido se pasa a estado servido
-Widget cambiarEstatComanda(BuildContext context, Record record){
+void _cambiarEstatComanda(BuildContext context, Record record){
   Firestore.instance.collection("comanda").document("0" + record.id.toString())
       .updateData({
     'servida': record.servida = true,
   });
-  //return Container();
-  return mostraComandes(context, record);
 }
-Widget mostraComandes(BuildContext context, Record record ){
+Widget _mostraComandes(BuildContext context, Record record ){
   return   FlipCard(
-
       onFlip:(){
         // de momento ninguna condición
       },
@@ -136,7 +131,7 @@ AlertDialog alertDialog(BuildContext context, Record record) {
       FlatButton(
         child: Text('Ok.'),
         onPressed: () {
-          cambiarEstatComanda(context, record);
+          _cambiarEstatComanda(context, record);
           // _buildBody(context);
           //thisCard.currentState.toggleCard();
         },

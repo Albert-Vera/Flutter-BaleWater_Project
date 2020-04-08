@@ -1,10 +1,13 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/Experimento.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class MostrarComandes1 extends StatefulWidget{
+
+
 //  String coleccion;
 //  MostrarComandes( {
 //    Key key,
@@ -32,33 +35,40 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
   }
   @override
   Widget build(BuildContext context) {
-    return mostraComandes(context);
+    if (querySnapshot != null) {
     return Scaffold(
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
             BannerBaleWater(),
-            mostraComandes(context),
+             mostraComandes(context),
           ],
         ),
       ),
     );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 
   Widget mostraComandes(BuildContext context){
-    return  ListView.builder(
-          shrinkWrap: true,
-          primary: false,
-          itemCount: querySnapshot.documents.length,
-          padding: EdgeInsets.all(12),
-          itemBuilder: (context,i ) => FlipCard(
-              onFlip:(){
-                // de momento ninguna condición
-              },
-              direction: FlipDirection.VERTICAL,
-              front: impresioDades(context,i),
-              back: alertDialog(context)
-          )
+    return Expanded(child:
+    ListView.builder(
+        shrinkWrap: true,
+        primary: false,
+        itemCount: querySnapshot.documents.length,
+        padding: EdgeInsets.all(12),
+        itemBuilder: (context,i ) => FlipCard(
+            onFlip:(){
+              // de momento ninguna condición
+            },
+            direction: FlipDirection.VERTICAL,
+            front: impresioDades(context,i),
+            back: alertDialog(context)
+        )
+    ),
     );
   }
   Widget impresioDades(BuildContext context, int i  ) {
@@ -91,7 +101,6 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
         child: ListBody(
           children: <Widget>[
             Text('El producte has donará per entregat.'),
-            // Text('You\’re like me. I’m never satisfied.'),
           ],
         ),
       ),
