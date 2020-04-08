@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
-class MostrarComandes1 extends StatefulWidget{
+class Proba extends StatefulWidget{
 
 
 //  String coleccion;
@@ -14,10 +14,10 @@ class MostrarComandes1 extends StatefulWidget{
 //  this.coleccion}): super(key: key);
 
   @override
-  _MostrarComandes1State createState() => _MostrarComandes1State();
+  _ProbaState createState() => _ProbaState();
 }
 
-class _MostrarComandes1State extends State<MostrarComandes1> {
+class _ProbaState extends State<Proba> {
   QuerySnapshot querySnapshot;
 
   @override
@@ -36,16 +36,7 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
   @override
   Widget build(BuildContext context) {
     if (querySnapshot != null) {
-    return Scaffold(
-      body: BackGroundPantalla(
-        child:  Column(
-          children: <Widget>[
-            //BannerBaleWater(),
-             mostraComandes(context),
-          ],
-        ),
-      ),
-    );
+    return mostraComandes(context);
     } else {
       return Center(
         child: CircularProgressIndicator(),

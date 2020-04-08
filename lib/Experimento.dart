@@ -1,6 +1,7 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
+import 'package:Balewaterproject/Mostrar/proba.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _ExperimentoState extends State<Experimento> {
             children: <Widget>[
               BannerBaleWater(),
               Expanded(child:_buildBody(context, "comanda")),
-             // _buildBody(context, "comandesAservir")
+             // Expanded(child:_buildBody(context, "comandesAservir")),
 
             ],
           )
@@ -58,7 +59,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data, String colecc
       if (record.recollida == false){
         _deleteFirebase(context, record, "comandesAservir");
         _writeFirebase(context, record, "perRecollir");
-        return _mostraComandes(context, record);
+       return _mostraComandes(context, record);
       }else {
         _deleteFirebase(context, record, "perRecollir");
         return Container();
@@ -105,14 +106,14 @@ Widget _impresioDades(BuildContext context, Record record,  ) {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            _linea( "id Comande: 0" +record.id.toString(), record.nom + "   " +
+            _lineaCard( "id Comande: 0" +record.id.toString(), record.nom + "   " +
                 record.cognoms),
             Divider(),
-            _linea("Data Comanda: " +
+            _lineaCard("Data Comanda: " +
                 record.nom, "Data Servei: " + record.nom+ "\n"),
-            _linea("Id producte: P1" , "Producte: " +
+            _lineaCard("Id producte: P1" , "Producte: " +
                 record.nom+ "\n"),
-            _linea("Lloguer:  4 h." , "Localitat: " +
+            _lineaCard("Lloguer:  4 h." , "Localitat: " +
                 record.cognoms)
           ]
       ),
@@ -150,7 +151,7 @@ AlertDialog _alertDialog(BuildContext context, Record record, ) {
     ],
   );
 }
-Widget _linea( String text_1, String text_2){
+Widget _lineaCard( String text_1, String text_2){
   // final screenSize = MediaQuery.of(context).size;
   return  Container(
     width: 250.0,
@@ -179,8 +180,8 @@ class Record {
       : assert(map['id'] != null),
         assert(map['nom'] != null),
         assert(map['cognoms'] != null),
-        assert(map['recollida'] != null),
-        assert(map['servida'] != null),
+//        assert(map['recollida'] != null),
+//        assert(map['servida'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
