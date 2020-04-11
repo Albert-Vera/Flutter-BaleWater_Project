@@ -31,14 +31,14 @@ class MenuCompras extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), text: "Proveidors", width: 130, image: "image/recollida2.jpeg" ),
+                MenuItem(page: Clients(), text: "Proveidors", width: 130, image: "image/providers.jpeg" ),
                 MenuItem(page: MenuVendes(), text: "Comandes", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: MenuVendes(), text: "Productes", width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: MenuVendes(), text: "Productes", width: 130, image: "image/productes.jpeg"),
                 MenuItem(page: MenuVendes(), text: "Prod a rebre", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
