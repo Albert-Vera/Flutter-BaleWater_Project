@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 
 class MostrarComandes1 extends StatefulWidget{
 
+  String coleccion;
 
-//  String coleccion;
-//  MostrarComandes( {
-//    Key key,
-//  this.coleccion}): super(key: key);
+  MostrarComandes1( {
+    Key key,
+  this.coleccion}): super(key: key);
 
   @override
   _MostrarComandes1State createState() => _MostrarComandes1State();

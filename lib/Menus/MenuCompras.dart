@@ -14,7 +14,7 @@ class MenuCompras extends StatelessWidget{
         child:  Column(
           children: <Widget>[
             BannerBaleWater(),
-            graella(context)
+            Expanded(child: graella(context))
           ],
         ),
       ),
@@ -23,25 +23,27 @@ class MenuCompras extends StatelessWidget{
 
   Widget graella(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 100.0, left: 20.0),
+        margin: EdgeInsets.only(top: 0.0, left: 20.0),
         height: 300,
         child: Column(
           children: <Widget>[
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), icon: Icons.add_shopping_cart, text: "Proveidors", width: 100 ),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes", width: 100),
+                MenuItem(page: Clients(), text: "Proveidors", width: 130, image: "image/recollida2.jpeg" ),
+                MenuItem(page: MenuVendes(), text: "Comandes", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: MenuVendes(), icon: Icons.add_shopping_cart, text: "Productes", width: 100),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Prod a rebre", width: 100),
+                MenuItem(page: MenuVendes(), text: "Productes", width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: MenuVendes(), text: "Prod a rebre", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
-            MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Prod a rebre", width: 150),
+
+             MenuItem(page: MenuVendes(), text: "Prod a xxx", width: 150, image: "image/recollida2.jpeg"),
 
           ],
         )

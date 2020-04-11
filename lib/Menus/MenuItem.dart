@@ -3,44 +3,37 @@ import '../util.dart';
 
 class MenuItem extends StatelessWidget {
   Widget page;
-  IconData icon;
-  String text;
+  String text, image;
   double width;
 
   MenuItem({
     Key key,
     this.page,
-    this.icon,
     this.text,
-    this.width
+    this.width,
+    this.image
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-
       onTap: () => pushPage(context, page),
-    child: Tooltip(
-    message: text,
-      child: Card(
-        elevation: 57,
-        child: Column(
-          children: <Widget>[
-            Icon(icon, size: 45.0,),
-            Container(
-              width: width,
-              padding: const EdgeInsets.only(top: 10.0),
-//                      splashColor: Colors.blue.withAlpha(30),
-
-              child: Text(text,
-                style: TextStyle(fontSize: 18.0,
-                    color: Colors.black ),
-              ),
+      child:  Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-          ],
-        ),
-      ),
-    ),
+            child: Column(
+                children: <Widget>[
+                  //const SectionTitle(title: 'Tappable'),
+                  Image.asset(image,
+                      width: 130,
+                      height: 100,
+                      fit:BoxFit.fill ),
+                  Text(text, textAlign: TextAlign.end)
+                ]
+            ),
+          )
+
     );
   }
 }

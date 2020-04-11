@@ -8,7 +8,8 @@ class BannerBaleWater extends StatelessWidget {
       margin: EdgeInsets.only(
           top: 35.0,
           left: 40.0,
-          right: 40.0
+          right: 40.0,
+          bottom: 30.0
       ),
       child:  Image.asset("image/banner.png"),
     );

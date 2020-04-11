@@ -35,11 +35,11 @@ class MenuFactures extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), icon: Icons.add_shopping_cart, text: "Clients", width: 100 ),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Proveidors", width: 100),
+                MenuItem(page: Clients(), text: "Clients", width: 130, image: "image/recollida2.jpeg" ),
+                MenuItem(page: MenuVendes(), text: "Proveidors", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
-            MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Pagaments", width: 150),
+            MenuItem(page: MenuVendes(), text: "Pagaments", width: 150, image: "image/recollida2.jpeg"),
 
           ],
         )

@@ -21,22 +21,22 @@ class MenuVendes extends StatelessWidget{
 
   Widget graella(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 100.0, left: 20.0),
+        margin: EdgeInsets.only(top: 50.0, left: 10.0),
         height: 300,
         child: Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), icon: Icons.add_shopping_cart, text: "Clients", width: 100 ),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes", width: 100),
+                MenuItem(page: Clients(), text: "Clients", width: 130, image: "image/clients.jpeg" ),
+                MenuItem(page: MenuVendes(), text: "Comandes", width: 130, image: "image/comandes.png"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: MenuVendes(), icon: Icons.add_shopping_cart, text: "Presupostus", width: 100),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "Comandes servides", width: 100),
+                MenuItem(page: MenuVendes(), text: "Presupostus", width: 130, image: "image/budget.jpeg"),
+                MenuItem(page: MenuVendes(), text: "Com servides", width: 130, image: "image/servides.png"),
               ],
             ),
           ],

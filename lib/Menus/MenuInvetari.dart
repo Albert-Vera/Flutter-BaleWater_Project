@@ -35,15 +35,15 @@ class MenuInventari extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), icon: Icons.add_shopping_cart, text: "xxxxxxx", width: 100 ),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "xxxxxxx", width: 100),
+                MenuItem(page: Clients(), text: "xxxxxxx",width: 130, image: "image/recollida2.jpeg" ),
+                MenuItem(page: MenuVendes(), text: "xxxxxxx", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: MenuVendes(), icon: Icons.add_shopping_cart, text: "Productes", width: 100),
-                MenuItem(page: MenuVendes(), icon: Icons.transit_enterexit, text: "xxxxxxxx", width: 100),
+                MenuItem(page: MenuVendes(), text: "Productes", width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: MenuVendes(), text: "xxxxxxxx",width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
           ],

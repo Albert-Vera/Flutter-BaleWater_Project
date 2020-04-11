@@ -18,6 +18,7 @@ class _ExperimentoState extends State<Experimento> {
           child: Column(
             children: <Widget>[
               BannerBaleWater(),
+
               Expanded(child:_buildBody(context, "comanda")),
              // Expanded(child:_buildBody(context, "comandesAservir")),
 

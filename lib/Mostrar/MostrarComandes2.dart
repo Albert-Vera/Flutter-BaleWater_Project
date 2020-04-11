@@ -5,6 +5,13 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class MostrarComandes2 extends StatefulWidget{
+  String coleccion;
+  double alto;
+
+  MostrarComandes2( {
+    Key key,
+    this.coleccion,
+  this.alto}): super(key: key);
   @override
   _MostrarComandes2State createState() => _MostrarComandes2State();
 }
@@ -27,7 +34,7 @@ class _MostrarComandes2State extends State<MostrarComandes2> {
 }
 Widget _buildBody(BuildContext context) {
   return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection('perRecollir').snapshots(),
+    stream: Firestore.instance.collection("perRecollir").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return noHayDatosALeer(context);
       return _buildList(context, snapshot.data.documents);

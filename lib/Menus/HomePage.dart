@@ -115,8 +115,8 @@ Widget graella(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              MenuItem(page: MostrarComandes1(), icon: Icons.add_shopping_cart, text: "Comandes a servir", width: 100 ),
-              MenuItem(page: Experimento(), icon: Icons.transit_enterexit, text: "Comandes a recollir", width: 100),
+              MenuItem(page: MostrarComandes1(coleccion: "perRecollir"),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
+              MenuItem(page: Experimento(), text: "a recollir", width: 130, image: "image/servidas.jpeg"),
             ],
           ),
         ],
