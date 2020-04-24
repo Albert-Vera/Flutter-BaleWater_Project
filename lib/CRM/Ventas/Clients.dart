@@ -39,7 +39,7 @@ class _ClientsState extends State<Clients> {
             children: <Widget>[
               BannerBaleWater(),
               //writeBBDD_Client(),
-              impresiodeDades(screenSize)
+              Expanded (child:  impresiodeDades(screenSize))
             ],
           ),
         ),
@@ -62,8 +62,6 @@ class _ClientsState extends State<Clients> {
           'email': '${querySnapshot.documents[i].data['email']}'});
 
         pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
-        var ddd = pajarito[i];  // sale valor nulo
-        print("tamany de pajarito $pajarito");
       }
     }
 

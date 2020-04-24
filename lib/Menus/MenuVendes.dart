@@ -35,7 +35,7 @@ class MenuVendes extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: MenuVendes(), text: "Presupostus", width: 130, image: "image/budget.jpeg"),
+                MenuItem(page: MenuVendes(), text: "Pressupostos", width: 130, image: "image/budget.jpeg"),
                 MenuItem(page: MenuVendes(), text: "Com servides", width: 130, image: "image/servides.png"),
               ],
             ),

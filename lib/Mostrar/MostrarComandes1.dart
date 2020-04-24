@@ -31,7 +31,7 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
   }
   //get firestore instance
   getComandesList() async {
-    return await Firestore.instance.collection("comandesAservir").getDocuments();
+    return await Firestore.instance.collection(this.widget.coleccion).getDocuments();
   }
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,11 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class Experimento extends StatefulWidget{
+  String coleccion;
+
+  Experimento( {
+    Key key,
+    this.coleccion}): super(key: key);
   @override
   _ExperimentoState createState() => _ExperimentoState();
 }
@@ -19,7 +24,7 @@ class _ExperimentoState extends State<Experimento> {
             children: <Widget>[
               BannerBaleWater(),
 
-              Expanded(child:_buildBody(context, "comanda")),
+              Expanded(child:_buildBody(context, this.widget.coleccion)),
              // Expanded(child:_buildBody(context, "comandesAservir")),
 
             ],
@@ -78,7 +83,9 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
       .setData({
     'id': record.id,
     'nom': record.nom,
-    'cognoms': record.cognoms});
+    'cognoms': record.cognoms,
+    'recollida': record.recollida,
+    'servida': record.servida});
 }
 // Un pedido servido se pasa a estado servido
 void _cambiarEstatComanda(BuildContext context, Record record){
@@ -181,8 +188,8 @@ class Record {
       : assert(map['id'] != null),
         assert(map['nom'] != null),
         assert(map['cognoms'] != null),
-//        assert(map['recollida'] != null),
-//        assert(map['servida'] != null),
+        assert(map['recollida'] != null),
+        assert(map['servida'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
