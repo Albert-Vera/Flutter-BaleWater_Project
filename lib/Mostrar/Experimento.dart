@@ -28,23 +28,23 @@ class Experimento extends StatelessWidget{
     );
   }
    _buildListItem(BuildContext context, DocumentSnapshot data) {
-    final record = Record.fromSnapshot(data);
+//    final record = Record.fromSnapshot(data);
 
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection("Comanda").snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        if ( record.servida == false ){
-          deleteFirebase(record, "perRecollir");
-          writeFirebase(record, "comandesAservir");
+        if ( data["servida"] == false ){
+          deleteFirebase(data, "perRecollir");
+          writeFirebase(data, "comandesAservir");
           return Text("cosas");
         }else
-        if ( record.recollida == false ){
-          deleteFirebase(record, "comandesAservir");
-          writeFirebase(record, "perRecollir");
+        if ( data["recollida"] == false ){
+          deleteFirebase(data, "comandesAservir");
+          writeFirebase(data, "perRecollir");
           return Text("cosas");
         }else {
-          deleteFirebase(record, "perRecollir");
+          deleteFirebase(data, "perRecollir");
           return Text("cosas");
         }
       },
@@ -63,27 +63,27 @@ class Experimento extends StatelessWidget{
 //      'cognoms': record.cognoms});
 //  }
 }
-class Record {
-  final String nom, cognoms;
-  final int id;
-  bool recollida, servida;
-  final DocumentReference reference;
-
-  Record.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['id'] != null),
-        assert(map['nom'] != null),
-        assert(map['cognoms'] != null),
-        assert(map['recollida'] != null),
-        assert(map['servida'] != null),
-        id = map['id'],
-        nom = map['nom'],
-        cognoms = map['cognoms'],
-        recollida = map['recollida'],
-        servida = map['servida'];
-
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$nom:$cognoms>";
-}
+//class Record {
+//  final String nom, cognoms;
+//  final int id;
+//  bool recollida, servida;
+//  final DocumentReference reference;
+//
+//  Record.fromMap(Map<String, dynamic> map, {this.reference})
+//      : assert(map['id'] != null),
+//        assert(map['nom'] != null),
+//        assert(map['cognoms'] != null),
+//        assert(map['recollida'] != null),
+//        assert(map['servida'] != null),
+//        id = map['id'],
+//        nom = map['nom'],
+//        cognoms = map['cognoms'],
+//        recollida = map['recollida'],
+//        servida = map['servida'];
+//
+//  Record.fromSnapshot(DocumentSnapshot snapshot)
+//      : this.fromMap(snapshot.data, reference: snapshot.reference);
+//
+//  @override
+//  String toString() => "Record<$nom:$cognoms>";
+//}

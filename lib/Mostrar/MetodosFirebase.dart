@@ -2,15 +2,15 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-void deleteFirebase(Map record, String coleccion){
-  Firestore.instance.collection(coleccion).document("0" + record["id"])
+void deleteFirebase(DocumentSnapshot data, String coleccion){
+  Firestore.instance.collection(coleccion).document("0" + data["id"])
     .delete();
 }
 
-void writeFirebase(Map record, String coleccion) {
-  Firestore.instance.collection(coleccion).document("0" + record["id"])
+void writeFirebase(DocumentSnapshot data, String coleccion) {
+  Firestore.instance.collection(coleccion).document("0" + data["id"])
     .setData({
-    'id': record["id"],
-    'nom': record["nom"],
-    'cognoms': record["cognoms"]);
+    'id': data["id"],
+    'nom': data["nom"],
+    'cognoms': data["cognoms"]});
 }
