@@ -13,6 +13,7 @@ class MostrarComandes2 extends StatefulWidget{
   @override
   _MostrarComandes2State createState() => _MostrarComandes2State();
 }
+
 class _MostrarComandes2State extends State<MostrarComandes2> {
   @override
   Widget build(BuildContext context) {

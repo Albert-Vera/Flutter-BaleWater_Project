@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
+
 class MostrarComandes1 extends StatefulWidget{
 
   String coleccion;
@@ -22,16 +23,19 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
   @override
   void initState() {
     super.initState();
+
     getComandesList().then((results) {
       setState(() {
         querySnapshot = results;
       });
     });
   }
+
   //get firestore instance
   getComandesList() async {
     return await Firestore.instance.collection(this.widget.coleccion).getDocuments();
   }
+
   @override
   Widget build(BuildContext context) {
     if (querySnapshot != null) {

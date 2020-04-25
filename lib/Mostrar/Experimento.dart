@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'MetodosFirebase.dart';
+
 class Experimento extends StatelessWidget{
 
 
@@ -16,9 +18,13 @@ class Experimento extends StatelessWidget{
   }
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-    return ListView(
+    return ListView.builder(
       padding: const EdgeInsets.only(top: 30.0),
-      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+      itemCount: snapshot.length,
+      itemBuilder: (context, index){
+        return _buildListItem(context, snapshot.elementAt(index));
+      },
+//      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
     );
   }
    _buildListItem(BuildContext context, DocumentSnapshot data) {
@@ -29,33 +35,33 @@ class Experimento extends StatelessWidget{
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
         if ( record.servida == false ){
-          _deleteFirebase(context, record, "perRecollir");
-          _writeFirebase(context, record, "comandesAservir");
+          deleteFirebase(record, "perRecollir");
+          writeFirebase(record, "comandesAservir");
           return Text("cosas");
         }else
         if ( record.recollida == false ){
-          _deleteFirebase(context, record, "comandesAservir");
-          _writeFirebase(context, record, "perRecollir");
+          deleteFirebase(record, "comandesAservir");
+          writeFirebase(record, "perRecollir");
           return Text("cosas");
         }else {
-          _deleteFirebase(context, record, "perRecollir");
+          deleteFirebase(record, "perRecollir");
           return Text("cosas");
         }
       },
     );
   }
-  void _deleteFirebase(BuildContext context, Record record, String coleccion){
-    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
-        .delete();
-  }
-  void _writeFirebase(BuildContext context, Record record, String coleccion) {
-
-    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
-        .setData({
-      'id': record.id,
-      'nom': record.nom,
-      'cognoms': record.cognoms});
-  }
+//  void _deleteFirebase(BuildContext context, Record record, String coleccion){
+//    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
+//        .delete();
+//  }
+//  void _writeFirebase(BuildContext context, Record record, String coleccion) {
+//
+//    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
+//        .setData({
+//      'id': record.id,
+//      'nom': record.nom,
+//      'cognoms': record.cognoms});
+//  }
 }
 class Record {
   final String nom, cognoms;

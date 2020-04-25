@@ -1,5 +1,6 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
+import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ class ComandesClient extends StatefulWidget{
 }
 
 class _ComandesClientState extends State<ComandesClient> {
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +43,8 @@ Widget _buildBody(BuildContext context) {
     },
   );
 }
+
+
 Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
   return ListView(
     padding: const EdgeInsets.only(top: 30.0),
@@ -58,32 +60,33 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
       if (!snapshot.hasData) return LinearProgressIndicator();
       if (record.servida == false){
         deleteFirebase(context, record, "perRecollir");
-        return writeFirebase(context, record, "comandesAservir");
-      }else
-      if (record.recollida == false){
+        writeFirebase(context, record, "comandesAservir");
+        return mostraComandes(context, record);
+      } else if (record.recollida == false){
         deleteFirebase(context, record, "comandesAservir");
-        return writeFirebase(context, record, "perRecollir");
-      }else {
+        writeFirebase(context, record, "perRecollir");
+        return mostraComandes(context, record);
+      } else {
         deleteFirebase(context, record, "perRecollir");
         return Container();
       }
     },
   );
 }
-Widget deleteFirebase(BuildContext context, Record record, String coleccion){
+
+void deleteFirebase(BuildContext context, Record record, String coleccion){
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .delete();
-  return mostraComandes(context, record);
 }
-Widget writeFirebase(BuildContext context, Record record, String coleccion) {
 
+void writeFirebase(BuildContext context, Record record, String coleccion) {
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .setData({
     'id': record.id,
     'nom': record.nom,
     'cognoms': record.cognoms});
-  return mostraComandes(context, record);
 }
+
 // Un pedido servido se pasa a estado servido
 Widget cambiarEstatComanda(BuildContext context, Record record){
   Firestore.instance.collection("comanda").document("0" + record.id.toString())
@@ -127,6 +130,7 @@ Widget impresioDades(BuildContext context, Record record,  ) {
     ),
   );
 }
+
 AlertDialog alertDialog(BuildContext context, Record record, ) {
   //GlobalKey<FlipCardState> thisCard = ;
   return AlertDialog(
