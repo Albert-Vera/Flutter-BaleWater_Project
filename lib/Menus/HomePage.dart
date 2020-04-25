@@ -1,6 +1,5 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
-import 'package:Balewaterproject/Experimento.dart';
 import 'package:Balewaterproject/LoadDataFromFirestone.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
@@ -10,6 +9,7 @@ import 'package:Balewaterproject/Menus/MenuItem.dart';
 import 'package:Balewaterproject/Menus/MenuVendes.dart';
 import 'package:Balewaterproject/Mostrar/ComandesARecollir.dart';
 import 'package:Balewaterproject/Mostrar/ComandesAServir.dart';
+import 'package:Balewaterproject/Mostrar/Experimento.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes2.dart';
 import 'package:Balewaterproject/NavegadorBarraInferior.dart';
@@ -117,7 +117,7 @@ Widget graella(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
+              MenuItem(page: Experimento(),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
               MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "a recollir", width: 130, image: "image/servidas.jpeg"),
             ],
           ),

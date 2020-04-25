@@ -1,5 +1,4 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
-import 'package:Balewaterproject/Experimento.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,19 +18,19 @@ class _ComandesAServirState extends State<ComandesAServir> {
   @override
   Widget build(BuildContext context) {
     return  Stack(
-      children: <Widget>[
-        Container(
-          child: Expanded(child: _buildBody(context, this.widget.coleccion)),
-        ),
-        Container(
-          child: Column(
-          children: <Widget>[
-                     BannerBaleWater(),
-                    Expanded(child: MostrarComandes1(coleccion: "comandesAservir")),
-                  ],
-                ),
-        )
-    ]
+        children: <Widget>[
+          Container(
+            child: Expanded(child: _buildBody(context, this.widget.coleccion)),
+          ),
+          Container(
+            child:
+
+
+            Expanded(child: MostrarComandes1(coleccion: "comandesAservir")),
+
+
+          )
+        ]
 
     );
   }

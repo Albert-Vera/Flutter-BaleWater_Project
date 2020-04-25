@@ -1,5 +1,4 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
-import 'package:Balewaterproject/Experimento.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
@@ -40,7 +39,7 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
-            //BannerBaleWater(),
+            BannerBaleWater(),
              mostraComandes(context),
           ],
         ),
