@@ -1,6 +1,9 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
+import 'package:Balewaterproject/Mostrar/Experimento.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
+import 'package:Balewaterproject/Mostrar/Proba.dart';
+import 'package:Balewaterproject/medio_basura/ExpansionTileSample.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
@@ -15,32 +18,35 @@ class ComandesAServir extends StatefulWidget{
   _ComandesAServirState createState() => _ComandesAServirState();
 }
 class _ComandesAServirState extends State<ComandesAServir> {
+
   @override
   Widget build(BuildContext context) {
-    return  Stack(
-        children: <Widget>[
-          Container(
-            child: Expanded(child: _buildBody(context, this.widget.coleccion)),
-          ),
-          Container(
-            child:
-
-
-            Expanded(child: MostrarComandes1(coleccion: "comandesAservir")),
-
-
+    return Scaffold(
+      body: BackGroundPantalla(
+          child: Column(
+            children: <Widget>[
+              BannerBaleWater(),
+              Expanded(child:
+              _buildBody(context, this.widget.coleccion)
+              ),
+            ],
           )
-        ]
-
+      ),
     );
   }
+
+//  @override
+//  void initState() {
+//    //Experimento();
+//  }
 }
 Widget _buildBody(BuildContext context, String coleccio) {
   return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection("comanda").snapshots(),
+    stream: Firestore.instance.collection("comandesAservir").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
 
+      if (snapshot.data.documents.isEmpty)  _comanServidasVacio(context);
       return _buildList(context, snapshot.data.documents, coleccio);
     },
   );
@@ -52,26 +58,30 @@ Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot, String 
       children: snapshot.map((data) => _buildListItem(context, data, coleccio)).toList(),
     );
 }
-Widget _buildListItem(BuildContext context, DocumentSnapshot data, String coleccio) {
-  final record = Record.fromSnapshot(data);
+Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {
+  final record = Record.fromSnapshot(datos);
 
   return StreamBuilder<QuerySnapshot>(
     stream: Firestore.instance.collection("comanda").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
+
       if (record.servida == false){
         _deleteFirebase(context, record, "perRecollir");
+        _writeFirebase(context, record, "comanda");
         _writeFirebase(context, record, "comandesAservir");
-        return Container();
+        return _mostraComandes(context, record);
       }else
       if (record.recollida == false){
         _deleteFirebase(context, record, "comandesAservir");
+        _writeFirebase(context, record, "comanda");
         _writeFirebase(context, record, "perRecollir");
-        return Container();
+        return _mostraComandes(context, record);
       }else {
         _deleteFirebase(context, record, "perRecollir");
-        return Container();
+        return _mostraComandes(context, record);
       }
+      return _mostraComandes(context, record);
     },
   );
 }
@@ -95,8 +105,11 @@ void _cambiarEstatComanda(BuildContext context, Record record){
       .updateData({
     'servida': record.servida = true,
   });
+
 }
 Widget _mostraComandes(BuildContext context, Record record ){
+
+
   return   FlipCard(
       onFlip:(){
         // de momento ninguna condición
@@ -108,15 +121,17 @@ Widget _mostraComandes(BuildContext context, Record record ){
   );
 
 }
-Widget _impresioDades(BuildContext context, Record record,  ) {
+Widget _impresioDades(BuildContext context, Record record ) {
+
   return Container(
+
     margin: EdgeInsets.symmetric(vertical: 10.0),
     height: 200.0,
     child: Card(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            _lineaCard( "id Comande: 0" +record.id.toString(), record.nom + "   " +
+            _lineaCard( "id Comande: 0" + record.id.toString(), record.nom + "   " +
                 record.cognoms),
             Divider(),
             _lineaCard("Data Comanda: " +
@@ -129,8 +144,9 @@ Widget _impresioDades(BuildContext context, Record record,  ) {
       ),
     ),
   );
+
 }
-AlertDialog _alertDialog(BuildContext context, Record record, ) {
+AlertDialog _alertDialog(BuildContext context, Record record ) {
   //GlobalKey<FlipCardState> thisCard = ;
   return AlertDialog(
     title: Text('El producte ha sigut servit ?'),
@@ -157,6 +173,26 @@ AlertDialog _alertDialog(BuildContext context, Record record, ) {
         // Navigator.of(context).initState();
 
         //},
+      ),
+    ],
+  );
+}
+ AlertDialog _comanServidasVacio(BuildContext context) {
+  print("narizonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn2222222222  ");
+  return AlertDialog(
+    title: Text('Comandes Servidas'),
+    content: SingleChildScrollView(
+      child:
+          Text('Totes las comandes estan servidas'),
+          // Text('You\’re like me. I’m never satisfied.'),
+
+    ),
+    actions: <Widget>[
+      FlatButton(
+        child: Text('Ok.'),
+        onPressed: () {
+
+        },
       ),
     ],
   );

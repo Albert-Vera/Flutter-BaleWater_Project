@@ -51,16 +51,18 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data, String colecc
   final record = Record.fromSnapshot(data);
 
   return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection("comanda").snapshots(),
+    stream: Firestore.instance.collection("perRecollir").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
       if (record.servida == false){
         _deleteFirebase(context, record, "perRecollir");
+        _writeFirebase(context, record, "comanda");
         _writeFirebase(context, record, "comandesAservir");
         return _mostraComandes(context, record);
       }else
       if (record.recollida == false){
         _deleteFirebase(context, record, "comandesAservir");
+        _writeFirebase(context, record, "comanda");
         _writeFirebase(context, record, "perRecollir");
         return _mostraComandes(context, record);
       }else {
@@ -75,7 +77,6 @@ void _deleteFirebase(BuildContext context, Record record, String coleccion){
       .delete();
 }
 void _writeFirebase(BuildContext context, Record record, String coleccion) {
-  print('toy por aqui escrinbinedooooooooooooo');
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .setData({
     'id': record.id,

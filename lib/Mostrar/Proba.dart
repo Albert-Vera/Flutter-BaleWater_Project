@@ -1,42 +1,54 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
-import 'package:Balewaterproject/Experimento.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
-class Proba extends StatefulWidget{
 
+class MostrarComandes1 extends StatefulWidget{
 
-//  String coleccion;
-//  MostrarComandes( {
-//    Key key,
-//  this.coleccion}): super(key: key);
+  String coleccion;
+
+  MostrarComandes1( {
+    Key key,
+    this.coleccion}): super(key: key);
 
   @override
-  _ProbaState createState() => _ProbaState();
+  _MostrarComandes1State createState() => _MostrarComandes1State();
 }
 
-class _ProbaState extends State<Proba> {
+class _MostrarComandes1State extends State<MostrarComandes1> {
   QuerySnapshot querySnapshot;
 
   @override
   void initState() {
     super.initState();
+
     getComandesList().then((results) {
       setState(() {
         querySnapshot = results;
       });
     });
   }
+
   //get firestore instance
   getComandesList() async {
-    return await Firestore.instance.collection("comandesAservir").getDocuments();
+    return await Firestore.instance.collection(this.widget.coleccion).getDocuments();
   }
+
   @override
   Widget build(BuildContext context) {
     if (querySnapshot != null) {
-    return mostraComandes(context);
+      return Scaffold(
+        body: BackGroundPantalla(
+          child:  Column(
+            children: <Widget>[
+              BannerBaleWater(),
+              mostraComandes(context),
+            ],
+          ),
+        ),
+      );
     } else {
       return Center(
         child: CircularProgressIndicator(),

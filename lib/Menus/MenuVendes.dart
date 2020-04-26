@@ -1,5 +1,6 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
+import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuItem.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class MenuVendes extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 MenuItem(page: Clients(), text: "Clients", width: 130, image: "image/clients.jpeg" ),
-                MenuItem(page: MenuVendes(), text: "Comandes", width: 130, image: "image/comandes.png"),
+                MenuItem(page: ComandesClient(), text: "Comandes", width: 130, image: "image/comandes.png"),
               ],
             ),
             Row(

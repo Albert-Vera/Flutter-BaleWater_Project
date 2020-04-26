@@ -28,62 +28,65 @@ class Experimento extends StatelessWidget{
     );
   }
    _buildListItem(BuildContext context, DocumentSnapshot data) {
-//    final record = Record.fromSnapshot(data);
+    final record = Record.fromSnapshot(data);
 
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection("Comanda").snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        if ( data["servida"] == false ){
-          deleteFirebase(data, "perRecollir");
-          writeFirebase(data, "comandesAservir");
+        print("hollllllllllllllllllllllllllaaaaaaaaaaa...... ${record.servida.toString()}");
+        if (  record.servida == false  ){
+          _deleteFirebase(context, record, "perRecollir");
+          _writeFirebase(context, record, "comandesAservir");
           return Text("cosas");
         }else
-        if ( data["recollida"] == false ){
-          deleteFirebase(data, "comandesAservir");
-          writeFirebase(data, "perRecollir");
+        if (  record.recollida == false  ){
+          _deleteFirebase(context, record, "comandesAservir");
+          _writeFirebase(context, record, "perRecollir");
           return Text("cosas");
         }else {
-          deleteFirebase(data, "perRecollir");
+          _deleteFirebase(context, record, "perRecollir");
           return Text("cosas");
         }
       },
     );
   }
-//  void _deleteFirebase(BuildContext context, Record record, String coleccion){
-//    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
-//        .delete();
-//  }
-//  void _writeFirebase(BuildContext context, Record record, String coleccion) {
-//
-//    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
-//        .setData({
-//      'id': record.id,
-//      'nom': record.nom,
-//      'cognoms': record.cognoms});
-//  }
+  void _deleteFirebase(BuildContext context, Record record, String coleccion){
+    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
+        .delete();
+  }
+  void _writeFirebase(BuildContext context, Record record, String coleccion) {
+
+    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
+        .setData({
+      'id': record.id,
+      'nom': record.nom,
+      'cognoms': record.cognoms,
+      'recollida': record.recollida,
+      'servida': record.servida});
+  }
 }
-//class Record {
-//  final String nom, cognoms;
-//  final int id;
-//  bool recollida, servida;
-//  final DocumentReference reference;
-//
-//  Record.fromMap(Map<String, dynamic> map, {this.reference})
-//      : assert(map['id'] != null),
-//        assert(map['nom'] != null),
-//        assert(map['cognoms'] != null),
-//        assert(map['recollida'] != null),
-//        assert(map['servida'] != null),
-//        id = map['id'],
-//        nom = map['nom'],
-//        cognoms = map['cognoms'],
-//        recollida = map['recollida'],
-//        servida = map['servida'];
-//
-//  Record.fromSnapshot(DocumentSnapshot snapshot)
-//      : this.fromMap(snapshot.data, reference: snapshot.reference);
-//
-//  @override
-//  String toString() => "Record<$nom:$cognoms>";
-//}
+class Record {
+  final String nom, cognoms;
+  final int id;
+  bool recollida, servida;
+  final DocumentReference reference;
+
+  Record.fromMap(Map<String, dynamic> map, {this.reference})
+      : assert(map['id'] != null),
+        assert(map['nom'] != null),
+        assert(map['cognoms'] != null),
+        assert(map['recollida'] != null),
+        assert(map['servida'] != null),
+        id = map['id'],
+        nom = map['nom'],
+        cognoms = map['cognoms'],
+        recollida = map['recollida'],
+        servida = map['servida'];
+
+  Record.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
+
+  @override
+  String toString() => "Record<$nom:$cognoms>";
+}

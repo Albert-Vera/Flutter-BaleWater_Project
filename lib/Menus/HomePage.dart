@@ -12,6 +12,7 @@ import 'package:Balewaterproject/Mostrar/ComandesAServir.dart';
 import 'package:Balewaterproject/Mostrar/Experimento.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
 import 'package:Balewaterproject/Mostrar/MostrarComandes2.dart';
+import 'package:Balewaterproject/Mostrar/Proba.dart';
 import 'package:Balewaterproject/NavegadorBarraInferior.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:Balewaterproject/util.dart';
@@ -117,7 +118,7 @@ Widget graella(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              MenuItem(page: Experimento(),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
+              MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
               MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "a recollir", width: 130, image: "image/servidas.jpeg"),
             ],
           ),

@@ -33,7 +33,7 @@ class _MostrarComandes2State extends State<MostrarComandes2> {
 }
 Widget _buildBody(BuildContext context, String coleccion) {
   return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection(coleccion).snapshots(),
+    stream: Firestore.instance.collection("comanda").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return noHayDatosALeer(context);
       return _buildList(context, snapshot.data.documents, coleccion);
@@ -79,7 +79,9 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
       .setData({
     'id': record.id,
     'nom': record.nom,
-    'cognoms': record.cognoms});
+    'cognoms': record.cognoms,
+    'recollida': record.recollida,
+    'servida': record.servida});
 }
 // Un pedido servido se pasa a estado servido
 void _cambiarEstatComanda(BuildContext context, Record record){
@@ -210,13 +212,13 @@ class Record {
       : assert(map['id'] != null),
         assert(map['nom'] != null),
         assert(map['cognoms'] != null),
-//        assert(map['recollida'] != null),
-//        assert(map['servida'] != null),
+        assert(map['recollida'] != null),
+        assert(map['servida'] != null),
         id = map['id'],
         nom = map['nom'],
-        cognoms = map['cognoms'];
-//        recollida = map['recollida'],
-//        servida = map['servida'];
+        cognoms = map['cognoms'],
+        recollida = map['recollida'],
+        servida = map['servida'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
