@@ -1,17 +1,10 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
-import 'package:Balewaterproject/Mostrar/Experimento.dart';
-import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
-import 'package:Balewaterproject/Mostrar/Proba.dart';
-import 'package:Balewaterproject/medio_basura/ExpansionTileSample.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class ComandesClient extends StatefulWidget{
-  String coleccion;
-
-
   @override
   _ComandesClientState createState() => _ComandesClientState();
 }

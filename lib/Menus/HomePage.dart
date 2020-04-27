@@ -1,6 +1,5 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
-import 'package:Balewaterproject/LoadDataFromFirestone.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:Balewaterproject/Menus/MenuFactures.dart';
@@ -9,10 +8,6 @@ import 'package:Balewaterproject/Menus/MenuItem.dart';
 import 'package:Balewaterproject/Menus/MenuVendes.dart';
 import 'package:Balewaterproject/Mostrar/ComandesARecollir.dart';
 import 'package:Balewaterproject/Mostrar/ComandesAServir.dart';
-import 'package:Balewaterproject/Mostrar/Experimento.dart';
-import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
-import 'package:Balewaterproject/Mostrar/MostrarComandes2.dart';
-import 'package:Balewaterproject/Mostrar/Proba.dart';
 import 'package:Balewaterproject/NavegadorBarraInferior.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:Balewaterproject/util.dart';
@@ -99,7 +94,7 @@ class ScreenHome extends StatelessWidget{
           body: BackGroundPantalla(
             child: Column(
               children: <Widget>[
-                BannerBaleWater(),
+                BannerBaleWater(texte: "Home"),
                 graella(context)
               ],
             ),

@@ -1,9 +1,5 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
-import 'package:Balewaterproject/Mostrar/Experimento.dart';
-import 'package:Balewaterproject/Mostrar/MostrarComandes1.dart';
-import 'package:Balewaterproject/Mostrar/Proba.dart';
-import 'package:Balewaterproject/medio_basura/ExpansionTileSample.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +21,7 @@ class _ComandesAServirState extends State<ComandesAServir> {
       body: BackGroundPantalla(
           child: Column(
             children: <Widget>[
-              BannerBaleWater(),
+              BannerBaleWater(texte: "Comandes a servir",),
               Expanded(child:
               _buildBody(context, this.widget.coleccion)
               ),
@@ -81,7 +77,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String colec
         _deleteFirebase(context, record, "perRecollir");
         return _mostraComandes(context, record);
       }
-      return _mostraComandes(context, record);
     },
   );
 }
@@ -108,8 +103,6 @@ void _cambiarEstatComanda(BuildContext context, Record record){
 
 }
 Widget _mostraComandes(BuildContext context, Record record ){
-
-
   return   FlipCard(
       onFlip:(){
         // de momento ninguna condición
@@ -178,7 +171,8 @@ AlertDialog _alertDialog(BuildContext context, Record record ) {
   );
 }
  AlertDialog _comanServidasVacio(BuildContext context) {
-  print("narizonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn2222222222  ");
+//TODO Este método no lo hace... no sale por pantalla
+
   return AlertDialog(
     title: Text('Comandes Servidas'),
     content: SingleChildScrollView(

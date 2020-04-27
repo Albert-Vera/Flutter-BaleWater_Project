@@ -20,7 +20,7 @@ class _ComandesARecollirState extends State<ComandesARecollir> {
       body: BackGroundPantalla(
           child: Column(
             children: <Widget>[
-              BannerBaleWater(),
+              BannerBaleWater(texte: "Comandes per recollir"),
               Expanded(child:
               _buildBody(context, this.widget.coleccion)
               ),

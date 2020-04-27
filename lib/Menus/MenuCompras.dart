@@ -13,7 +13,7 @@ class MenuCompras extends StatelessWidget{
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
-            BannerBaleWater(),
+            BannerBaleWater(texte: "Compres"),
             Expanded(child: graella(context))
           ],
         ),

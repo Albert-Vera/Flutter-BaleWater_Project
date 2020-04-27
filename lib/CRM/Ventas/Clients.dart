@@ -37,7 +37,7 @@ class _ClientsState extends State<Clients> {
         body: BackGroundPantalla(
           child:  Column(
             children: <Widget>[
-              BannerBaleWater(),
+              BannerBaleWater(texte: "Clients"),
               //writeBBDD_Client(),
               Expanded (child:  impresiodeDades(screenSize))
             ],

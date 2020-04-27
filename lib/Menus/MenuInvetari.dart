@@ -2,7 +2,6 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
-import 'package:Balewaterproject/LoadDataFromFirestone.dart';
 import 'package:Balewaterproject/Menus/MenuItem.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,7 @@ class MenuInventari extends StatelessWidget{
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
-            BannerBaleWater(),
+            BannerBaleWater(texte: "Inventari"),
             graella(context)
           ],
         ),
