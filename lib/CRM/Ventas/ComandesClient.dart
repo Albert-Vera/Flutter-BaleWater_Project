@@ -16,7 +16,7 @@ class _ComandesClientState extends State<ComandesClient> {
       body: BackGroundPantalla(
           child: Column(
             children: <Widget>[
-              BannerBaleWater(),
+              BannerBaleWater(texte: "Comandes"),
               Expanded(child:
               _buildBody(context)
               ),
@@ -49,6 +49,8 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos ) {
     stream: Firestore.instance.collection("comanda").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
+
+      if ( record.servida == true) int stock = 1;
       return _impresioDades(context, record);
     },
   );
@@ -67,10 +69,10 @@ Widget _impresioDades(BuildContext context, Record record ) {
                 record.cognoms),
             Divider(),
             _lineaCard("Data Comanda: " +
-                record.nom, "Data Servei: " + record.nom+ "\n"),
-            _lineaCard("Id producte: P1" , "Producte: " +
+                record.nom, "Data Servei: " + record.data_servei+ "\n"),
+            _lineaCard("Id producte: " + record.product_id, "Producte: " +
                 record.nom+ "\n"),
-            _lineaCard("Lloguer:  4 h." , "Localitat: " +
+            _lineaCard("Lloguer: " + record.horas.toString() + " h.", "Localitat: " +
                 record.cognoms)
           ]
       ),
@@ -98,8 +100,8 @@ Widget _lineaCard( String text_1, String text_2){
   );
 }
 class Record {
-  final String nom, cognoms;
-  final int id;
+  final String nom, cognoms, data_servei, product_id;
+  final int id, horas;
   bool recollida, servida;
   final DocumentReference reference;
 
@@ -109,10 +111,16 @@ class Record {
         assert(map['cognoms'] != null),
         assert(map['recollida'] != null),
         assert(map['servida'] != null),
+        assert(map['data_servei'] != null),
+        assert(map['product_id'] != null),
+        assert(map['horas'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
         recollida = map['recollida'],
+        horas = map['horas'],
+        product_id = map['product_id'],
+        data_servei = map['data_servei'],
         servida = map['servida'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)

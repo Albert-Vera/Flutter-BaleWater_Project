@@ -43,7 +43,7 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
-            BannerBaleWater(),
+            BannerBaleWater(texte: "Comandes"),
              mostraComandes(context),
           ],
         ),
@@ -149,8 +149,8 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
 }
 
 class Record {
-  final String nom, cognoms;
-  final int id;
+  final String nom, cognoms, data_servei, product_id;
+  final int id, horas;
   bool recollida, servida;
   final DocumentReference reference;
 
@@ -160,10 +160,16 @@ class Record {
         assert(map['cognoms'] != null),
         assert(map['recollida'] != null),
         assert(map['servida'] != null),
+        assert(map['data_servei'] != null),
+        assert(map['product_id'] != null),
+        assert(map['horas'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
         recollida = map['recollida'],
+        horas = map['horas'],
+        product_id = map['product_id'],
+        data_servei = map['data_servei'],
         servida = map['servida'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)

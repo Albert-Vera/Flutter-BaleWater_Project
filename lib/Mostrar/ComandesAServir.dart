@@ -1,5 +1,6 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
+import 'package:Balewaterproject/medio_basura/MostrarComandes1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,8 @@ Widget _buildBody(BuildContext context, String coleccio) {
     stream: Firestore.instance.collection("comandesAservir").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-
-      if (snapshot.data.documents.isEmpty)  _comanServidasVacio(context);
+        print("tamaño: ....................................... ${snapshot.data.documents.length}");
+      //if (snapshot.data.documents.isEmpty)  _comanServidasVacio(context);
       return _buildList(context, snapshot.data.documents, coleccio);
     },
   );
@@ -69,7 +70,9 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String colec
         return _mostraComandes(context, record);
       }else
       if (record.recollida == false){
+
         _deleteFirebase(context, record, "comandesAservir");
+        print("tamaño: ...............ssssaa........................ ${snapshot.data.documents.length}");
         _writeFirebase(context, record, "comanda");
         _writeFirebase(context, record, "perRecollir");
         return _mostraComandes(context, record);
@@ -91,6 +94,9 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
     'id': record.id,
     'nom': record.nom,
     'cognoms': record.cognoms,
+    'data_servei': record.dat_servei,
+    'horas': record.horas,
+    'product_id': record.product_id,
     'recollida': record.recollida,
     'servida': record.servida});
 }
@@ -100,6 +106,12 @@ void _cambiarEstatComanda(BuildContext context, Record record){
       .updateData({
     'servida': record.servida = true,
   });
+
+
+//  Firestore.instance.collection("castle").document("1")
+//      .updateData({
+//    'enAlmacen': {-1},
+//  });
 
 }
 Widget _mostraComandes(BuildContext context, Record record ){
@@ -129,9 +141,9 @@ Widget _impresioDades(BuildContext context, Record record ) {
             Divider(),
             _lineaCard("Data Comanda: " +
                 record.nom, "Data Servei: " + record.nom+ "\n"),
-            _lineaCard("Id producte: P1" , "Producte: " +
+            _lineaCard("Id producte: " + record.product_id , "Producte: " +
                 record.nom+ "\n"),
-            _lineaCard("Lloguer:  4 h." , "Localitat: " +
+            _lineaCard("Lloguer: " + record.horas.toString()+" h." , "Localitat: " +
                 record.cognoms)
           ]
       ),
@@ -211,8 +223,9 @@ Widget _lineaCard( String text_1, String text_2){
   );
 }
 class Record {
-  final String nom, cognoms;
-  final int id;
+  final String nom, cognoms, product_id;
+  String dat_servei;
+  final int id, horas;
   bool recollida, servida;
   final DocumentReference reference;
 
@@ -222,10 +235,16 @@ class Record {
         assert(map['cognoms'] != null),
         assert(map['recollida'] != null),
         assert(map['servida'] != null),
+        assert(map['data_servei'] != null),
+        assert(map['product_id'] != null),
+        assert(map['horas'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
         recollida = map['recollida'],
+        horas = map['horas'],
+        product_id = map['product_id'],
+        dat_servei = map['data_servei'],
         servida = map['servida'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)

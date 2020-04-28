@@ -51,7 +51,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data, String colecc
   final record = Record.fromSnapshot(data);
 
   return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection("perRecollir").snapshots(),
+    stream: Firestore.instance.collection("comanda").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
       if (record.servida == false){
@@ -82,6 +82,9 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
     'id': record.id,
     'nom': record.nom,
     'cognoms': record.cognoms,
+    'data_servei': record.data_servei,
+    'horas': record.horas,
+    'product_id': record.product_id,
     'recollida': record.recollida,
     'servida': record.servida});
 }
@@ -89,7 +92,8 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
 void _cambiarEstatComanda(BuildContext context, Record record){
   Firestore.instance.collection("comanda").document("0" + record.id.toString())
       .updateData({
-    'servida': record.recollida = true,
+    'recollida': record.recollida = true,
+    'servida': record.servida = true,
   });
 }
 Widget _mostraComandes(BuildContext context, Record record ){
@@ -177,8 +181,8 @@ Widget _lineaCard( String text_1, String text_2){
   );
 }
 class Record {
-  final String nom, cognoms;
-  final int id;
+  final String nom, cognoms, data_servei, product_id;
+  final int id, horas;
   bool recollida, servida;
   final DocumentReference reference;
 
@@ -188,10 +192,16 @@ class Record {
         assert(map['cognoms'] != null),
         assert(map['recollida'] != null),
         assert(map['servida'] != null),
+        assert(map['data_servei'] != null),
+        assert(map['product_id'] != null),
+        assert(map['horas'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
         recollida = map['recollida'],
+        horas = map['horas'],
+        product_id = map['product_id'],
+        data_servei = map['data_servei'],
         servida = map['servida'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)

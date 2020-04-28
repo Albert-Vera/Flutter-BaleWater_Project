@@ -3,6 +3,8 @@ import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuItem.dart';
+import 'package:Balewaterproject/Mostrar/ComandesARecollir.dart';
+import 'package:Balewaterproject/Mostrar/Productes.dart';
 import 'package:flutter/material.dart';
 
 class MenuVendes extends StatelessWidget{
@@ -36,8 +38,8 @@ class MenuVendes extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: MenuVendes(), text: "Pressupostos", width: 130, image: "image/budget.jpeg"),
-                MenuItem(page: MenuVendes(), text: "Com servides", width: 130, image: "image/servides.png"),
+                MenuItem(page: Productes(), text: "Productes", width: 130, image: "image/budget.jpeg"),
+                MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "Com servides", width: 130, image: "image/servides.png"),
               ],
             ),
           ],
