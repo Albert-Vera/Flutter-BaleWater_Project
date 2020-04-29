@@ -149,7 +149,8 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
 }
 
 class Record {
-  final String nom, cognoms, data_servei, product_id;
+  final String nom, cognoms, product_id;
+  String dat_servei, dat_comanda;
   final int id, horas;
   bool recollida, servida;
   final DocumentReference reference;
@@ -161,6 +162,7 @@ class Record {
         assert(map['recollida'] != null),
         assert(map['servida'] != null),
         assert(map['data_servei'] != null),
+        assert(map['data_comanda'] != null),
         assert(map['product_id'] != null),
         assert(map['horas'] != null),
         id = map['id'],
@@ -169,7 +171,8 @@ class Record {
         recollida = map['recollida'],
         horas = map['horas'],
         product_id = map['product_id'],
-        data_servei = map['data_servei'],
+        dat_servei = map['data_servei'],
+        dat_comanda= map['data_comanda'],
         servida = map['servida'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)

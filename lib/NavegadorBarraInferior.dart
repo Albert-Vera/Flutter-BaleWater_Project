@@ -18,11 +18,12 @@ class NavegadorBarraInferior extends StatefulWidget {
 
 class _BottomNavState extends State<NavegadorBarraInferior> {
   String _currentRoute;
-
+  final bool seleccionado= false;
   @override
   void initState() {
     super.initState();
     _currentRoute = widget.initialRoute;
+
   }
 
   @override
@@ -48,16 +49,19 @@ class _BottomNavState extends State<NavegadorBarraInferior> {
 
   Widget _buildButton(String namedRoute, String data, String tooltip) {
     final ThemeData theme = Theme.of(context);
+
     return new Flexible(
       flex: 1,
       child: new Tooltip(
         message: tooltip,
         child: new InkWell(
-          onTap: () => onButtonTap(namedRoute),
+          focusColor: seleccionado ?
+          Colors.teal : Colors.grey,
+          onTap: () => onButtonTap(namedRoute, seleccionado),
           child: new Center(
             child: new Text(data,
 
-             // color: _currentRoute == namedRoute ? theme.accentColor : theme.disabledColor,
+              //color: _currentRoute == namedRoute ? theme.accentColor : theme.disabledColor,
             ),
           ),
         ),
@@ -65,9 +69,10 @@ class _BottomNavState extends State<NavegadorBarraInferior> {
     );
   }
 
-  onButtonTap(String namedRoute) {
+  onButtonTap(String namedRoute, bool seleccionado) {
     setState(() {
       _currentRoute = namedRoute;
+      seleccionado: _currentRoute = namedRoute;
     });
     widget.navCallback(_currentRoute);
   }

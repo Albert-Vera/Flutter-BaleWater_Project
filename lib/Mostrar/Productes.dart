@@ -67,7 +67,8 @@ class _ProductesState extends State<Productes> {
       stream: Firestore.instance.collection("castle").snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-
+        int cosas = record.enAlmacen -1;
+        print(" maravilloso..................................... $cosas");
         return _actualitzarDades(context, record);
       },
     );

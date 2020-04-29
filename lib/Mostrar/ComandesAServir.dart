@@ -1,3 +1,5 @@
+
+
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/medio_basura/MostrarComandes1.dart';
@@ -15,7 +17,7 @@ class ComandesAServir extends StatefulWidget{
   _ComandesAServirState createState() => _ComandesAServirState();
 }
 class _ComandesAServirState extends State<ComandesAServir> {
-
+String cositas;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +34,19 @@ class _ComandesAServirState extends State<ComandesAServir> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    Firestore.instance
+        .collection('castle')
+        .where("nomCastle", isEqualTo: 'Rocodromo')
+        .snapshots()
+        .listen((datos) =>
+    datos.documents.forEach((doc) => cositas = doc['nomCastle']));
+    print("maravillosooooooo.................... $cositas");
+
+  }
+
 //  @override
 //  void initState() {
 //    //Experimento();
@@ -42,7 +57,7 @@ Widget _buildBody(BuildContext context, String coleccio) {
     stream: Firestore.instance.collection("comandesAservir").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-        print("tamaño: ....................................... ${snapshot.data.documents.length}");
+        print("tamaño: ........................arriba............... ${snapshot.data.documents.length}");
       //if (snapshot.data.documents.isEmpty)  _comanServidasVacio(context);
       return _buildList(context, snapshot.data.documents, coleccio);
     },
@@ -62,7 +77,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String colec
     stream: Firestore.instance.collection("comanda").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-
       if (record.servida == false){
         _deleteFirebase(context, record, "perRecollir");
         _writeFirebase(context, record, "comanda");
@@ -70,7 +84,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String colec
         return _mostraComandes(context, record);
       }else
       if (record.recollida == false){
-
         _deleteFirebase(context, record, "comandesAservir");
         print("tamaño: ...............ssssaa........................ ${snapshot.data.documents.length}");
         _writeFirebase(context, record, "comanda");
@@ -95,6 +108,7 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
     'nom': record.nom,
     'cognoms': record.cognoms,
     'data_servei': record.dat_servei,
+    'data_comanda': record.dat_comanda,
     'horas': record.horas,
     'product_id': record.product_id,
     'recollida': record.recollida,
@@ -102,15 +116,18 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
 }
 // Un pedido servido se pasa a estado servido
 void _cambiarEstatComanda(BuildContext context, Record record){
+  int narices;
   Firestore.instance.collection("comanda").document("0" + record.id.toString())
       .updateData({
     'servida': record.servida = true,
   });
 
-
 //  Firestore.instance.collection("castle").document("1")
-//      .updateData({
-//    'enAlmacen': {-1},
+//
+//     .get()
+//     .then((DocumentSnapshot valor){
+//
+//      valor.
 //  });
 
 }
@@ -151,35 +168,39 @@ Widget _impresioDades(BuildContext context, Record record ) {
   );
 
 }
-AlertDialog _alertDialog(BuildContext context, Record record ) {
+Widget _alertDialog(BuildContext context, Record record ) {
   //GlobalKey<FlipCardState> thisCard = ;
-  return AlertDialog(
-    title: Text('El producte ha sigut servit ?'),
-    content: SingleChildScrollView(
-      child: ListBody(
-        children: <Widget>[
-          Text('El producte has donará per entregat.'),
-          // Text('You\’re like me. I’m never satisfied.'),
-        ],
-      ),
-    ),
-    actions: <Widget>[
-      FlatButton(
-        child: Text('Ok.'),
-        onPressed: () {
-          _cambiarEstatComanda(context, record);
-          // _buildBody(context);
-          //thisCard.currentState.toggleCard();
-        },
-      ),
-      FlatButton(
-        child: Text('Cancel.'),
-        //onPressed: () {
-        // Navigator.of(context).initState();
+  return Container(
+    height: 200.0,
+    child: AlertDialog(
 
-        //},
+      title: Text('El producte ha sigut servit ?'),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            Text('El producte has donará per entregat.'),
+            // Text('You\’re like me. I’m never satisfied.'),
+          ],
+        ),
       ),
-    ],
+      actions: <Widget>[
+        FlatButton(
+          child: Text('Ok.'),
+          onPressed: () {
+            _cambiarEstatComanda(context, record);
+            // _buildBody(context);
+            //thisCard.currentState.toggleCard();
+          },
+        ),
+        FlatButton(
+          child: Text('Cancel.'),
+          //onPressed: () {
+          // Navigator.of(context).initState();
+
+          //},
+        ),
+      ],
+    ),
   );
 }
  AlertDialog _comanServidasVacio(BuildContext context) {
@@ -224,7 +245,7 @@ Widget _lineaCard( String text_1, String text_2){
 }
 class Record {
   final String nom, cognoms, product_id;
-  String dat_servei;
+  String dat_servei, dat_comanda;
   final int id, horas;
   bool recollida, servida;
   final DocumentReference reference;
@@ -236,6 +257,7 @@ class Record {
         assert(map['recollida'] != null),
         assert(map['servida'] != null),
         assert(map['data_servei'] != null),
+        assert(map['data_comanda'] != null),
         assert(map['product_id'] != null),
         assert(map['horas'] != null),
         id = map['id'],
@@ -245,6 +267,7 @@ class Record {
         horas = map['horas'],
         product_id = map['product_id'],
         dat_servei = map['data_servei'],
+        dat_comanda= map['data_comanda'],
         servida = map['servida'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)

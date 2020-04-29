@@ -1,4 +1,5 @@
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../BackGroundPantalla.dart';
@@ -13,13 +14,27 @@ class ComandesProveidor extends StatelessWidget{
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
-            BannerBaleWater(),
-
+            BannerBaleWater(texte: "Tete",),
+            Text("Prueba counter"),
+            StreamBuilder(
+              stream: Firestore.instance.collection("productosZZZ").document("productid").snapshots(),
+              builder: (context, snapshot){
+                if(!snapshot.hasData){
+                  return Text("Loading");
+                }
+                return Text("Stock: " + snapshot.data['stock'].toString());
+              },
+            ),
+            RaisedButton(
+              onPressed: (){
+                Firestore.instance.collection("productosZZZ").document("productid").updateData({"stock" : FieldValue.increment(-1)});
+              },
+              child: Text("Suma 1"),
+            )
           ],
         ),
       ),
     );
-
   }
 
 }
