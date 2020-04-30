@@ -35,8 +35,8 @@ Widget _buildBody(BuildContext context, String coleccio) {
     stream: Firestore.instance.collection("perRecollir").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-
-      return _buildList(context, snapshot.data.documents, coleccio);
+      if (snapshot.data.documents.isEmpty)  return _comanServidasVacio(context);
+      else return _buildList(context, snapshot.data.documents, coleccio);
     },
   );
 }
@@ -97,6 +97,12 @@ void _cambiarEstatComanda(BuildContext context, Record record){
     'servida': record.servida = true,
   });
 }
+void _modificarStockProducte(Record record) {
+  //TODO arreglar aixo posar el id rt-005 fer cambi a firebase
+  Firestore.instance.collection("productes")
+      .document(record.id.toString())
+      .updateData({"enAlmacen": FieldValue.increment(1)});
+}
 Widget _mostraComandes(BuildContext context, Record record ){
   return   FlipCard(
       onFlip:(){
@@ -108,6 +114,25 @@ Widget _mostraComandes(BuildContext context, Record record ){
 
   );
 
+}
+AlertDialog _comanServidasVacio(BuildContext context) {
+  return AlertDialog(
+    title: Text('Comandes a Recollir'),
+    content: SingleChildScrollView(
+      child:
+      Text('No hi ha comandes per recollir'),
+      // Text('You\’re like me. I’m never satisfied.'),
+
+    ),
+    actions: <Widget>[
+      FlatButton(
+        child: Text('Ok.'),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    ],
+  );
 }
 Widget _impresioDades(BuildContext context, Record record,  ) {
   return Container(
@@ -134,11 +159,11 @@ Widget _impresioDades(BuildContext context, Record record,  ) {
 AlertDialog _alertDialog(BuildContext context, Record record, ) {
   //GlobalKey<FlipCardState> thisCard = ;
   return AlertDialog(
-    title: Text('El producte ha sigut servit ?'),
+    title: Text('El producte ha sigut recollit ?'),
     content: SingleChildScrollView(
       child: ListBody(
         children: <Widget>[
-          Text('El producte has donará per entregat.'),
+          Text('El producte has donará per recollit.'),
           // Text('You\’re like me. I’m never satisfied.'),
         ],
       ),
@@ -147,6 +172,7 @@ AlertDialog _alertDialog(BuildContext context, Record record, ) {
       FlatButton(
         child: Text('Ok.'),
         onPressed: () {
+          _modificarStockProducte(record);
           _cambiarEstatComanda(context, record);
           // _buildBody(context);
           //thisCard.currentState.toggleCard();

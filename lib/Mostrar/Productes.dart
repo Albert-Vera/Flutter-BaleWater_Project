@@ -39,7 +39,7 @@ class _ProductesState extends State<Productes> {
 
   Widget _buildBody(BuildContext context, String coleccio) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection("castle").snapshots(),
+      stream: Firestore.instance.collection("productes").snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -64,11 +64,10 @@ class _ProductesState extends State<Productes> {
     final record = Record.fromSnapshot(datos);
 
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection("castle").snapshots(),
+      stream: Firestore.instance.collection("productes").snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
         int cosas = record.enAlmacen -1;
-        print(" maravilloso..................................... $cosas");
         return _actualitzarDades(context, record);
       },
     );
@@ -112,7 +111,7 @@ class _ProductesState extends State<Productes> {
                       children: <Widget>[
                         Padding(padding: const EdgeInsets.symmetric(
                             horizontal: 10.0)),
-                        _lineaCard("id: 0", record.id.toString()),
+                        _lineaCard("id: ", record.id.toString()),
                         _lineaCard("Nom: " , record.nomCastle),
                         _lineaCard("Proveedor: ", record.proveedor),
                         _lineaCard("Stock: ", record.stock.toString()),

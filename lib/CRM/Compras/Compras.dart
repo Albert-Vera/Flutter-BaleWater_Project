@@ -12,7 +12,7 @@ class Compras extends StatelessWidget{
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
-            BannerBaleWater(),
+            BannerBaleWater(texte: "Productes Proveidors"),
 
           ],
         ),
@@ -20,5 +20,5 @@ class Compras extends StatelessWidget{
     );
 
   }
-
 }
+//TODO aqui mostrar diversos productes que acostument a comprar als proveidors

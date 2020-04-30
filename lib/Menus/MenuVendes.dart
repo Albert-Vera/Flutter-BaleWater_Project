@@ -38,7 +38,7 @@ class MenuVendes extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Productes(), text: "Productes", width: 130, image: "image/budget.jpeg"),
+                MenuItem(page: Productes(), text: "Productes", width: 130, image: "image/productes.jpeg"),
                 MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "Com servides", width: 130, image: "image/servides.png"),
               ],
             ),

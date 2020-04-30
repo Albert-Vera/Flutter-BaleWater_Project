@@ -12,7 +12,7 @@ class Proveidors extends StatelessWidget{
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
-            BannerBaleWater(),
+            BannerBaleWater(texte: "Llista Proveidors"),
 
           ],
         ),
