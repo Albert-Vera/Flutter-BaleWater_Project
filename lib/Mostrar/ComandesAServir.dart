@@ -1,8 +1,13 @@
 
 
+
+
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/Datos_Firebase.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
+import 'package:Balewaterproject/medio_basura/ExpansionTileSample.dart';
 import 'package:Balewaterproject/medio_basura/MostrarComandes1.dart';
+import 'package:Balewaterproject/medio_basura/ReEscriureFire.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +22,8 @@ class ComandesAServir extends StatefulWidget{
   _ComandesAServirState createState() => _ComandesAServirState();
 }
 class _ComandesAServirState extends State<ComandesAServir> {
-String cositas;
+  String cositas;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +43,9 @@ String cositas;
   @override
   void initState() {
     super.initState();
-    Firestore.instance
-        .collection('castle')
-        .where("nomCastle", isEqualTo: 'Rocodromo')
-        .snapshots()
-        .listen((datos) =>
-    datos.documents.forEach((doc) => cositas = doc['nomCastle']));
-    print("maravillosooooooo.................... $cositas");
 
+
+//ReEscriureFire().escriure();
   }
 
 //  @override
@@ -57,7 +58,6 @@ Widget _buildBody(BuildContext context, String coleccio) {
     stream: Firestore.instance.collection("comandesAservir").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-        print("tamaño: ........................arriba............... ${snapshot.data.documents.length}");
       //if (snapshot.data.documents.isEmpty)  _comanServidasVacio(context);
       return _buildList(context, snapshot.data.documents, coleccio);
     },
@@ -85,7 +85,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String colec
       }else
       if (record.recollida == false){
         _deleteFirebase(context, record, "comandesAservir");
-        print("tamaño: ...............ssssaa........................ ${snapshot.data.documents.length}");
         _writeFirebase(context, record, "comanda");
         _writeFirebase(context, record, "perRecollir");
         return _mostraComandes(context, record);
@@ -114,20 +113,44 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
     'recollida': record.recollida,
     'servida': record.servida});
 }
+
+Widget stockProducte(BuildContext context, Record record) {
+  String disponible;
+  return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection("productes").snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+        // disponible = snapshot.data.documents[1].data['enAlmacen'].toString();
+
+        for (int i = 0; i < snapshot.data.documents.length; i ++) {
+
+          if (snapshot.data.documents[i].data['id'].contains(record.product_id)) {
+              print("............... condicional de disponible .............................");
+               disponible = snapshot.data.documents[i].data['enAlmacen'].toString();
+          }
+        }
+        return Column(
+          children: <Widget>[
+            Text(" Disponible en almacén: " +disponible),
+          ],
+        );
+      }
+  );
+}
 // Un pedido servido se pasa a estado servido
 void _cambiarEstatComanda(BuildContext context, Record record){
-  int narices;
   Firestore.instance.collection("comanda").document("0" + record.id.toString())
       .updateData({
-    'servida': record.servida = true,
+    'servida': record.servida = false,
   });
+//TODO cambia otra vez a true
 
 //  Firestore.instance.collection("castle").document("1")
 //
 //     .get()
 //     .then((DocumentSnapshot valor){
 //
-//      valor.
+//
 //  });
 
 }
@@ -144,6 +167,9 @@ Widget _mostraComandes(BuildContext context, Record record ){
 
 }
 Widget _impresioDades(BuildContext context, Record record ) {
+//  modificarDatos();
+//  int disponibles => Datos_Firebase().modificarDatos();
+  //Firestore.instance.collection("castle").document("1").updateData({"enAlmacen" : FieldValue.increment(-1)});
 
   return Container(
 
@@ -161,19 +187,23 @@ Widget _impresioDades(BuildContext context, Record record ) {
             _lineaCard("Id producte: " + record.product_id , "Producte: " +
                 record.nom+ "\n"),
             _lineaCard("Lloguer: " + record.horas.toString()+" h." , "Localitat: " +
-                record.cognoms)
+                record.cognoms),
+            stockProducte(context, record)
           ]
       ),
     ),
   );
 
 }
+void modificarStockProducte(Record record){
+  //TODO arreglar aixo posar el id rt-005 fer cambi a firebase
+  Firestore.instance.collection("castle").document(record.id.toString()).updateData({"enAlmacen" : FieldValue.increment(-1)});
+
+}
 Widget _alertDialog(BuildContext context, Record record ) {
-  //GlobalKey<FlipCardState> thisCard = ;
   return Container(
     height: 200.0,
     child: AlertDialog(
-
       title: Text('El producte ha sigut servit ?'),
       content: SingleChildScrollView(
         child: ListBody(
@@ -187,6 +217,7 @@ Widget _alertDialog(BuildContext context, Record record ) {
         FlatButton(
           child: Text('Ok.'),
           onPressed: () {
+            modificarStockProducte(record);
             _cambiarEstatComanda(context, record);
             // _buildBody(context);
             //thisCard.currentState.toggleCard();
@@ -203,15 +234,15 @@ Widget _alertDialog(BuildContext context, Record record ) {
     ),
   );
 }
- AlertDialog _comanServidasVacio(BuildContext context) {
+AlertDialog _comanServidasVacio(BuildContext context) {
 //TODO Este método no lo hace... no sale por pantalla
 
   return AlertDialog(
     title: Text('Comandes Servidas'),
     content: SingleChildScrollView(
       child:
-          Text('Totes las comandes estan servidas'),
-          // Text('You\’re like me. I’m never satisfied.'),
+      Text('Totes las comandes estan servidas'),
+      // Text('You\’re like me. I’m never satisfied.'),
 
     ),
     actions: <Widget>[

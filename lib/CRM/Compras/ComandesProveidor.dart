@@ -9,7 +9,7 @@ class ComandesProveidor extends StatelessWidget{
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
-
+    var a = -1;
     return Scaffold(
       body: BackGroundPantalla(
         child:  Column(
@@ -27,7 +27,7 @@ class ComandesProveidor extends StatelessWidget{
             ),
             RaisedButton(
               onPressed: (){
-                Firestore.instance.collection("productosZZZ").document("productid").updateData({"stock" : FieldValue.increment(-1)});
+                Firestore.instance.collection("productosZZZ").document("productid").updateData({"stock" : FieldValue.increment(a)});
               },
               child: Text("Suma 1"),
             )

@@ -1,8 +1,12 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
+import 'package:Balewaterproject/Menus/HomePage.dart';
+import 'package:Balewaterproject/Mostrar/DadesClient.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+
+import '../../util.dart';
 
 class ComandesClient extends StatefulWidget{
   @override
@@ -90,7 +94,7 @@ Widget _impresioDades(BuildContext context, Record record ) {
   return Container(
 
     margin: EdgeInsets.symmetric(vertical: 10.0),
-    height: 200.0,
+    height: 150.0,
     child: Card(
       child: Row(
         children: <Widget>[
@@ -102,7 +106,7 @@ Widget _impresioDades(BuildContext context, Record record ) {
                 _lineaCard( "Comanda:" , "0" + record.id.toString()),
                 _lineaCard("Client: " , record.nom ),
                 _lineaCard("Id producte: " , record.product_id ),
-                _lineaCard("Lloguer: " , record.horas.toString() + " h.")
+                _botonVerClient(context)
               ]
           ),
           ),
@@ -112,12 +116,12 @@ Widget _impresioDades(BuildContext context, Record record ) {
           Container(
             width: 160.0,
             child: Column(
+
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   _lineaCard( "Data Servei" , record.dat_servei),
                   _lineaCard("Cognoms: " , record.cognoms),
-                  _lineaCard("Data Comanda: " ,record.dat_comanda),
-                  _lineaCard("Localitat: " , record.cognoms)
+                  _lineaCard("Lloguer: " , record.horas.toString() + " h."),
                 ]
             ),
           )
@@ -126,6 +130,26 @@ Widget _impresioDades(BuildContext context, Record record ) {
     ),
   );
 
+}
+
+Widget _botonVerClient(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 10.0),
+    child: Container(
+      width: 120.0,
+      color: Colors.tealAccent,
+      child: GestureDetector(
+            onTap: ()=> pushPage(context, DadesClient()),
+          child: Text("Dades Client",
+              style: TextStyle(
+                  color: Colors.blueAccent,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20.0
+              ),
+            ),
+          ),
+    ),
+  );
 }
 Widget _lineaCard( String text_1, String text_2){
   // final screenSize = MediaQuery.of(context).size;
