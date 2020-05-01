@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'Balance3.dart';
 
@@ -10,18 +9,13 @@ class Balance2 extends StatefulWidget {
 }
 
 class _Balance2State extends State<Balance2> {
+  Stream<QuerySnapshot> _query;
   PageController _controller;
   int currentPage = 3;
-  Stream<QuerySnapshot> _query;
 
   @override
   void initState() {
     super.initState();
-
-//    _query = Firestore.instance
-//        .collection('comanda')
-//        .where("mes", isEqualTo: currentPage +1)
-//        .snapshots();
 
     _controller = PageController(
       initialPage: currentPage,

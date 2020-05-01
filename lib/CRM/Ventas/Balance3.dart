@@ -1,15 +1,12 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'GraphWidget.dart';
 
 class Balance3 extends StatefulWidget {
   final List<DocumentSnapshot> documents;
-   double total;
+  final double total;
   final List<double> perDay;
- // final Map<String, double> categories;
 
   Balance3({Key key, this.documents})
       : total = documents.map((doc) => doc['importComanda'])
@@ -38,14 +35,11 @@ class _Balance3State extends State<Balance3> {
             color: Colors.blueAccent.withOpacity(0.15),
             height: 24.0,
           ),
-
-
         _list(),
         ],
       ),
     );
   }
-
   Widget _expenses() {
     return Column(
       children: <Widget>[
@@ -136,17 +130,4 @@ class _Balance3State extends State<Balance3> {
       ),
     );
   }
-  //Lee de Firebase disponible de producto en almacén
-//  Widget stockProducte(BuildContext context, Record record) {
-//    return StreamBuilder(
-//        stream: Firestore.instance.collection("comanda").document(
-//            record.product_id).snapshots(),
-//        builder: (context, snapshot) {
-//          if (!snapshot.hasData) return Text("Loading");
-//          return Padding(
-//            padding: const EdgeInsets.all(8.0),
-//            child: Text("Disponibles en almacén: " + snapshot.data['enAlmacen'].toString()),
-//          );
-//        });
-//  }
 }
