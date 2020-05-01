@@ -53,7 +53,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos ) {
     stream: Firestore.instance.collection("comanda").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-
       if (record.servida == false){
         _deleteFirebase(context, record, "perRecollir");
         _writeFirebase(context, record, "comanda");
@@ -72,11 +71,21 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos ) {
     },
   );
 }
+
+//void _obtenirMes_Dia(Record record) {
+//  Firestore.instance.collection("comanda").document("0" + record.id.toString())
+//      .setData({
+//    'mes': record.dat_servei.substring(3,5),
+//    'dia': record.dat_servei.substring(0,2),
+//  });
+//}
 void _deleteFirebase(BuildContext context, Record record, String coleccion){
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .delete();
 }
 void _writeFirebase(BuildContext context, Record record, String coleccion) {
+  String a = record.dat_servei.substring(3,5);
+  String b = record.dat_servei.substring(0,2);
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .setData({
     'id': record.id,
@@ -87,7 +96,11 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
     'horas': record.horas,
     'product_id': record.product_id,
     'recollida': record.recollida,
-    'servida': record.servida});
+    'servida': record.servida,
+    'importComanda': record.importComanda,
+    'productNom': record.product_Nom,
+    'mes' : int.parse(a),
+    'dia' : int.parse(b)});
 }
 Widget _impresioDades(BuildContext context, Record record ) {
 
@@ -96,37 +109,37 @@ Widget _impresioDades(BuildContext context, Record record ) {
     margin: EdgeInsets.symmetric(vertical: 10.0),
     height: 150.0,
     child: Card(
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 155.0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                _lineaCard( "Comanda:" , "0" + record.id.toString()),
-                _lineaCard("Client: " , record.nom ),
-                _lineaCard("Id producte: " , record.product_id ),
-                _botonVerClient(context)
-              ]
-          ),
-          ),
-          VerticalDivider(
-            width: 5.0,
-          ),
-          Container(
-            width: 160.0,
-            child: Column(
-
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  _lineaCard( "Data Servei" , record.dat_servei),
-                  _lineaCard("Cognoms: " , record.cognoms),
-                  _lineaCard("Lloguer: " , record.horas.toString() + " h."),
-                ]
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 155.0,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    _lineaCard( "Comanda:" , "0" + record.id.toString()),
+                    _lineaCard("Client: " , record.nom ),
+                    _lineaCard("Id producte: " , record.product_id ),
+                    _botonVerClient(context)
+                  ]
+              ),
             ),
-          )
-        ],
-      )
+            VerticalDivider(
+              width: 5.0,
+            ),
+            Container(
+              width: 160.0,
+              child: Column(
+
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    _lineaCard( "Data Servei" , record.dat_servei),
+                    _lineaCard("Cognoms: " , record.cognoms),
+                    _lineaCard("Lloguer: " , record.horas.toString() + " h."),
+                  ]
+              ),
+            )
+          ],
+        )
     ),
   );
 
@@ -139,15 +152,15 @@ Widget _botonVerClient(BuildContext context) {
       width: 120.0,
       color: Colors.tealAccent,
       child: GestureDetector(
-            onTap: ()=> pushPage(context, DadesClient()),
-          child: Text("Dades Client",
-              style: TextStyle(
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20.0
-              ),
-            ),
+        onTap: ()=> pushPage(context, DadesClient()),
+        child: Text("Dades Client",
+          style: TextStyle(
+              color: Colors.blueAccent,
+              fontWeight: FontWeight.w500,
+              fontSize: 20.0
           ),
+        ),
+      ),
     ),
   );
 }
@@ -162,17 +175,17 @@ Widget _lineaCard( String text_1, String text_2){
 
         children: <Widget>[
           Expanded(
-              child: Text(text_1,
-                  textAlign: TextAlign.start),
+            child: Text(text_1,
+                textAlign: TextAlign.start),
           ),
           Expanded(
-              child: Text(text_2,
-                  style: TextStyle(
+            child: Text(text_2,
+                style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
                     fontSize: 16.0
-                  ),
-                  textAlign: TextAlign.end),
+                ),
+                textAlign: TextAlign.end),
 
           )
         ],
@@ -181,9 +194,9 @@ Widget _lineaCard( String text_1, String text_2){
   );
 }
 class Record {
-  final String nom, cognoms, product_id;
-  String dat_servei, dat_comanda;
-  final int id, horas;
+  final String nom, cognoms, product_id, product_Nom;
+  final String dat_servei, dat_comanda ;
+  final int id, horas, dia, mes, importComanda ;
   bool recollida, servida;
   final DocumentReference reference;
 
@@ -197,6 +210,10 @@ class Record {
         assert(map['data_comanda'] != null),
         assert(map['product_id'] != null),
         assert(map['horas'] != null),
+        assert(map['mes'] != null),
+        assert(map['dia'] != null),
+        assert(map['importComanda'] != null),
+        assert(map['productNom'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
@@ -205,7 +222,11 @@ class Record {
         product_id = map['product_id'],
         dat_servei = map['data_servei'],
         dat_comanda= map['data_comanda'],
-        servida = map['servida'];
+        servida = map['servida'],
+        product_Nom = map['productNom'],
+        importComanda = map['importComanda'],
+        mes = map['mes'],
+        dia = map['dia'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);

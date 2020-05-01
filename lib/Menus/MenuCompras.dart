@@ -1,7 +1,7 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/CRM/Compras/ComandesARebre.dart';
 import 'package:Balewaterproject/CRM/Compras/ComandesProveidor.dart';
-import 'package:Balewaterproject/CRM/Compras/Compras.dart';
+import 'package:Balewaterproject/CRM/Ventas/Balance.dart';
 import 'package:Balewaterproject/CRM/Compras/ContacteProveidor.dart';
 import 'package:Balewaterproject/CRM/Compras/Proveidors.dart';
 import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
@@ -43,7 +43,7 @@ class MenuCompras extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Compras(), text: "Productes", width: 130, image: "image/productes.jpeg"),
+                MenuItem(page: Balance(), text: "Productes", width: 130, image: "image/productes.jpeg"),
                 MenuItem(page: ComandesARebre(), text: "Prod a rebre", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),

@@ -1,8 +1,10 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/CRM/Ventas/Experiment.dart';
+import 'package:Balewaterproject/CRM/Ventas/Balance2.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:flutter/material.dart';
 
-class Compras extends StatelessWidget{
+class Balance extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
@@ -13,7 +15,11 @@ class Compras extends StatelessWidget{
         child:  Column(
           children: <Widget>[
             BannerBaleWater(texte: "Productes Proveidors"),
-
+            Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Balance2()),
+                )
           ],
         ),
       ),
@@ -21,4 +27,3 @@ class Compras extends StatelessWidget{
 
   }
 }
-//TODO aqui mostrar diversos productes que acostument a comprar als proveidors

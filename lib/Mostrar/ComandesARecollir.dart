@@ -77,6 +77,8 @@ void _deleteFirebase(BuildContext context, Record record, String coleccion){
       .delete();
 }
 void _writeFirebase(BuildContext context, Record record, String coleccion) {
+  String a = record.dat_servei.substring(3,5);
+  String b = record.dat_servei.substring(0,2);
   Firestore.instance.collection(coleccion).document("0" + record.id.toString())
       .setData({
     'id': record.id,
@@ -87,7 +89,11 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
     'horas': record.horas,
     'product_id': record.product_id,
     'recollida': record.recollida,
-    'servida': record.servida});
+    'servida': record.servida,
+    'importComanda': record.importComanda,
+    'productNom': record.product_Nom,
+    'mes' : int.parse(a),
+    'dia' : int.parse(b)});
 }
 // Un pedido servido se pasa a estado servido
 void _cambiarEstatComanda(BuildContext context, Record record){
@@ -208,9 +214,9 @@ Widget _lineaCard( String text_1, String text_2){
   );
 }
 class Record {
-  final String nom, cognoms, product_id;
-  String dat_servei, dat_comanda;
-  final int id, horas;
+  final String nom, cognoms, product_id, product_Nom;
+  final String dat_servei, dat_comanda ;
+  final int id, horas, dia, mes, importComanda  ;
   bool recollida, servida;
   final DocumentReference reference;
 
@@ -224,6 +230,10 @@ class Record {
         assert(map['data_comanda'] != null),
         assert(map['product_id'] != null),
         assert(map['horas'] != null),
+        assert(map['mes'] != null),
+        assert(map['dia'] != null),
+        assert(map['importComanda'] != null),
+        assert(map['productNom'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
@@ -232,7 +242,11 @@ class Record {
         product_id = map['product_id'],
         dat_servei = map['data_servei'],
         dat_comanda= map['data_comanda'],
-        servida = map['servida'];
+        servida = map['servida'],
+        product_Nom = map['productNom'],
+        importComanda = map['importComanda'],
+        mes = map['mes'],
+        dia = map['dia'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);

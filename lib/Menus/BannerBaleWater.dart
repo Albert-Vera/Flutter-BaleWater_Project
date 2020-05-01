@@ -10,10 +10,10 @@ class BannerBaleWater extends StatelessWidget {
 
     return Container(
       margin: EdgeInsets.only(
-          top: 35.0,
+          top: 15.0,
           left: 40.0,
           right: 40.0,
-          bottom: 30.0
+          bottom: 3.0
       ),
       child: Column(
         children: <Widget>[

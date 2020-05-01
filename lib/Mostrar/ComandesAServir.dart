@@ -20,6 +20,9 @@ class ComandesAServir extends StatefulWidget{
 class _ComandesAServirState extends State<ComandesAServir> {
   @override
   Widget build(BuildContext context) {
+
+    //ReEscriureFire().escriure();
+
     return Scaffold(
       body: BackGroundPantalla(
           child: Column(
@@ -88,8 +91,9 @@ class _ComandesAServirState extends State<ComandesAServir> {
   }
 
   void _writeFirebase(BuildContext context, Record record, String coleccion) {
-    Firestore.instance.collection(coleccion).document(
-        "0" + record.id.toString())
+    String a = record.dat_servei.substring(3,5);
+    String b = record.dat_servei.substring(0,2);
+    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
         .setData({
       'id': record.id,
       'nom': record.nom,
@@ -99,7 +103,11 @@ class _ComandesAServirState extends State<ComandesAServir> {
       'horas': record.horas,
       'product_id': record.product_id,
       'recollida': record.recollida,
-      'servida': record.servida});
+      'servida': record.servida,
+      'importComanda': record.importComanda,
+      'productNom': record.product_Nom,
+      'mes' : int.parse(a),
+      'dia' : int.parse(b)});
   }
 
 //Lee de Firebase disponible de producto en almacén
@@ -175,7 +183,6 @@ class _ComandesAServirState extends State<ComandesAServir> {
           child: ListBody(
             children: <Widget>[
               Text('El producte has donará per entregat.'),
-              // Text('You\’re like me. I’m never satisfied.'),
             ],
           ),
         ),
@@ -242,9 +249,9 @@ class _ComandesAServirState extends State<ComandesAServir> {
   }
 }
 class Record {
-  final String nom, cognoms, product_id;
-  String dat_servei, dat_comanda;
-  final int id, horas;
+  final String nom, cognoms, product_id, product_Nom;
+  final String dat_servei, dat_comanda ;
+  final int id, horas, dia, mes, importComanda;
   bool recollida, servida;
   final DocumentReference reference;
 
@@ -258,6 +265,10 @@ class Record {
         assert(map['data_comanda'] != null),
         assert(map['product_id'] != null),
         assert(map['horas'] != null),
+        assert(map['mes'] != null),
+        assert(map['dia'] != null),
+        assert(map['importComanda'] != null),
+        assert(map['productNom'] != null),
         id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
@@ -266,7 +277,11 @@ class Record {
         product_id = map['product_id'],
         dat_servei = map['data_servei'],
         dat_comanda= map['data_comanda'],
-        servida = map['servida'];
+        servida = map['servida'],
+        product_Nom = map['productNom'],
+        importComanda = map['importComanda'],
+        mes = map['mes'],
+        dia = map['dia'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
