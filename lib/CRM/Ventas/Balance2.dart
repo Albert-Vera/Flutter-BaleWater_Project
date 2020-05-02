@@ -1,9 +1,14 @@
+import 'package:Balewaterproject/CRM/Ventas/Copia3.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'Balance3.dart';
 
 class Balance2 extends StatefulWidget {
+  bool quieroverBalance2;
+  Balance2({
+  Key key,
+  this.quieroverBalance2}): super(key: key);
   @override
   _Balance2State createState() => _Balance2State();
 }
@@ -12,7 +17,6 @@ class _Balance2State extends State<Balance2> {
   Stream<QuerySnapshot> _query;
   PageController _controller;
   int currentPage = 3;
-
   @override
   void initState() {
     super.initState();
@@ -39,10 +43,8 @@ class _Balance2State extends State<Balance2> {
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
                   if (data.hasData) {
-                    return Balance3(
-
-                      documents: data.data.documents,
-                    );
+                    if (widget.quieroverBalance2) return Balance3( documents: data.data.documents);
+                    else return Copia3(documents: data.data.documents);
                   }
                   return Center(
                     child: CircularProgressIndicator(),
