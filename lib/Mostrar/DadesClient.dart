@@ -2,6 +2,7 @@ import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Mostrar/ComandesAServir.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../BackGroundPantalla.dart';
 import '../util.dart';
@@ -60,7 +61,13 @@ class DadesClient extends StatelessWidget {
                       _lineaCard( "Servida:" , record.servida.toString() ),
                       _lineaCard( "Recollida:" , record.recollida.toString() ),
                       _stockProducte(context, record),
-                      _boton(context, record),
+
+                      Row(
+                        children: <Widget>[
+                          _botonVerClient(context, record),
+                          _boton(context, record),
+                        ],
+                      )
                       //_botonVerClient(context)
                     ]
                 ),
@@ -70,9 +77,30 @@ class DadesClient extends StatelessWidget {
       ),
     );
   }
+  Widget _botonVerClient(BuildContext context, Record record) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 14.0),
+      child: Container(
+        margin: EdgeInsets.only(left: 20.0),
+        decoration: new BoxDecoration(boxShadow: [
+          new BoxShadow(
+            color: Colors.blueAccent.withOpacity(0.2),
+            blurRadius: 5.0,
+          ),
+        ]),
+        width: 50.0,
+        // color: Colors.tealAccent,
+        child: GestureDetector(
+            onTap: ()=> Navigator.of(context).pop(),
+            child: Icon(FontAwesomeIcons.backward)
+        ),
+      ),
+    );
+  }
   Widget _boton(BuildContext context, Record record){
     return Container(
        height: 40,
+      margin: EdgeInsets.only(left: 40.0),
       child: RaisedButton(
         onPressed: () {
           pushPage(context, _alertDialog(context, record));

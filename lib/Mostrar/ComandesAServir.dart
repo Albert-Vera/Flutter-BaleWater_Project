@@ -7,6 +7,7 @@ import 'package:Balewaterproject/medio_basura/ReEscriureFire.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../util.dart';
 import 'DadesClient.dart';
@@ -260,14 +261,8 @@ class _ComandesAServirState extends State<ComandesAServir> {
         width: 120.0,
         // color: Colors.tealAccent,
         child: GestureDetector(
-          onTap: ()=> pushPage(context, DadesClient(record: record)),
-          child: Text("Més dades",
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontWeight: FontWeight.w400,
-                fontSize: 20.0
-            ),
-          ),
+          onTap: ()=> Navigator.of(context).pop(),
+          child: Icon(FontAwesomeIcons.backward)
         ),
       ),
     );
