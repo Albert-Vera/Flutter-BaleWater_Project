@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../util.dart';
 import 'DadesClient.dart';
+import 'DadesClient22.dart';
 
 class ComandesARecollir extends StatefulWidget{
   String coleccion;
@@ -164,7 +165,7 @@ Widget _impresioDades(BuildContext context, Record record) {
                     children: <Widget>[
                       _lineaCard( "Comanda:" , "0" + record.id.toString()),
                       _lineaCard("Id producte: " , record.product_id ),
-                      _botonVerClient(context)
+                      _boton(context, record)
                     ]
                 ),
               ),
@@ -248,26 +249,30 @@ Widget _lineaCard( String text_1, String text_2){
     ),
   );
 }
-Widget _botonVerClient(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 14.0),
-    child: Container(
-      decoration: new BoxDecoration(boxShadow: [
-        new BoxShadow(
-          color: Colors.blueAccent.withOpacity(0.2),
-          blurRadius: 5.0,
-        ),
-      ]),
-      width: 120.0,
-      // color: Colors.tealAccent,
-      child: GestureDetector(
-        onTap: ()=> pushPage(context, DadesClient()),
-        child: Text("Més dades",
-          style: TextStyle(
-              color: Colors.blueAccent,
-              fontWeight: FontWeight.w400,
-              fontSize: 20.0
+Widget _boton(BuildContext context, Record record22){
+  return Container(
+    margin: EdgeInsets.only(top: 10.0),
+    height: 32,
+    child: RaisedButton(
+      onPressed: () {
+        pushPage(context, DadesClient22(record22: record22));
+      },
+      textColor: Colors.white,
+      padding: const EdgeInsets.all(0.0),
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: <Color>[
+              Color(0xFF0D47A1),
+              Color(0xFF1976D2),
+              Color(0xFF42A5F5),
+            ],
           ),
+        ),
+        padding: const EdgeInsets.all(10.0),
+        child: const Text(
+            'Més dades',
+            style: TextStyle(fontSize: 13)
         ),
       ),
     ),

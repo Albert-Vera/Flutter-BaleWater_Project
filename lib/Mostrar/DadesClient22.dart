@@ -7,11 +7,11 @@ import '../BackGroundPantalla.dart';
 import '../util.dart';
 import 'ComandesAServir.dart';
 
-class DadesClient extends StatelessWidget {
-  Record record;
-  DadesClient({
+class DadesClient22 extends StatelessWidget {
+  Record record22;
+  DadesClient22({
     Key key,
-    this.record}): super(key: key);
+    this.record22}): super(key: key);
 
 
   @override
@@ -22,7 +22,7 @@ class DadesClient extends StatelessWidget {
             children: <Widget>[
               BannerBaleWater(texte: "Detall comanda",),
               Expanded(child:
-              _mostrarDetall(context, record)
+              _mostrarDetall(context, record22)
               ),
             ],
           )

@@ -118,37 +118,32 @@ class _ComandesAServirState extends State<ComandesAServir> {
             record.product_id).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Text("Loading");
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Disponibles en almacén: " + snapshot.data['enAlmacen'].toString()),
+          return Container(
+            width: double.maxFinite,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 14, right: 5.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text("Disponibles:" ,
+                    textAlign: TextAlign.start),
+                  ),
+                  Expanded(
+                    child: Text(snapshot.data['enAlmacen'].toString(),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.0
+                        ),
+                        textAlign: TextAlign.end),
+
+                  ),
+                ],
+              ),
+            ),
           );
         });
   }
-  void modificarStockProducte(BuildContext context, Record record) {
-    Firestore.instance.collection("productes")
-        .document(record.product_id)
-        .updateData({"enAlmacen": FieldValue.increment(-1)});
-  }
-// Un pedido servido se pasa a estado servido
-  void _cambiarEstatComanda(BuildContext context, Record record) {
-    Firestore.instance.collection("comanda").document(
-        "0" + record.id.toString())
-        .updateData({
-      'servida': record.servida = true,
-    });
-  }
-
-  Widget _mostraComandes(BuildContext context, Record record) {
-    return FlipCard(
-        onFlip: () {
-          // de momento ninguna condición
-        },
-        direction: FlipDirection.VERTICAL,
-        front: _impresioDades(context, record),
-        back: _alertDialog(context, record)
-    );
-  }
-
   Widget _impresioDades(BuildContext context, Record record) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6.0),
@@ -170,7 +165,8 @@ class _ComandesAServirState extends State<ComandesAServir> {
                       children: <Widget>[
                         _lineaCard( "Comanda:" , "0" + record.id.toString()),
                         _lineaCard("Id producte: " , record.product_id ),
-                        _botonVerClient(context, record)
+                        //_botonVerClient(context, record)
+                        _boton(context, record)
                       ]
                   ),
                 ),
@@ -184,12 +180,41 @@ class _ComandesAServirState extends State<ComandesAServir> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         _lineaCard( "Servei:" , record.dat_servei),
-                        _lineaCard("Lloguer: " , record.horas.toString() + " h."),
+                        stockProducte(context, record)
                       ]
                   ),
                 )
               ],
             )
+        ),
+      ),
+    );
+  }
+  Widget _boton(BuildContext context, Record record){
+    return Container(
+      margin: EdgeInsets.only(top: 10.0),
+      height: 32,
+      child: RaisedButton(
+        onPressed: () {
+          pushPage(context, DadesClient(record: record));
+        },
+        textColor: Colors.white,
+        padding: const EdgeInsets.all(0.0),
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color>[
+                Color(0xFF0D47A1),
+                Color(0xFF1976D2),
+                Color(0xFF42A5F5),
+              ],
+            ),
+          ),
+          padding: const EdgeInsets.all(10.0),
+          child: const Text(
+              'Més dades',
+              style: TextStyle(fontSize: 13)
+          ),
         ),
       ),
     );
@@ -247,39 +272,8 @@ class _ComandesAServirState extends State<ComandesAServir> {
       ),
     );
   }
-  Widget _alertDialog(BuildContext context, Record record) {
-    return Container(
-      height: 200.0,
-      child: AlertDialog(
-        title: Text('El producte ha sigut servit ?'),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text('El producte has donará per entregat.'),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Ok.'),
-            onPressed: () {
-              modificarStockProducte(context, record);
-              _cambiarEstatComanda(context, record);
-              // _buildBody(context);
-              //thisCard.currentState.toggleCard();
-            },
-          ),
-          FlatButton(
-            child: Text('Cancel.'),
-            //onPressed: () {
-            // Navigator.of(context).initState();
 
-            //},
-          ),
-        ],
-      ),
-    );
-  }
+
 
   AlertDialog _comanServidasVacio(BuildContext context) {
     return AlertDialog(
