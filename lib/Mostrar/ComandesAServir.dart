@@ -8,6 +8,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
+import '../util.dart';
+import 'DadesClient.dart';
+
 class ComandesAServir extends StatefulWidget{
   String coleccion;
 
@@ -43,23 +46,21 @@ class _ComandesAServirState extends State<ComandesAServir> {
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
         if (snapshot.data.documents.isEmpty)  return _comanServidasVacio(context);
-        else return _buildList(context, snapshot.data.documents, coleccio);
+        else return _buildList(context, snapshot.data.documents );
       },
     );
   }
 
-  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot,
-      String coleccio) {
+  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
     return
       ListView(
         padding: const EdgeInsets.only(top: 30.0),
         children: snapshot.map((data) =>
-            _buildListItem(context, data, coleccio)).toList(),
+            _buildListItem(context, data)).toList(),
       );
   }
 
-  Widget _buildListItem(BuildContext context, DocumentSnapshot datos,
-      String coleccio) {
+  Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
     final record = Record.fromSnapshot(datos);
 
     return StreamBuilder<QuerySnapshot>(
@@ -70,15 +71,15 @@ class _ComandesAServirState extends State<ComandesAServir> {
           _deleteFirebase(context, record, "perRecollir");
           _writeFirebase(context, record, "comanda");
           _writeFirebase(context, record, "comandesAservir");
-          return _mostraComandes(context, record);
+          return _impresioDades(context, record);
         } else if (record.recollida == false) {
           _deleteFirebase(context, record, "comandesAservir");
           _writeFirebase(context, record, "comanda");
           _writeFirebase(context, record, "perRecollir");
-          return _mostraComandes(context, record);
+          return _impresioDades(context, record);
         } else {
           _deleteFirebase(context, record, "perRecollir");
-          return _mostraComandes(context, record);
+          return _impresioDades(context, record);
         }
       },
     );
@@ -150,26 +151,98 @@ class _ComandesAServirState extends State<ComandesAServir> {
 
   Widget _impresioDades(BuildContext context, Record record) {
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 6.0),
+      height: 120.0,
+      child: Container(
+        decoration: new BoxDecoration(boxShadow: [
+          new BoxShadow(
+            color: Colors.blueAccent.withOpacity(0.2),
+            blurRadius: 2.0,
+          ),
+        ]),
+        child: Card(
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 155.0,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        _lineaCard( "Comanda:" , "0" + record.id.toString()),
+                        _lineaCard("Id producte: " , record.product_id ),
+                        _botonVerClient(context)
+                      ]
+                  ),
+                ),
+                VerticalDivider(
+                  width: 5.0,
+                ),
+                Container(
+                  width: 160.0,
+                  child: Column(
 
-      margin: EdgeInsets.symmetric(vertical: 10.0),
-      height: 200.0,
-      child: Card(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _lineaCard(
-                  "id Comande: 0" + record.id.toString(), record.nom + "   " +
-                  record.cognoms),
-              Divider(),
-              _lineaCard("Data Comanda: " +
-                  record.nom, "Data Servei: " + record.nom + "\n"),
-              _lineaCard("Id producte: " + record.product_id, "Producte: " +
-                  record.nom + "\n"),
-              _lineaCard(
-                  "Lloguer: " + record.horas.toString() + " h.", "Localitat: " +
-                  record.cognoms),
-              stockProducte(context, record) // Va a leer a Firebase
-            ]
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        _lineaCard( "Servei:" , record.dat_servei),
+                        _lineaCard("Lloguer: " , record.horas.toString() + " h."),
+                      ]
+                  ),
+                )
+              ],
+            )
+        ),
+      ),
+    );
+  }
+  Widget _lineaCard( String text_1, String text_2){
+    // final screenSize = MediaQuery.of(context).size;
+    return  Container(
+      width: double.maxFinite,
+      //color: Colors.tealAccent,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15.0),
+        child: Row(
+
+          children: <Widget>[
+            Expanded(
+              child: Text(text_1,
+                  textAlign: TextAlign.start),
+            ),
+            Expanded(
+              child: Text(text_2,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14.0
+                  ),
+                  textAlign: TextAlign.end),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _botonVerClient(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 14.0),
+      child: Container(
+        decoration: new BoxDecoration(boxShadow: [
+          new BoxShadow(
+            color: Colors.blueAccent.withOpacity(0.2),
+            blurRadius: 5.0,
+          ),
+        ]),
+        width: 120.0,
+        // color: Colors.tealAccent,
+        child: GestureDetector(
+          onTap: ()=> pushPage(context, DadesClient()),
+          child: Text("Més dades",
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.w400,
+                fontSize: 20.0
+            ),
+          ),
         ),
       ),
     );
@@ -225,26 +298,6 @@ class _ComandesAServirState extends State<ComandesAServir> {
           },
         ),
       ],
-    );
-  }
-
-  Widget _lineaCard(String text_1, String text_2) {
-    // final screenSize = MediaQuery.of(context).size;
-    return Container(
-      width: 250.0,
-      //color: Colors.tealAccent,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Text(text_1,
-                textAlign: TextAlign.start),
-          ),
-          Expanded(
-            child: Text(text_2,
-                textAlign: TextAlign.start),
-          )
-        ],
-      ),
     );
   }
 }

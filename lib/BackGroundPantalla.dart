@@ -33,8 +33,10 @@ class BackGroundPantalla extends StatelessWidget{
 
                   gradient: new LinearGradient(
                       colors: [
-                        Color(0xFFF3F4F7),
-                        Color(0xFF281236)
+                        Color(0xFFfcfcfc),
+                        Color(0xFFebe8e8)
+//                        Color(0xFFF3F4F7),
+//                        Color(0xFF281236)
                       ],
                       begin: const FractionalOffset(1.0,0.1 ),
                       end: const FractionalOffset(1.0, 1)

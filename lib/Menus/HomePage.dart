@@ -8,6 +8,7 @@ import 'package:Balewaterproject/Menus/MenuItem.dart';
 import 'package:Balewaterproject/Menus/MenuVendes.dart';
 import 'package:Balewaterproject/Mostrar/ComandesARecollir.dart';
 import 'package:Balewaterproject/Mostrar/ComandesAServir.dart';
+import 'package:Balewaterproject/Mostrar/probando.dart';
 import 'package:Balewaterproject/NavegadorBarraInferior.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:Balewaterproject/util.dart';

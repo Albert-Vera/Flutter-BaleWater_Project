@@ -43,7 +43,7 @@ class _Balance3State extends State<Balance3> {
   Widget _expenses() {
     return Column(
       children: <Widget>[
-        Text("€${widget.total.toStringAsFixed(2)}",
+        Text("€${widget.total.toStringAsFixed(2)}",// dos decimals
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 25.0,
@@ -123,7 +123,7 @@ class _Balance3State extends State<Balance3> {
         },
         separatorBuilder: (BuildContext context, int index) {
           return Container(
-            color: Color(0xFFc5cdd9).withOpacity(1),
+            color: Colors.blueAccent.withOpacity(0.2),
             height: 6.0,
           );
         },

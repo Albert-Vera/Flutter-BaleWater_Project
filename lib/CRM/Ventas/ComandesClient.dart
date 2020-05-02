@@ -107,39 +107,44 @@ Widget _impresioDades(BuildContext context, Record record ) {
   return Container(
 
     margin: EdgeInsets.symmetric(vertical: 10.0),
-    height: 150.0,
-    child: Card(
-        child: Row(
-          children: <Widget>[
-            Container(
-              width: 155.0,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    _lineaCard( "Comanda:" , "0" + record.id.toString()),
-                    _lineaCard("Client: " , record.nom ),
-                    _lineaCard("Id producte: " , record.product_id ),
-                    _botonVerClient(context)
-                  ]
+    height: 120.0,
+    child: Container(
+      decoration: new BoxDecoration(boxShadow: [
+        new BoxShadow(
+          color: Colors.blueAccent.withOpacity(0.2),
+          blurRadius: 5.0,
+        ),
+      ]),
+      child: Card(
+          child: Row(
+            children: <Widget>[
+              Container(
+                width: 155.0,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      _lineaCard( "Comanda:" , "0" + record.id.toString()),
+                      _lineaCard("Id producte: " , record.product_id ),
+                      _botonVerClient(context)
+                    ]
+                ),
               ),
-            ),
-            VerticalDivider(
-              width: 5.0,
-            ),
-            Container(
-              width: 160.0,
-              child: Column(
-
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    _lineaCard( "Data Servei" , record.dat_servei),
-                    _lineaCard("Cognoms: " , record.cognoms),
-                    _lineaCard("Lloguer: " , record.horas.toString() + " h."),
-                  ]
+              VerticalDivider(
+                width: 5.0,
               ),
-            )
-          ],
-        )
+              Container(
+                width: 160.0,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      _lineaCard( "Servei:" , record.dat_servei),
+                      _lineaCard("Lloguer: " , record.horas.toString() + " h."),
+                    ]
+                ),
+              )
+            ],
+          )
+      ),
     ),
   );
 
@@ -183,10 +188,9 @@ Widget _lineaCard( String text_1, String text_2){
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
-                    fontSize: 16.0
+                    fontSize: 14.0
                 ),
                 textAlign: TextAlign.end),
-
           )
         ],
       ),
