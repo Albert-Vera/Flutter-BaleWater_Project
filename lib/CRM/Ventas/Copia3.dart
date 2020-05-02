@@ -137,9 +137,9 @@ class _Copia3State extends State<Copia3> {
         itemBuilder: (BuildContext context, int index) {
           var id = widget.documents[index].data['id'];
           var producte = widget.documents[index].data['productNom'];
-          String  client = widget.documents[index].data['nom'];
+          String  client = widget.documents[index].data['nom'] + " " + widget.documents[index].data['cognoms'];
           String dataServei = (widget.documents[index].data['data_servei']);
-          return _item( id, producte, client, dataServei);
+          return _item( id, client, producte, dataServei);
         },
         separatorBuilder: (BuildContext context, int index) {
           return Container(

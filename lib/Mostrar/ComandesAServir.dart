@@ -170,7 +170,7 @@ class _ComandesAServirState extends State<ComandesAServir> {
                       children: <Widget>[
                         _lineaCard( "Comanda:" , "0" + record.id.toString()),
                         _lineaCard("Id producte: " , record.product_id ),
-                        _botonVerClient(context)
+                        _botonVerClient(context, record)
                       ]
                   ),
                 ),
@@ -222,7 +222,7 @@ class _ComandesAServirState extends State<ComandesAServir> {
       ),
     );
   }
-  Widget _botonVerClient(BuildContext context) {
+  Widget _botonVerClient(BuildContext context, Record record) {
     return Padding(
       padding: const EdgeInsets.only(top: 14.0),
       child: Container(
@@ -235,7 +235,7 @@ class _ComandesAServirState extends State<ComandesAServir> {
         width: 120.0,
         // color: Colors.tealAccent,
         child: GestureDetector(
-          onTap: ()=> pushPage(context, DadesClient()),
+          onTap: ()=> pushPage(context, DadesClient(record: record)),
           child: Text("Més dades",
             style: TextStyle(
                 color: Colors.blueAccent,
