@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class Record {
   final String nom, cognoms, product_id, product_Nom;
-  final String dat_servei, dat_comanda ;
-  final int id, horas, dia, mes, importComanda  ;
+  final String dat_servei, dat_comanda, adreca, localitat;
+  final int id, horas, dia, mes, importComanda, cp ;
   bool recollida, servida;
   final DocumentReference reference;
 
@@ -22,7 +22,10 @@ class Record {
         assert(map['dia'] != null),
         assert(map['importComanda'] != null),
         assert(map['productNom'] != null),
-        id = map['id'],
+        assert(map['adreca'] != null),
+        assert(map['localitat'] != null),
+        assert(map['cp'] != null),
+      id = map['id'],
         nom = map['nom'],
         cognoms = map['cognoms'],
         recollida = map['recollida'],
@@ -33,6 +36,9 @@ class Record {
         servida = map['servida'],
         product_Nom = map['productNom'],
         importComanda = map['importComanda'],
+        adreca = map['adreca'],
+        localitat = map['localitat'],
+        cp = map['cp'],
         mes = map['mes'],
         dia = map['dia'];
 

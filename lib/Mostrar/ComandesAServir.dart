@@ -25,7 +25,7 @@ class _ComandesAServirState extends State<ComandesAServir> {
   @override
   Widget build(BuildContext context) {
 
-    //ReEscriureFire().escriure();
+   // ReEscriureFire().escriure();
 
     return Scaffold(
       body: BackGroundPantalla(
@@ -33,7 +33,7 @@ class _ComandesAServirState extends State<ComandesAServir> {
             children: <Widget>[
               BannerBaleWater(texte: "Comandes a servir",),
               Expanded(child:
-              _buildBody(context, this.widget.coleccion)
+                _buildBody(context, this.widget.coleccion)
               ),
             ],
           )
@@ -63,10 +63,13 @@ class _ComandesAServirState extends State<ComandesAServir> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
     final record = Record.fromSnapshot(datos);
-
+    ////  LLEGEIX COMANDESaSERVIR MES AMUNT, RECORD ES DE COMANDESASERVIR, PERO ESCRIU A COMANDA,
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection("comanda").snapshots(),
       builder: (context, snapshot) {
+
+       // final actualizarComanda = Record.fromSnapshot(snapshot);  //intento de hacer una segunda busqueda
+
         if (!snapshot.hasData) return LinearProgressIndicator();
         if (record.servida == false) {
           _deleteFirebase(context, record, "perRecollir");
@@ -87,15 +90,14 @@ class _ComandesAServirState extends State<ComandesAServir> {
   }
 
   void _deleteFirebase(BuildContext context, Record record, String coleccion) {
-    Firestore.instance.collection(coleccion).document(
-        "0" + record.id.toString())
+    Firestore.instance.collection(coleccion).document(record.id.toString())
         .delete();
   }
 
   void _writeFirebase(BuildContext context, Record record, String coleccion) {
     String a = record.dat_servei.substring(3,5);
     String b = record.dat_servei.substring(0,2);
-    Firestore.instance.collection(coleccion).document("0" + record.id.toString())
+    Firestore.instance.collection(coleccion).document(record.id.toString())
         .setData({
       'id': record.id,
       'nom': record.nom,
@@ -108,6 +110,9 @@ class _ComandesAServirState extends State<ComandesAServir> {
       'servida': record.servida,
       'importComanda': record.importComanda,
       'productNom': record.product_Nom,
+      'adreca': record.adreca,
+      'localitat': record.localitat,
+      'cp': record.cp,
       'mes' : int.parse(a),
       'dia' : int.parse(b)});
   }
@@ -254,8 +259,6 @@ class _ComandesAServirState extends State<ComandesAServir> {
       content: SingleChildScrollView(
         child:
         Text('No hi ha comandes per servir'),
-        // Text('You\’re like me. I’m never satisfied.'),
-
       ),
       actions: <Widget>[
         FlatButton(
@@ -268,4 +271,3 @@ class _ComandesAServirState extends State<ComandesAServir> {
     );
   }
 }
-

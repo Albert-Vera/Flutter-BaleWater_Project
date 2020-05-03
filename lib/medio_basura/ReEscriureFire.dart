@@ -1,29 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-//
-//class ReEscriureFire{
-//
-//  void escriure() {
-//    Firestore.instance.collection("comanda").document("09")
-//        .setData(
-//        {
-//          'id': 122,
-//          'nom': "Asunción",
-//          'cognoms': "Maria",
-//          'data_servei': "1/01/2020",
-//          'data_comanda': "01/01/2020",
-//          'horas': 4,
-//          'product_id': "RT-005",
-//          'recollida': false,
-//          'servida': false,
-//          'importComanda': 450,
-//          'productNom': "Rocódromo",
-//          'mes' : 1,
-//          'dia' : 1});
-//
-//  }
-//}
+
+class ReEscriureFire{
+
+      void escriure() {
+            Firestore.instance.collection("comanda").document("15")
+                .setData(
+                {
+                      'id': 15,
+                      'nom': "Señora",
+                      'cognoms': "Escarlata",
+                      'data_servei': "26/04/2020",
+                      'data_comanda': "01/04/2020",
+                      'horas': 4,
+                      'product_id': "FB-055",
+                      'recollida': false,
+                      'servida': false,
+                      'importComanda': 450,
+                      'productNom': "Tobogán",
+                      'adreca': "vista al mar, 13",
+                      'localitat': "Barcelona",
+                      'cp': 08080,
+                      'mes' : 4,
+                      'dia' : 26
+                      });
+
+      }
+}
 
 /////   COMANDA
 //Firestore.instance.collection("comanda").document("07")

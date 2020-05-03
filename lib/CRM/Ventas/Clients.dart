@@ -52,6 +52,7 @@ class _ClientsState extends State<Clients> {
   }
   Widget writeBBDD_Client() {
     List<String> pajarito = new List(querySnapshot.documents.length  );
+    print("lista.............. $pajarito.length");
     //  DESACTIVADO DE POCO SIRVE
     for (int i=0; i < querySnapshot.documents.length; i++) {
       if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")) {

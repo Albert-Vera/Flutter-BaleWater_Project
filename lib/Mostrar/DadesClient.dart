@@ -13,6 +13,8 @@ class DadesClient extends StatelessWidget {
   Record record;
   String texte, texte2;
   Widget ruta;
+  int _disponible;
+
   DadesClient({
     Key key,
     this.record,
@@ -70,7 +72,7 @@ class DadesClient extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           _btnRetroceso(context, record),
-                          _boton(context, record),
+                          if (texte != "") _boton(context, record),
                         ],
                       )
                     ]
@@ -107,7 +109,8 @@ class DadesClient extends StatelessWidget {
       margin: EdgeInsets.only(left: 40.0),
       child: RaisedButton(
         onPressed: () {
-          pushPage(context, _alertDialog(context, record));
+          if (_disponible > 0)  pushPage(context, _alertDialog(context, record));
+          else pushPage(context, _noDisponibles(context));
         },
         textColor: Colors.white,
         padding: const EdgeInsets.all(0.0),
@@ -196,6 +199,7 @@ class DadesClient extends StatelessWidget {
             record.product_id).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Text("Loading");
+          _disponible = snapshot.data['enAlmacen'];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Disponibles en almacén: " + snapshot.data['enAlmacen'].toString()),
@@ -217,19 +221,34 @@ class DadesClient extends StatelessWidget {
 // Un pedido servido se pasa a estado servido
   void _cambiarEstatComanda(BuildContext context, Record record) {
     if (texte == "SERVIDA") {
-      Firestore.instance.collection("comanda").document(
-          "0" + record.id.toString())
+      Firestore.instance.collection("comanda").document(record.id.toString())
           .updateData({
         'servida': record.servida = true,
       });
     }
     else {
-      Firestore.instance.collection("comanda").document(
-          "0" + record.id.toString())
+      Firestore.instance.collection("comanda").document(record.id.toString())
           .updateData({
         'recollida': record.recollida = true,
         'servida': record.servida = true,
       });
     }
+  }
+  AlertDialog _noDisponibles(BuildContext context) {
+    return AlertDialog(
+      title: Text('No hi unitats diponilbes'),
+      content: SingleChildScrollView(
+        child:
+        Text(''),
+      ),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('Ok.'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
   }
 }

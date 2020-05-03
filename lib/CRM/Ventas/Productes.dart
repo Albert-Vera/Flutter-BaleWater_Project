@@ -68,7 +68,6 @@ class _ProductesState extends State<Productes> {
       stream: Firestore.instance.collection("productes").snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        int cosas = record.enAlmacen -1;
         return _actualitzarDades(context, record);
       },
     );
@@ -77,7 +76,7 @@ class _ProductesState extends State<Productes> {
   Widget _actualitzarDades(BuildContext context, RecordProducte record) {
 
 
-    //todo  TORNAR A LLEGIR FIREBASE SERVIDAS Y RESTA SERVIDAS Y SUMA RECOLLIDAS
+    //todo
 
     return _impresioDades(context, record);
 
@@ -86,6 +85,15 @@ class _ProductesState extends State<Productes> {
   Widget _impresioDades(BuildContext context, RecordProducte record) {
     return Container(
       height: 350.0,
+      margin: EdgeInsets.all(10.0),
+      decoration: new BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.blueAccent.withOpacity(0.2),
+          blurRadius: 2.0,
+        ),
+      ],
+          borderRadius: BorderRadius.circular(15.0)
+      ),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -96,15 +104,15 @@ class _ProductesState extends State<Productes> {
               Stack(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 200.0),
+                    margin: EdgeInsets.only(left: 80.0),
                     child: Image.network(record.imageCastle,
-                        width: 100,
-                        height: 100),
+                        width: 200,
+                        height: 80),
                   ),
                   Container(
                     width: 250.0,
                     margin: EdgeInsets.only(
-                        top: 80.0,
+                        top: 90.0,
                         left: 20.0
                     ),
                     child: Column(
@@ -145,8 +153,12 @@ class _ProductesState extends State<Productes> {
           ),
           Expanded(
             child: Text(text_2,
-                textAlign: TextAlign.start,
-                style: const TextStyle(fontSize: 18.0)),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14.0
+                ),
+                textAlign: TextAlign.end),
           ),
         ],
       ),

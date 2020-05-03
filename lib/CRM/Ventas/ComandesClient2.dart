@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'GraphWidget.dart';
 
-class Copia3 extends StatefulWidget {
+class ComandesClient2 extends StatefulWidget {
   final List<DocumentSnapshot> documents;
   final double total;
   final List<double> perDay;
 
-  Copia3({Key key, this.documents})
+  ComandesClient2({Key key, this.documents})
       : total = documents.map((doc) => doc['importComanda'])
       .fold(0.0, (a, b) => a + b),
         perDay = List.generate(30, (int index) {
@@ -19,10 +19,10 @@ class Copia3 extends StatefulWidget {
         super(key: key);
 
   @override
-  _Copia3State createState() => _Copia3State();
+  _ComandesClient2State createState() => _ComandesClient2State();
 }
 
-class _Copia3State extends State<Copia3> {
+class _ComandesClient2State extends State<ComandesClient2> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -122,9 +122,33 @@ class _Copia3State extends State<Copia3> {
             style: TextStyle(
               color: Colors.blueAccent,
               fontWeight: FontWeight.w500,
-              fontSize: 16.0,
+              fontSize: 12.0,
             ),
           ),
+        ),
+      ),
+    );
+  }
+  Widget _impresioDades( int id, String name, String productId, String value) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 6.0),
+      height: 50.0,
+      child: Container(
+        decoration: new BoxDecoration(boxShadow: [
+          new BoxShadow(
+            color: Colors.blueAccent.withOpacity(0.2),
+            blurRadius: 2.0,
+          ),
+        ]),
+        child: Card(
+            child: Row(
+              children: <Widget>[
+                Text(  id.toString()),
+                Text( productId ),
+                Text( name),
+
+              ],
+            )
         ),
       ),
     );

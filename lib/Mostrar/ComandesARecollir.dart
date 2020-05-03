@@ -77,13 +77,13 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data, String colecc
   );
 }
 void _deleteFirebase(BuildContext context, Record record, String coleccion){
-  Firestore.instance.collection(coleccion).document("0" + record.id.toString())
+  Firestore.instance.collection(coleccion).document(record.id.toString())
       .delete();
 }
 void _writeFirebase(BuildContext context, Record record, String coleccion) {
   String a = record.dat_servei.substring(3,5);
   String b = record.dat_servei.substring(0,2);
-  Firestore.instance.collection(coleccion).document("0" + record.id.toString())
+  Firestore.instance.collection(coleccion).document(record.id.toString())
       .setData({
     'id': record.id,
     'nom': record.nom,
@@ -96,12 +96,15 @@ void _writeFirebase(BuildContext context, Record record, String coleccion) {
     'servida': record.servida,
     'importComanda': record.importComanda,
     'productNom': record.product_Nom,
+    'adreca': record.adreca,
+    'localitat': record.localitat,
+    'cp': record.cp,
     'mes' : int.parse(a),
     'dia' : int.parse(b)});
 }
 // Un pedido servido se pasa a estado servido
 void _cambiarEstatComanda(BuildContext context, Record record){
-  Firestore.instance.collection("comanda").document("0" + record.id.toString())
+  Firestore.instance.collection("comanda").document(record.id.toString())
       .updateData({
     'recollida': record.recollida = true,
     'servida': record.servida = true,

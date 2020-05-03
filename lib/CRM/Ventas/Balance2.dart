@@ -1,4 +1,4 @@
-import 'package:Balewaterproject/CRM/Ventas/Copia3.dart';
+import 'package:Balewaterproject/CRM/Ventas/ComandesClient2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +44,7 @@ class _Balance2State extends State<Balance2> {
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
                   if (data.hasData) {
                     if (widget.quieroverBalance2) return Balance3( documents: data.data.documents);
-                    else return Copia3(documents: data.data.documents);
+                    else return ComandesClient2(documents: data.data.documents);
                   }
                   return Center(
                     child: CircularProgressIndicator(),
@@ -57,6 +57,7 @@ class _Balance2State extends State<Balance2> {
       ),
     );
   }
+  // Mesos del any
   Widget _pageItem(String name, int position) {
     var _alignment;
     final selected = TextStyle(
