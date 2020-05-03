@@ -1,6 +1,7 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/medio_basura/MostrarComandes1.dart';
+import 'package:Balewaterproject/model/RecordProducte.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class _ProductesState extends State<Productes> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot datos,
       String coleccio) {
-    final record = Record.fromSnapshot(datos);
+    final record = RecordProducte.fromSnapshot(datos);
 
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection("productes").snapshots(),
@@ -73,7 +74,7 @@ class _ProductesState extends State<Productes> {
     );
   }
 
-  Widget _actualitzarDades(BuildContext context, Record record) {
+  Widget _actualitzarDades(BuildContext context, RecordProducte record) {
 
 
     //todo  TORNAR A LLEGIR FIREBASE SERVIDAS Y RESTA SERVIDAS Y SUMA RECOLLIDAS
@@ -82,7 +83,7 @@ class _ProductesState extends State<Productes> {
 
   }
 
-  Widget _impresioDades(BuildContext context, Record record) {
+  Widget _impresioDades(BuildContext context, RecordProducte record) {
     return Container(
       height: 350.0,
       child: Card(
@@ -152,39 +153,4 @@ class _ProductesState extends State<Productes> {
     );
   }
 }
-class Record {
-  final String id, nomCastle,imageCastle, proveedor;
-  var stock, enAlmacen, servidas, averiados;
-  var precioCoste, precioAlquiler;
 
-  final DocumentReference reference;
-
-  Record.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['id'] != null),
-        assert(map['nomCastle'] != null),
-        assert(map['imageCastle'] != null),
-        assert(map['proveedor'] != null),
-        assert(map['stock'] != null),
-        assert(map['enAlmacen'] != null),
-        assert(map['servidas'] != null),
-        assert(map['averiados'] != null),
-        assert(map['precioCoste'] != null),
-        assert(map['precioAlquiler'] != null),
-        id = map['id'],
-        nomCastle = map['nomCastle'],
-        proveedor = map['proveedor'],
-        stock = map['stock'],
-        enAlmacen = map['enAlmacen'],
-        servidas = map['servidas'],
-        averiados = map['averiados'],
-        precioCoste = map['precioCoste'],
-        precioAlquiler = map['precioAlquiler'],
-        imageCastle = map['imageCastle'];
-
-
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$id:$nomCastle>";
-}
