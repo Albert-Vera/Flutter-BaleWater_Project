@@ -11,10 +11,14 @@ import 'ComandesAServir.dart';
 
 class DadesClient extends StatelessWidget {
   Record record;
+  String texte, texte2;
+  Widget ruta;
   DadesClient({
     Key key,
-    this.record}): super(key: key);
-
+    this.record,
+  this.texte,
+  this.texte2,
+  this.ruta}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +69,10 @@ class DadesClient extends StatelessWidget {
 
                       Row(
                         children: <Widget>[
-                          _botonVerClient(context, record),
+                          _btnRetroceso(context, record),
                           _boton(context, record),
                         ],
                       )
-                      //_botonVerClient(context)
                     ]
                 ),
               ),
@@ -78,7 +81,7 @@ class DadesClient extends StatelessWidget {
       ),
     );
   }
-  Widget _botonVerClient(BuildContext context, Record record) {
+  Widget _btnRetroceso(BuildContext context, Record record) {
     return Padding(
       padding: const EdgeInsets.only(top: 14.0),
       child: Container(
@@ -119,8 +122,7 @@ class DadesClient extends StatelessWidget {
             ),
           ),
           padding: const EdgeInsets.all(10.0),
-          child: const Text(
-              'SERVIDA',
+          child: Text( texte,
               style: TextStyle(fontSize: 20)
           ),
         ),
@@ -128,13 +130,12 @@ class DadesClient extends StatelessWidget {
     );
   }
   AlertDialog _alertDialog(BuildContext context, Record record) {
-    print("Maravillososoooooooooooooooooooooooooooooooooo111");
     return  AlertDialog(
-        title: Text('El producte ha sigut servit ?'),
+        title: Text('El producte ha sigut $texte2 ?'),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text('El producte has donará per entregat.'),
+              Text('El producte has donará per $texte2.'),
             ],
           ),
         ),
@@ -144,7 +145,7 @@ class DadesClient extends StatelessWidget {
             onPressed: () {
               modificarStockProducte(context, record);
               _cambiarEstatComanda(context, record);
-              pushPage(context, ComandesAServir());
+              pushPage(context, ruta);
               // _buildBody(context);
               //thisCard.currentState.toggleCard();
             },
@@ -202,16 +203,33 @@ class DadesClient extends StatelessWidget {
         });
   }
   void modificarStockProducte(BuildContext context, Record record) {
-    Firestore.instance.collection("productes")
-        .document(record.product_id)
-        .updateData({"enAlmacen": FieldValue.increment(-1)});
+    if (texte == "SERVIDA"){
+      Firestore.instance.collection("productes")
+          .document(record.product_id)
+          .updateData({"enAlmacen": FieldValue.increment(-1)});
+    }
+    else {
+      Firestore.instance.collection("productes")
+          .document(record.product_id)
+          .updateData({"enAlmacen": FieldValue.increment(1)});
+    }
   }
 // Un pedido servido se pasa a estado servido
   void _cambiarEstatComanda(BuildContext context, Record record) {
-    Firestore.instance.collection("comanda").document(
-        "0" + record.id.toString())
-        .updateData({
-      'servida': record.servida = true,
-    });
+    if (texte == "SERVIDA") {
+      Firestore.instance.collection("comanda").document(
+          "0" + record.id.toString())
+          .updateData({
+        'servida': record.servida = true,
+      });
+    }
+    else {
+      Firestore.instance.collection("comanda").document(
+          "0" + record.id.toString())
+          .updateData({
+        'recollida': record.recollida = true,
+        'servida': record.servida = true,
+      });
+    }
   }
 }

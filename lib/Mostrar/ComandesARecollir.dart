@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import '../util.dart';
 import 'DadesClient.dart';
-import 'DadesClient22.dart';
 
 class ComandesARecollir extends StatefulWidget{
   String coleccion;
@@ -109,23 +108,11 @@ void _cambiarEstatComanda(BuildContext context, Record record){
   });
 }
 void _modificarStockProducte(Record record) {
-  //TODO arreglar aixo posar el id rt-005 fer cambi a firebase
   Firestore.instance.collection("productes")
       .document(record.id.toString())
       .updateData({"enAlmacen": FieldValue.increment(1)});
 }
-Widget _mostraComandes(BuildContext context, Record record ){
-  return   FlipCard(
-      onFlip:(){
-        // de momento ninguna condición
-      },
-      direction: FlipDirection.VERTICAL,
-      front: _impresioDades(context, record),
-      back: _alertDialog(context, record)
 
-  );
-
-}
 AlertDialog _comanServidasVacio(BuildContext context) {
   return AlertDialog(
     title: Text('Comandes a Recollir'),
@@ -190,38 +177,7 @@ Widget _impresioDades(BuildContext context, Record record) {
     ),
   );
 }
-AlertDialog _alertDialog(BuildContext context, Record record, ) {
-  //GlobalKey<FlipCardState> thisCard = ;
-  return AlertDialog(
-    title: Text('El producte ha sigut recollit ?'),
-    content: SingleChildScrollView(
-      child: ListBody(
-        children: <Widget>[
-          Text('El producte has donará per recollit.'),
-          // Text('You\’re like me. I’m never satisfied.'),
-        ],
-      ),
-    ),
-    actions: <Widget>[
-      FlatButton(
-        child: Text('Ok.'),
-        onPressed: () {
-          _modificarStockProducte(record);
-          _cambiarEstatComanda(context, record);
-          // _buildBody(context);
-          //thisCard.currentState.toggleCard();
-        },
-      ),
-      FlatButton(
-        child: Text('Cancel.'),
-        //onPressed: () {
-        // Navigator.of(context).initState();
 
-        //},
-      ),
-    ],
-  );
-}
 Widget _lineaCard( String text_1, String text_2){
   // final screenSize = MediaQuery.of(context).size;
   return  Container(
@@ -256,7 +212,7 @@ Widget _boton(BuildContext context, Record record){
     height: 32,
     child: RaisedButton(
       onPressed: () {
-        pushPage(context, DadesClient(record: record));
+        pushPage(context, DadesClient(record: record, texte: "Recollida", texte2: "recollit", ruta: ComandesARecollir(),));
       },
       textColor: Colors.white,
       padding: const EdgeInsets.all(0.0),

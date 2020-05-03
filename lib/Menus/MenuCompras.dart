@@ -43,7 +43,7 @@ class MenuCompras extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Balance(), text: "Productes", width: 130, image: "image/productes.jpeg"),
+                MenuItem(page: ComandesARebre(), text: "Productes", width: 130, image: "image/productes.jpeg"),
                 MenuItem(page: ComandesARebre(), text: "Prod a rebre", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),

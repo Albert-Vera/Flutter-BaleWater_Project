@@ -148,36 +148,3 @@ class _MostrarComandes1State extends State<MostrarComandes1> {
 
 }
 
-class Record {
-  final String nom, cognoms, product_id;
-  String dat_servei, dat_comanda;
-  final int id, horas;
-  bool recollida, servida;
-  final DocumentReference reference;
-
-  Record.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['id'] != null),
-        assert(map['nom'] != null),
-        assert(map['cognoms'] != null),
-        assert(map['recollida'] != null),
-        assert(map['servida'] != null),
-        assert(map['data_servei'] != null),
-        assert(map['data_comanda'] != null),
-        assert(map['product_id'] != null),
-        assert(map['horas'] != null),
-        id = map['id'],
-        nom = map['nom'],
-        cognoms = map['cognoms'],
-        recollida = map['recollida'],
-        horas = map['horas'],
-        product_id = map['product_id'],
-        dat_servei = map['data_servei'],
-        dat_comanda= map['data_comanda'],
-        servida = map['servida'];
-
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$nom:$cognoms>";
-}

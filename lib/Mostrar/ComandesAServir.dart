@@ -166,8 +166,7 @@ class _ComandesAServirState extends State<ComandesAServir> {
                       children: <Widget>[
                         _lineaCard( "Comanda:" , "0" + record.id.toString()),
                         _lineaCard("Id producte: " , record.product_id ),
-                        //_botonVerClient(context, record)
-                        _boton(context, record)
+                        _btnVeureComanda(context, record)
                       ]
                   ),
                 ),
@@ -191,13 +190,13 @@ class _ComandesAServirState extends State<ComandesAServir> {
       ),
     );
   }
-  Widget _boton(BuildContext context, Record record){
+  Widget _btnVeureComanda(BuildContext context, Record record){
     return Container(
       margin: EdgeInsets.only(top: 10.0),
       height: 32,
       child: RaisedButton(
         onPressed: () {
-          pushPage(context, DadesClient(record: record));
+          pushPage(context, DadesClient(record: record, texte: "SERVIDA", texte2: "servit", ruta: ComandesAServir(),));
         },
         textColor: Colors.white,
         padding: const EdgeInsets.all(0.0),
@@ -248,27 +247,6 @@ class _ComandesAServirState extends State<ComandesAServir> {
       ),
     );
   }
-  Widget _botonVerClient(BuildContext context, Record record) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 14.0),
-      child: Container(
-        decoration: new BoxDecoration(boxShadow: [
-          new BoxShadow(
-            color: Colors.blueAccent.withOpacity(0.2),
-            blurRadius: 5.0,
-          ),
-        ]),
-        width: 120.0,
-        // color: Colors.tealAccent,
-        child: GestureDetector(
-          onTap: ()=> Navigator.of(context).pop(),
-          child: Icon(FontAwesomeIcons.backward)
-        ),
-      ),
-    );
-  }
-
-
 
   AlertDialog _comanServidasVacio(BuildContext context) {
     return AlertDialog(
