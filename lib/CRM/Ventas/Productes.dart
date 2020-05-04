@@ -155,8 +155,8 @@ class _ProductesState extends State<Productes> {
             child: Text(text_2,
                 style: TextStyle(
                     color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.0
+                    fontWeight: FontWeight.w900,
+                    fontSize: 16.0
                 ),
                 textAlign: TextAlign.end),
           ),
