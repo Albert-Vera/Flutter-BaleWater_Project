@@ -71,7 +71,7 @@ class DadesClient extends StatelessWidget {
 
                       Row(
                         children: <Widget>[
-                          _btnRetroceso(context, record),
+                          _btnRetroceso(context, record ),
                           if (texte != "") _boton(context, record),
                         ],
                       )
@@ -109,8 +109,12 @@ class DadesClient extends StatelessWidget {
       margin: EdgeInsets.only(left: 40.0),
       child: RaisedButton(
         onPressed: () {
-          if (_disponible > 0)  pushPage(context, _alertDialog(context, record));
-          else pushPage(context, _noDisponibles(context));
+          if ( texte == "SERVIDA") {
+            if ( _disponible > 0 )
+              pushPage(context, _alertDialog(context, record));
+            else
+              pushPage(context, _noDisponibles(context));
+          }else pushPage(context, _alertDialog(context, record));
         },
         textColor: Colors.white,
         padding: const EdgeInsets.all(0.0),

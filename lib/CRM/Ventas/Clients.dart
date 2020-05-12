@@ -60,9 +60,10 @@ class _ClientsState extends State<Clients> {
             .setData({
           'nom': '${querySnapshot.documents[i].data['nom']}',
           'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
-          'email': '${querySnapshot.documents[i].data['email']}'});
+          'email': '${querySnapshot.documents[i].data['email']}',
+          'dataAlta': '${querySnapshot.documents[i].data['data_comanda']}'});
 
-        pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
+       // pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
       }
     }
 
@@ -108,7 +109,7 @@ class _ClientsState extends State<Clients> {
                             child: Row(
                               children: <Widget>[
                                 Expanded(
-                                  child: Text("id: 023" + "   ",
+                                  child: Text("id: " + "${querySnapshot.documents[i].data['id']}",
                                     textAlign: TextAlign.justify,),
                                 ),
                                 Expanded(
@@ -128,14 +129,12 @@ class _ClientsState extends State<Clients> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text("Data Comanda: " +
-                                      "${querySnapshot.documents[i]
-                                          .data['dataComanda']}",
+                                      "${querySnapshot.documents[i].data['dataComanda']}",
                                     textAlign: TextAlign.left,),
                                 ),
                                 Expanded(
                                   child: Text("Data Servei: " +
-                                      "${querySnapshot.documents[i]
-                                          .data['dataServei']}",
+                                      "${querySnapshot.documents[i].data['dataServei']}",
                                     textAlign: TextAlign.right,),
                                 )
                               ],

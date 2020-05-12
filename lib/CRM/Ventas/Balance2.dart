@@ -61,12 +61,12 @@ class _Balance2State extends State<Balance2> {
   Widget _pageItem(String name, int position) {
     var _alignment;
     final selected = TextStyle(
-      fontSize: 20.0,
+      fontSize: 22.0,
       fontWeight: FontWeight.bold,
       color: Colors.blueGrey,
     );
     final unselected = TextStyle(
-      fontSize: 20.0,
+      fontSize: 18.0,
       fontWeight: FontWeight.normal,
       color: Colors.blueGrey.withOpacity(0.4),
     );

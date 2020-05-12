@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class ReEscriureFire{
 
       void escriure() {
-            Firestore.instance.collection("comanda").document("15")
+            Firestore.instance.collection("comanda").document("23")
                 .setData(
                 {
-                      'id': 15,
+                      'id': 23,
                       'nom': "Señora",
                       'cognoms': "Escarlata",
                       'data_servei': "26/04/2020",
