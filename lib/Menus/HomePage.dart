@@ -11,7 +11,9 @@ import 'package:Balewaterproject/Mostrar/ComandesAServir.dart';
 import 'package:Balewaterproject/Mostrar/probando.dart';
 import 'package:Balewaterproject/NavegadorBarraInferior.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
+import 'package:Balewaterproject/model/Record.dart';
 import 'package:Balewaterproject/util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:meta/meta.dart';
@@ -111,14 +113,93 @@ Widget graella(BuildContext context) {
       height: 300,
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
-              MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "a recollir", width: 130, image: "image/servidas.jpeg"),
-            ],
-          ),
+      Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
+          MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "a recollir", width: 130, image: "image/servidas.jpeg"),
         ],
-      )
+      ),
+      Expanded(child:
+         _buildBody(context) // NO mostar res per pantalla pero actualitzar comandas que arriban de la Web.
+
+      ),
+
+  ],
+  )
   );
+}
+Widget _buildBody(BuildContext context ) {
+  return StreamBuilder<QuerySnapshot>(
+    stream: Firestore.instance.collection("comanda").snapshots(),
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) return LinearProgressIndicator();
+      return _buildList(context, snapshot.data.documents );
+    },
+  );
+
+}
+
+Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
+  return
+    ListView(
+      padding: const EdgeInsets.only(top: 30.0),
+      children: snapshot.map((data) =>
+          _buildListItem(context, data)).toList(),
+    );
+}
+
+Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
+  final record = Record.fromSnapshot(datos);
+  return StreamBuilder<QuerySnapshot>(
+    stream: Firestore.instance.collection("comanda").snapshots(),
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) return LinearProgressIndicator();
+      if (record.servida == false) {
+        _deleteFirebase(context, record, "perRecollir");
+        _writeFirebase(context, record, "comanda");
+        _writeFirebase(context, record, "comandesAservir");
+        return Container();
+      } else if (record.recollida == false) {
+        _deleteFirebase(context, record, "comandesAservir");
+        _writeFirebase(context, record, "comanda");
+        _writeFirebase(context, record, "perRecollir");
+        return Container();
+      } else {
+        _deleteFirebase(context, record, "perRecollir");
+        return Container();
+      }
+    },
+  );
+}
+void _deleteFirebase(BuildContext context, Record record, String coleccion) {
+  Firestore.instance.collection(coleccion).document(record.id.toString())
+      .delete();
+}
+
+void _writeFirebase(BuildContext context, Record record, String coleccion) {
+  String a = record.dat_servei.substring(3,5);
+  String b = record.dat_servei.substring(0,2);
+  Firestore.instance.collection(coleccion).document(record.id.toString())
+      .setData({
+    'id': record.id,
+    'idClient': record.idClient,
+    'nom': record.nom,
+    'cognoms': record.cognoms,
+    'email': record.email,
+    'telef': record.telef,
+    'data_servei': record.dat_servei,
+    'data_comanda': record.dat_comanda,
+    'horas': record.horas,
+    'product_id': record.product_id,
+    'recollida': record.recollida,
+    'servida': record.servida,
+    'importComanda': record.importComanda,
+    'productNom': record.product_Nom,
+    'adreca': record.adreca,
+    'localitat': record.localitat,
+    'provincia': record.provincia,
+    'cp': record.cp,
+    'mes' : int.parse(a),
+    'dia' : int.parse(b)});
 }

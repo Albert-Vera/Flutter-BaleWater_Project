@@ -1,9 +1,13 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
+import 'package:Balewaterproject/model/Record.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
+
+import '../../Datos_Firebase.dart';
 
 
 class Clients extends StatefulWidget{
@@ -12,172 +16,143 @@ class Clients extends StatefulWidget{
 }
 
 class _ClientsState extends State<Clients> {
-  @override
-  void initState() {
-    super.initState();
-    getComandesList().then((results) {
-      setState(() {
-        querySnapshot = results;
-      });
-    });
-  }
-  //get firestore instance
-  getComandesList() async {
-    return await Firestore.instance.collection('comanda').getDocuments();
-  }
 
-  QuerySnapshot querySnapshot;
   @override
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
-    //check if querysnapshot is null
-    if (querySnapshot != null) {
-      return Scaffold(
-        body: BackGroundPantalla(
-          child:  Column(
+    return Scaffold(
+      body: BackGroundPantalla(
+          child: Column(
             children: <Widget>[
-              BannerBaleWater(texte: "Clients"),
-              //writeBBDD_Client(),
-              Expanded (child:  impresiodeDades(screenSize))
+              BannerBaleWater(texte: "Comandes a servir",),
+              Expanded(child:
+              _buildBody(context, "comanda")
+              ),
             ],
-          ),
-        ),
-      );
-    } else {
+          )
+      ),
+    );
+  }
+
+}
+Widget _buildBody(BuildContext context, String coleccio) {
+  return StreamBuilder<QuerySnapshot>(
+    stream: Firestore.instance.collection(coleccio).snapshots(),
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) return LinearProgressIndicator();
+
+       return _buildList(context, snapshot.data.documents, coleccio );
+    },
+  );
+}
+
+Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot, String coleccio) {
+  return
+    ListView(
+      padding: const EdgeInsets.only(top: 30.0),
+      children: snapshot.map((data) =>
+          _buildListItem(context, data, coleccio)).toList(),
+    );
+}
+
+Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {
+  final record = Record.fromSnapshot(datos);
+  return StreamBuilder<QuerySnapshot>(
+    stream: Firestore.instance.collection("comanda").snapshots(),
+    builder: (context, snapshot) {
+
+      if (!snapshot.hasData) return LinearProgressIndicator();
+
+      _writeFirebase(context, record);
+      return _mostrarDetall(context, record);
+    },
+  );
+}
+Container _mostrarDetall(BuildContext context, Record record) {
+  final screenSize = MediaQuery.of(context).size;
+  return Container(
+    margin: EdgeInsets.all(10.0),
+    decoration: new BoxDecoration(boxShadow: [
+      BoxShadow(
+        color: Colors.blueAccent.withOpacity(0.2),
+        blurRadius: 2.0,
+      ),
+    ],
+        borderRadius: BorderRadius.circular(15.0)
+    ),
+    child: Card(
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: screenSize.width,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    lineaCard( "Id Client:" , record.idClient.toString() ),
+                    lineaCard( "Nom :" , record.nom ),
+                    lineaCard("Cognoms: " , record.cognoms ),
+                    lineaCard( "email:" , record.email),
+                    lineaCard( "Tel·lefon:" , record.telef ),
+                    lineaCard( "adreça:" , record.adreca ),
+                    lineaCard( "localitat:" , record.localitat ),
+                    lineaCard( "Provincia:" , record.provincia ),
+                    lineaCard( "Data registre:" , record.dat_comanda ),
+
+
+//                    Row(
+//                      children: <Widget>[
+//                        _btnRetroceso(context, record ),
+//                        if (texte != "") _boton(context, record),
+//                      ],
+//                    )
+                  ]
+              ),
+            ),
+          ],
+        )
+    ),
+  );
+}
+void deleteFirebase(BuildContext context, Record record, String coleccion) {
+  Firestore.instance.collection(coleccion).document(record.id.toString())
+      .delete();
+}
+
+void _writeFirebase(BuildContext context, Record record  ) {
+  StreamBuilder<QuerySnapshot>(
+    stream: Firestore.instance
+        .collection('client')
+        .where("cognoms", isEqualTo: record.cognoms)
+        .where("nom", isEqualTo: record.nom)
+        .snapshots(),
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
+      if (!data.hasData) {
+
+        Firestore.instance.collection("client").document(record.id.toString())
+            .setData({
+          'idClient': record.idClient,
+          'nom': record.nom,
+          'cognoms': record.cognoms,
+          'email': record.email,
+          'provincia': record.provincia,
+          'telf': record.telef,
+          'data_comanda': record.dat_comanda,
+          'adreca': record.adreca,
+          'localitat': record.localitat,
+          'cp': record.cp,})
+            .then((_) {
+
+        }).catchError((onError) {
+          print(onError);
+        });
+      }
       return Center(
         child: CircularProgressIndicator(),
       );
-    }
-  }
-  Widget writeBBDD_Client() {
-    List<String> pajarito = new List(querySnapshot.documents.length  );
-    print("lista.............. $pajarito.length");
-    //  DESACTIVADO DE POCO SIRVE
-    for (int i=0; i < querySnapshot.documents.length; i++) {
-      if ( pajarito[i] == null || !pajarito[i].contains("${querySnapshot.documents[i].data['email]']}")) {
-        Firestore.instance.collection("client").document("CL00$i")
-            .setData({
-          'nom': '${querySnapshot.documents[i].data['nom']}',
-          'cognoms': '${querySnapshot.documents[i].data['cognoms']}',
-          'email': '${querySnapshot.documents[i].data['email']}',
-          'dataAlta': '${querySnapshot.documents[i].data['data_comanda']}'});
+    },
+  );
 
-       // pajarito[i]=("${querySnapshot.documents[i].data['email]']}");
-      }
-    }
 
-  }
-  Widget impresiodeDades(Size screenSize) {
-    var alt = 80.0;
-    var flip = false;
-    // List<String> pajarito = new List(querySnapshot.documents.length  );
 
-    return SingleChildScrollView(
-//          height: screenSize.height,
-//          width:  screenSize.width,
-        child:   ListView.builder(
-
-          //scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          primary: false,
-          itemCount: querySnapshot.documents.length,
-          padding: EdgeInsets.all(12),
-          itemBuilder: (context, i) => FlipCard(
-              onFlip:(){
-                if (!flip) {
-                  flip = true;
-                  alt = 80;
-                  print("false............. $alt");
-                }else {
-                  flip = false;
-                  alt = 180;
-                  print("true..... $alt");
-                }
-              },
-              direction: FlipDirection.VERTICAL,
-              front: Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                height: alt,
-                child: Card(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                            width: screenSize.width,
-                            color: Colors.tealAccent,
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text("id: " + "${querySnapshot.documents[i].data['id']}",
-                                    textAlign: TextAlign.justify,),
-                                ),
-                                Expanded(
-                                  child: Text("${querySnapshot.documents[i].data['nom']}" + "   " +
-                                      "${querySnapshot.documents[i]
-                                          .data['cognoms']}",
-                                    textAlign: TextAlign.center,),
-                                )
-                              ],
-                            )
-                        ),
-                        Divider(),
-                        Container(
-                            width: screenSize.width,
-                            //  color: Colors.red,
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text("Data Comanda: " +
-                                      "${querySnapshot.documents[i].data['dataComanda']}",
-                                    textAlign: TextAlign.left,),
-                                ),
-                                Expanded(
-                                  child: Text("Data Servei: " +
-                                      "${querySnapshot.documents[i].data['dataServei']}",
-                                    textAlign: TextAlign.right,),
-                                )
-                              ],
-                            )
-                        ),
-                      ]
-                  ),
-                ),
-              ),
-              back: Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                height: alt,
-                child: Card(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                          width: screenSize.width,
-                          // height: 100.0,
-                          color: Colors.red,
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text("Data Comanda: " +
-                                    "${querySnapshot.documents[i]
-                                        .data['dataComanda']}",
-                                  textAlign: TextAlign.left,),
-                              ),
-                              Expanded(
-                                child: Text("Data Servei: " +
-                                    "${querySnapshot.documents[i]
-                                        .data['dataServei']}",
-                                  textAlign: TextAlign.right,),
-                              )
-                            ],
-                          )
-                      )
-                    ],
-                  ),
-                ),
-              )
-          ),
-        )
-    );
-  }
 }

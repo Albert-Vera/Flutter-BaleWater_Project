@@ -5,12 +5,18 @@ import 'package:flutter/material.dart';
 class ReEscriureFire{
 
       void escriure() {
-            Firestore.instance.collection("comanda").document("23")
-                .setData(
-                {
-                      'id': 23,
-                      'nom': "Señora",
-                      'cognoms': "Escarlata",
+        var nombre = [ "", "Ana", "Maria", "Carme", "Silvie", "Jordi", "Javier", "Albert", "Señor", "Pere", "Tomás", "Señor", "Enric", "Andreu", "Alba", "Asunción" ];
+        var apellido = ["", "Manzana", "Pera" ,"Filemon", "Mortadelo","Naranjo","Martin", "Betancurt", "Garcia", "Bonaparte", "Sin Miedo", "Mandarina", "Platano", "Chirimoya","Aguacate", "Guayaba"];
+        for (int x= 1; x<16; x++) {
+          Firestore.instance.collection("comanda").document(x.toString())
+              .setData(
+              {
+                      'id': x,
+                      'idClient': 0,
+                      'nom': nombre[x],
+                      'cognoms': apellido[x],
+                  'email': "señora@gmail.com",
+                'telef': "666 666 666",
                       'data_servei': "26/04/2020",
                       'data_comanda': "01/04/2020",
                       'horas': 4,
@@ -21,10 +27,12 @@ class ReEscriureFire{
                       'productNom': "Tobogán",
                       'adreca': "vista al mar, 13",
                       'localitat': "Barcelona",
+                      'provincia': "Barcelona",
                       'cp': 08080,
                       'mes' : 4,
                       'dia' : 26
-                      });
+              });
+        }
 
       }
 }

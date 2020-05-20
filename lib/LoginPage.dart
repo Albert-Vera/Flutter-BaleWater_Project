@@ -1,3 +1,5 @@
+import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/HomePage.dart';
 import 'package:Balewaterproject/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,37 +24,46 @@ class _LoginPageState extends State<LoginPage> {
   @override
   build(context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          children: [
-            Text("LOGIN"),
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-              validator: (value) {
-                if (value.isEmpty) return 'Please enter your email';
-                return null;
-              },
+      body: BackGroundPantalla(
+        child: Column(
+          children: <Widget>[
+            BannerBaleWater(texte: "Login staff"),
+            Expanded(child:  Form(
+              key: _formKey,
+              child: ListView(
+                children: [
+
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(labelText: 'Email'),
+                    validator: (value) {
+                      if (value.isEmpty) return 'Please enter your email';
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: const InputDecoration(labelText: 'Password'),
+                    validator: (value) {
+                      if (value.isEmpty) return 'Please enter your password';
+                      return null;
+                    },
+                  ),
+                  RaisedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        _signInWithEmailAndPassword();
+                      }
+                    },
+                    child: Text("Login"),
+                  ),
+                ],
+              ),
             ),
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              validator: (value) {
-                if (value.isEmpty) return 'Please enter your password';
-                return null;
-              },
-            ),
-            RaisedButton(
-              onPressed: () async {
-                if (_formKey.currentState.validate()) {
-                  _signInWithEmailAndPassword();
-                }
-              },
-              child: const Text('Login'),
-            ),
+            )
           ],
-        ),
+        )
+
       ),
     );
   }

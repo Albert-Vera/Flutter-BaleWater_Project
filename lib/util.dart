@@ -4,4 +4,5 @@ void pushPage(context, page) {
   Navigator.of(context).push(
     MaterialPageRoute<void>(builder: (_) => page),
   );
+
 }

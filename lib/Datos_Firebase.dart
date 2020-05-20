@@ -10,18 +10,15 @@ import 'model/Record.dart';
 
 
 
-  int modificarDatos(){
-    Firestore.instance.collection("castle").document("1").updateData({"enAlmacen" : FieldValue.increment(-1)});
-    return 0;
-  }
-
-
 Widget buildBody(BuildContext context, String coleccio) {
   return StreamBuilder<QuerySnapshot>(
     stream: Firestore.instance.collection(coleccio).snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-      if (snapshot.data.documents.isEmpty)  return comanServidasVacio(context);
+      if (snapshot.data.documents.isEmpty)   {
+        if ( coleccio == "comandesAservir") return comanServidasVacio(context, "servir");
+        else return comanServidasVacio(context, "recollir");
+    }
       else return buildList(context, snapshot.data.documents, coleccio );
     },
   );
@@ -72,8 +69,11 @@ void writeFirebase(BuildContext context, Record record, String coleccion) {
   Firestore.instance.collection(coleccion).document(record.id.toString())
       .setData({
     'id': record.id,
+    'idClient': record.idClient,
     'nom': record.nom,
     'cognoms': record.cognoms,
+    'email': record.email,
+    'telef': record.telef,
     'data_servei': record.dat_servei,
     'data_comanda': record.dat_comanda,
     'horas': record.horas,
@@ -84,9 +84,16 @@ void writeFirebase(BuildContext context, Record record, String coleccion) {
     'productNom': record.product_Nom,
     'adreca': record.adreca,
     'localitat': record.localitat,
+    'provincia': record.provincia,
     'cp': record.cp,
     'mes' : int.parse(a),
-    'dia' : int.parse(b)});
+    'dia' : int.parse(b)})
+      .then((_) {
+//    Scaffold.of(context).showSnackBar(
+//        SnackBar(content: Text('Successfully Added')));
+  }).catchError((onError) {
+    print(onError);
+  });
 }
 Widget stockProducte(BuildContext context, Record record) {
   return StreamBuilder(
@@ -194,12 +201,12 @@ Widget lineaCard( String text_1, String text_2){
     ),
   );
 }
-AlertDialog comanServidasVacio(BuildContext context) {
+AlertDialog comanServidasVacio(BuildContext context, String text) {
   return AlertDialog(
-    title: Text('Comandes a Recollir'),
+    title: Text('Comandes a ' + text),
     content: SingleChildScrollView(
       child:
-      Text('No hi ha comandes per recollir'),
+      Text('No hi ha comandes per ' + text),
       // Text('You\’re like me. I’m never satisfied.'),
 
     ),
@@ -219,9 +226,8 @@ Widget boton(BuildContext context, Record record, String coleccio){
     height: 32,
     child: RaisedButton(
       onPressed: () {
-        //TODO cal posar parametres per recollida i servida, ruta,
         if ( coleccio == "perRecollir")
-        pushPage(context, DadesClient(record: record, texte: "RECOLLIDA", texte2: "recollit", ruta: ComandesARecollir(),));
+          pushPage(context, DadesClient(record: record, texte: "RECOLLIDA", texte2: "recollit", ruta: ComandesARecollir(),));
         else pushPage(context, DadesClient(record: record, texte: "SERVIDA", texte2: "servit", ruta: ComandesAServir(),));
       },
       textColor: Colors.white,
