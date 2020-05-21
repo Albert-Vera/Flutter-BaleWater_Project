@@ -18,8 +18,15 @@ class Proveidors extends StatelessWidget{
               stream: Firestore.instance.collection("proveidors").snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  _cabecera();
-                  _list(snapshot.data.documents);
+                  return  Expanded(
+                    child: Column(
+                      children: [
+                        _cabecera(),
+                        _list(snapshot.data.documents),
+                      ],
+                    ),
+                  );
+
                 }
                 return Center(
                   child: CircularProgressIndicator(),
@@ -87,7 +94,7 @@ Widget _cabecera(){
 
   );
 }
-Widget _item( String id, String empresa, String situada, String articulo, List<DocumentSnapshot> documents) {
+Widget _item( String id, String empresa, String situada, String articulo, List<DocumentSnapshot> documents, int index) {
   print("................................................. ... dentro ...  " + documents[0].data['codigo']);
 
   return ListTile(
@@ -131,16 +138,17 @@ Widget _item( String id, String empresa, String situada, String articulo, List<D
 }
 Widget _list(List<DocumentSnapshot> documents) {
   print("....................................................longi " + documents[0].data['codigo']);
+  print("....................................................longi " + documents.length.toString());
   return Expanded(
     child: ListView.separated(
       itemCount: documents.length,
       itemBuilder: (BuildContext context, int index) {
         String id = documents[index].data['codigo'];
-        String  empresa = documents[index].data['empresa'] ;
+        String empresa = documents[index].data['empresa'] ;
         String situada = documents[index].data['situadaEn'];
         String articulo = documents[index].data['articulos'];
         print("....................................................antes return " + index.toString());
-        return _item( id, empresa, situada, articulo, documents);
+        return _item( id, empresa, situada, articulo, documents, index);
       },
 
       separatorBuilder: (BuildContext context, int index) {

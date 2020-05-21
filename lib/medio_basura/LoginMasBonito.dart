@@ -1,4 +1,3 @@
-import 'package:balewater/provisionales/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,12 +8,12 @@ final mycontrolador = TextEditingController();
 //BuildContext  contexto;
 
 
-class  Login extends StatefulWidget {
+class  LoginMasBonito extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _LoginMasBonitoState createState() => _LoginMasBonitoState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginMasBonitoState extends State<LoginMasBonito> {
 
 
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HomeListView extends StatelessWidget {
+class LoginDiferente extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
