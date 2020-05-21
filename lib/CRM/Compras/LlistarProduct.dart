@@ -1,4 +1,5 @@
 import 'package:Balewaterproject/CRM/Compras/ComandesProveidor.dart';
+import 'package:Balewaterproject/CRM/Compras/GestionarComanda.dart';
 import 'package:Balewaterproject/Menus/HomePage.dart';
 import 'package:Balewaterproject/medio_basura/LoginDiferente.dart';
 import 'package:Balewaterproject/medio_basura/LoginMasBonito.dart';
@@ -12,7 +13,7 @@ class LlistarProduct extends StatelessWidget {
     return new Scaffold(
       body: new ListView.builder(
         itemBuilder: (BuildContext context, int index) {
-          return new StuffInTiles(listOfTiles[index], context, listOfsubTitles[index]);
+          return new StuffInTiles(listOfTiles[index], context);
         },
         itemCount: listOfTiles.length,
       ),
@@ -23,28 +24,28 @@ class LlistarProduct extends StatelessWidget {
 
 class StuffInTiles extends StatelessWidget {
   final MyTile myTile;
-  final Subtitle listSubtitle;
+  //final Subtitle listSubtitle;
   final BuildContext context;
-  StuffInTiles(this.myTile, this.context, this.listSubtitle);
+  StuffInTiles(this.myTile, this.context);
 
   @override
   Widget build(BuildContext context) {
-    return _buildTiles(myTile, listSubtitle );
+    return _buildTiles(myTile );
   }
 
-  Widget _buildTiles(MyTile t, Subtitle s) {
+  Widget _buildTiles(MyTile t) {
     if (t.children.isEmpty)
       return new ListTile(
           dense: true,
           enabled: true,
           isThreeLine: false,
           onLongPress: () => print("long press"),
-          onTap: () => pushPage(context, ferComanda(t.title, s.subtitle)),
-          subtitle: new Text(s.subtitle),
-          leading: new Text("Leading"),
+          onTap: () => pushPage(context, GestionarComanda(title: t.title)),
+          subtitle: new Text("subTitol"),
+          leading: new Text("Producte"),
           selected: true,
-          trailing: new Text("trailing"),
-          title: new Text(t.title));
+          trailing: new Text("Fer comanda"),
+          title: new Text(t.title,  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)));
 
     return new ExpansionTile(
       key: new PageStorageKey<int>(3),
@@ -71,7 +72,6 @@ List<MyTile> listOfTiles = <MyTile>[
     <MyTile>[
       new MyTile('Salta Bolas'),
       new MyTile('Rocódromo'),
-      new MyTile('Hinchables España.S.L.'),
       new MyTile('Tobogán del espacio'),
       new MyTile('Fútbol burbuja'),
       new MyTile('Turbina inflador'),
