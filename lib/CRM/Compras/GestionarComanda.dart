@@ -109,28 +109,6 @@ Widget _ferComanda(BuildContext context, String title, TextEditingController myC
       )
   );
 }
-
-AlertDialog _comandaEnviada(BuildContext context) {
-  return AlertDialog(
-
-    title: Text('Comande enviada ' ),
-    content: SingleChildScrollView(
-
-      child:
-      Text('Rebràs confirmació del proveidor ' ),
-      // Text('You\’re like me. I’m never satisfied.'),
-
-    ),
-    actions: <Widget>[
-      FlatButton(
-        child: Text('Ok.'),
-        onPressed: () {
-         pushPage(context, MenuCompras());
-        },
-      ),
-    ],
-  );
-}
 Widget _calcularPreu(String title){
 
   //TODO falta obtener precio producto
