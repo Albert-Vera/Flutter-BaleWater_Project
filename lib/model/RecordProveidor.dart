@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RecordProveidor {
-  final String idComanda, idProducte,idProveidor, nomProducte;
+  final String idProducte,idProveidor, nomProducte;
   final String nomProveidor, dataComanda, dataEntrega;
-  int preuUnitat, preuTotal;
+  int preuUnitat, preuTotal, idComanda;
 
   final DocumentReference reference;
 
@@ -34,5 +34,5 @@ class RecordProveidor {
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
-  String toString() => "Record<$idComanda:$idProducte>";
+  String toString() => "Record<$idProveidor:$idProducte>";
 }

@@ -1,4 +1,5 @@
 
+import 'package:Balewaterproject/CRM/Compras/Vacia.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:Balewaterproject/util.dart';
@@ -89,8 +90,8 @@ Widget _ferComanda(BuildContext context, String title){
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: RaisedButton(
                           onPressed: () {
-                            Expanded(child: _writeComandaFirebase(context));
-                            //pushPage(context, _comandaEnviada(context));
+                            //Expanded(child: _writeComandaFirebase(context));
+                            pushPage(context, Vacia());
                             //}
                           },
                           child: Text('Enviar comanda'),
@@ -155,7 +156,7 @@ Widget _writeComandaFirebase(BuildContext context ) {
   return StreamBuilder(
     stream: Firestore.instance.collection('comandaProveidor').snapshots(),
     builder:(context, snapshot) {
-      if (snapshot.hasData) {
+      if (!snapshot.hasData) {
 
           print("..............................................................................2222.a.............  " + snapshot.data['idComanda'].toString());
           return Padding(
@@ -188,3 +189,4 @@ Widget _writeComandaFirebase(BuildContext context ) {
 
 
 }
+
