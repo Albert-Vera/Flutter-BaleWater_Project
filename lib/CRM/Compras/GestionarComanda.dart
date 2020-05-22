@@ -19,6 +19,13 @@ class GestionarComanda extends StatefulWidget {
 }
 
 class _GestionarComandaState extends State<GestionarComanda> {
+  final myController = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +34,7 @@ class _GestionarComandaState extends State<GestionarComanda> {
             children: <Widget>[
               BannerBaleWater(texte: "Detall comanda",),
               Expanded(child:
-              _ferComanda(context, widget.title)
+              _ferComanda(context, widget.title, myController)
               ),
             ],
           )
@@ -35,7 +42,7 @@ class _GestionarComandaState extends State<GestionarComanda> {
     );
   }
 }
-Widget _ferComanda(BuildContext context, String title){
+Widget _ferComanda(BuildContext context, String title, TextEditingController myController){
   final _formKey = GlobalKey<FormState>();
   final _unitats = TextEditingController();
   return Scaffold(
@@ -62,17 +69,13 @@ Widget _ferComanda(BuildContext context, String title){
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 35.0),
-                      child: TextFormField(
-                        controller: _unitats,
+                      child: TextField(
+                        controller: myController, // per obtenir valor del texfield i despres pasarlo a Int
+//                        controller: _unitats,
                         decoration: const InputDecoration(
                           hintText: 'unitats...',
                         ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
+
                       ),
                     ),
                     //TODO métode preu arreglar-lo
@@ -90,8 +93,7 @@ Widget _ferComanda(BuildContext context, String title){
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: RaisedButton(
                           onPressed: () {
-                            //Expanded(child: _writeComandaFirebase(context));
-                            pushPage(context, Vacia(nomProducte: title));
+                            pushPage(context, Vacia(nomProducte: title, unitatTextField: int.parse(myController.text)));
                             //}
                           },
                           child: Text('Enviar comanda'),

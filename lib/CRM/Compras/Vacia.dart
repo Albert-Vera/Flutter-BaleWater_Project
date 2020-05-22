@@ -7,13 +7,19 @@ import '../../BackGroundPantalla.dart';
 import '../../Datos_Firebase.dart';
 
 String producte;
+int unitats;
 class Vacia extends StatelessWidget {
   String nomProducte;
-  Vacia({ Key key, this.nomProducte}):super (key: key);
+  int unitatTextField;
+  Vacia({ Key key,
+    this.nomProducte,
+    this.unitatTextField}):super (key: key);
 
   @override
   Widget build(BuildContext context) {
     producte = nomProducte;
+    unitats = unitatTextField;
+    print( "unitats : ........................................................................" + unitats.toString());
     return Scaffold(
       body: BackGroundPantalla(
           child: Column(
@@ -90,8 +96,8 @@ Widget _writeComandaFirebase(BuildContext context, RecordProveidor record, int t
       'idProveidor': 's',
       'dataComanda': 's',
       'dataEntrega': 's',
-      'preuUnitat': 1,
-      'preuTotal': 1})
+      'preuUnitat': 1000,
+      'preuTotal': record.preuUnitat * unitats})
         .then((_) {
 
     }).catchError((onError) {

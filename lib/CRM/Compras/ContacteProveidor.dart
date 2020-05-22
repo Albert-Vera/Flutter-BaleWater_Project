@@ -40,7 +40,7 @@ class _ContacteProveidorState extends State<ContacteProveidor> {
 Container loginText() {
   return Container(
     margin: EdgeInsets.only(
-        top: 50.0,
+        top: 5.0,
         left: 15.0,
         right: 15.0
     ),
@@ -59,36 +59,38 @@ Container loginText() {
         SizedBox(
           height: 30,
         ),
-        Text("Username",
+        Text("Proveidor",
             style: TextStyle(
                 fontFamily: "Poppins-Medium",
                 fontSize: 18)),
         TextField(
           controller: mycontrolador,
           decoration: InputDecoration(
-              hintText: "username",
+              hintText: "Proveidor",
               hintStyle: TextStyle(
                   color: Colors.grey, fontSize: 12.0)),
         ),
         SizedBox(
           height: 30,
         ),
-        Text("PassWord",
+        Text("Consulta",
             style: TextStyle(
                 fontFamily: "Poppins-Medium",
                 fontSize: 18)),
         TextField(
-          obscureText: true,
+          keyboardType: TextInputType.multiline, //Mostrara teclado con salto linea
+//          obscureText: true,
+          //maxLines: 3,
           decoration: InputDecoration(
-              hintText: "Password",
-              hintStyle: TextStyle(
-                  color: Colors.grey, fontSize: 12.0)),
+              hintText: "Consulta",
+              ),
         ),
-        SizedBox(
-          height: 35,
-        ),
+//        SizedBox(
+//          height: 35,
+//        ),
         Container( // Boton Access Staff
           margin: EdgeInsets.only(
+              top: 95.0,
               left: 50.0,
               right: 30.0
           ),
