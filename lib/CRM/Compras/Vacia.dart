@@ -6,10 +6,14 @@ import 'package:flutter/material.dart';
 import '../../BackGroundPantalla.dart';
 import '../../Datos_Firebase.dart';
 
-var ah = 0;
+String producte;
 class Vacia extends StatelessWidget {
+  String nomProducte;
+  Vacia({ Key key, this.nomProducte}):super (key: key);
+
   @override
   Widget build(BuildContext context) {
+    producte = nomProducte;
     return Scaffold(
       body: BackGroundPantalla(
           child: Column(
@@ -30,24 +34,24 @@ Widget _buildBody(BuildContext context) {
     stream: Firestore.instance.collection("comandaProveidor").snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-      if (snapshot.data.documents.isEmpty)   {
-        Firestore.instance.collection("comandaProveidor").document("0")
-            .setData({
-          'idComanda':  0,
-          'nomProducte': 's',
-          'idProducte': 's',
-          'nomProveidor':  's',
-          'idProveidor':  's',
-          'dataComanda':  's',
-          'dataEntrega':  's',
-          'preuUnitat':  1,
-          'preuTotal':  1 })
-            .then((_) {
-
-        }).catchError((onError) {
-          print(onError);
-        });
-      }
+//      if (snapshot.data.documents.isEmpty)   {
+//        Firestore.instance.collection("comandaProveidor").document("0")
+//            .setData({
+//          'idComanda':  0,
+//          'nomProducte': 's',
+//          'idProducte': 's',
+//          'nomProveidor':  's',
+//          'idProveidor':  's',
+//          'dataComanda':  's',
+//          'dataEntrega':  's',
+//          'preuUnitat':  1,
+//          'preuTotal':  1 })
+//            .then((_) {
+//
+//        }).catchError((onError) {
+//          print(onError);
+//        });
+//      }
 
       return _buildList(context, snapshot.data.documents );
     },
@@ -71,16 +75,16 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
       _writeComandaFirebase(context,record,  datos.data.length);
 
 
-      return Text("JOroba quq joroba " + record.nomProveidor);
+      return Text("JOroba quq joroba  " + record.nomProducte);
 
 }
 Widget _writeComandaFirebase(BuildContext context, RecordProveidor record, int tamany ) {
-  print("..............................................................................111.a.............  " + tamany.toString());
+  print("..............................................................................111.a.............  " + producte.toString());
   //if ( ah == tamany) {
     Firestore.instance.collection("comandaProveidor").document(tamany.toString())
         .setData({
       'idComanda': tamany,
-      'nomProducte': 's',
+      'nomProducte': producte,
       'idProducte': 's',
       'nomProveidor': 's',
       'idProveidor': 's',

@@ -91,7 +91,7 @@ Widget _ferComanda(BuildContext context, String title){
                         child: RaisedButton(
                           onPressed: () {
                             //Expanded(child: _writeComandaFirebase(context));
-                            pushPage(context, Vacia());
+                            pushPage(context, Vacia(nomProducte: title));
                             //}
                           },
                           child: Text('Enviar comanda'),
