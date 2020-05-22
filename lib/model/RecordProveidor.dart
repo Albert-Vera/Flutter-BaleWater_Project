@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class RecordProveidor {
   final String idProducte,idProveidor, nomProducte;
   final String nomProveidor, dataComanda, dataEntrega;
-  int preuUnitat, preuTotal, idComanda;
+  int preuUnitat, preuTotal, idComanda, unitats;
 
   final DocumentReference reference;
 
@@ -18,6 +18,7 @@ class RecordProveidor {
         assert(map['dataEntrega'] != null),
         assert(map['preuUnitat'] != null),
         assert(map['preuTotal'] != null),
+        assert(map['unitats'] != null),
 
         idComanda = map['idComanda'],
         idProducte = map['idProducte'],
@@ -26,6 +27,7 @@ class RecordProveidor {
         nomProveidor = map['nomProveidor'],
         dataComanda = map['dataComanda'],
         dataEntrega = map['dataEntrega'],
+        unitats = map['unitats'],
         preuUnitat = map['preuUnitat'],
         preuTotal = map['preuTotal'];
 

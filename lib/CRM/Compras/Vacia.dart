@@ -50,6 +50,7 @@ Widget _buildBody(BuildContext context) {
 //          'idProveidor':  's',
 //          'dataComanda':  's',
 //          'dataEntrega':  's',
+//            'unitats': unitats,
 //          'preuUnitat':  1,
 //          'preuTotal':  1 })
 //            .then((_) {
@@ -96,6 +97,7 @@ Widget _writeComandaFirebase(BuildContext context, RecordProveidor record, int t
       'idProveidor': 's',
       'dataComanda': 's',
       'dataEntrega': 's',
+      'unitats': unitats,
       'preuUnitat': 1000,
       'preuTotal': record.preuUnitat * unitats})
         .then((_) {
