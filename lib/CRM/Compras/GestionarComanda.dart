@@ -69,13 +69,18 @@ Widget _ferComanda(BuildContext context, String title, TextEditingController myC
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 35.0),
-                      child: TextField(
+                      child: TextFormField(
                         controller: myController, // per obtenir valor del texfield i despres pasarlo a Int
 //                        controller: _unitats,
                         decoration: const InputDecoration(
                           hintText: 'unitats...',
                         ),
-
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Si us plau inserta una quantitat ';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     //TODO métode preu arreglar-lo
@@ -93,7 +98,9 @@ Widget _ferComanda(BuildContext context, String title, TextEditingController myC
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: RaisedButton(
                           onPressed: () {
-                            pushPage(context, Vacia(nomProducte: title, unitatTextField: int.parse(myController.text)));
+                            if (_formKey.currentState.validate()) {
+                              pushPage(context, Vacia(nomProducte: title, unitatTextField: int.parse(myController.text)));
+                            }
                             //}
                           },
                           child: Text('Enviar comanda'),

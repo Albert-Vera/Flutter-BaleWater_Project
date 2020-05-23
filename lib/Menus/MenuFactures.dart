@@ -1,5 +1,7 @@
 
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/CRM/Facturacion/ClientsFac.dart';
+import 'package:Balewaterproject/CRM/Ventas/Balance.dart';
 import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
 import 'package:Balewaterproject/medio_basura/Home.dart';
@@ -34,7 +36,7 @@ class MenuFactures extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), text: "Clients", width: 130, image: "image/recollida2.jpeg" ),
+                MenuItem(page: Balance(quieroverBalance: false, verFactura: true,texte: "Factures client"), text: "Clients", width: 130, image: "image/recollida2.jpeg" ),
                 MenuItem(page: MenuVendes(), text: "Proveidors", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),

@@ -28,7 +28,7 @@ class _ContacteProveidorState extends State<ContacteProveidor> {
         Column(
           children: <Widget>[
             BannerBaleWater(texte: "Contacte proveidor"),
-            Expanded(child: loginText()),
+            Expanded(child: detallComanda()),
           ],
         ),
         ),
@@ -37,7 +37,7 @@ class _ContacteProveidorState extends State<ContacteProveidor> {
   }
 }
 
-Container loginText() {
+Container detallComanda() {
   return Container(
     margin: EdgeInsets.only(
         top: 5.0,

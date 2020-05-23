@@ -23,7 +23,7 @@ class StartPage extends StatelessWidget {
       body: BackGroundPantalla(
         child: Column(
           children: <Widget>[
-              BannerBaleWater(texte: "Comandes a servir"),
+              BannerBaleWater(texte: ""),
               _boto(context)
         ],
       )

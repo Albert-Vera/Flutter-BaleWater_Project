@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'Balance3.dart';
 
 class Balance2 extends StatefulWidget {
-  bool quieroverBalance2;
+  bool quieroverBalance2, verFactura;
   Balance2({
   Key key,
-  this.quieroverBalance2}): super(key: key);
+  this.quieroverBalance2, this.verFactura}): super(key: key);
   @override
   _Balance2State createState() => _Balance2State();
 }
@@ -44,7 +44,7 @@ class _Balance2State extends State<Balance2> {
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
                   if (data.hasData) {
                     if (widget.quieroverBalance2) return Balance3( documents: data.data.documents);
-                    else return ComandesClient(documents: data.data.documents);
+                    else return ComandesClient(documents: data.data.documents, verFactura: widget.verFactura,);
                   }
                   return Center(
                     child: CircularProgressIndicator(),

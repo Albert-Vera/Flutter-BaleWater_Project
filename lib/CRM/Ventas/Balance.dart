@@ -4,11 +4,12 @@ import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:flutter/material.dart';
 
 class Balance extends StatelessWidget{
-  bool quieroverBalance;
+  bool quieroverBalance, verFactura;
   String texte;
   Balance({
     Key key,
     this.quieroverBalance,
+    this.verFactura,
     this.texte}): super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class Balance extends StatelessWidget{
             Expanded(
               child: Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Balance2(quieroverBalance2: quieroverBalance)),
+                  child: Balance2(quieroverBalance2: quieroverBalance, verFactura: verFactura, )),
             )
           ],
         ),

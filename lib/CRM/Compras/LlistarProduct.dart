@@ -90,26 +90,3 @@ List<Subtitle> listOfsubTitles = <Subtitle>[
 
 ];
 
-//new MyTile(
-//'Proveidors',
-//<MyTile>[
-//new MyTile('EuroHinchable.S.L.',
-//<MyTile>[
-//new MyTile('Salta Bolas'),
-//new MyTile('Rocódromo'),
-//]
-//),
-//
-//new MyTile('Hinchables España.S.L.',
-//<MyTile>[
-//new MyTile('Tobogán del espacio'),
-//]
-//),
-//new MyTile('JB-Inflatable, B.V.',
-//<MyTile>[
-//new MyTile('Fútbol burbuja'),
-//]
-//),
-//new MyTile('Amazon'),
-//],
-//),

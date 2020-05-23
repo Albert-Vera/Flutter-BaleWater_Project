@@ -34,14 +34,14 @@ class MenuVendes extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 MenuItem(page: Clients(), text: "Clients", width: 130, image: "image/clients.jpeg" ),
-                MenuItem(page: Balance(quieroverBalance: false, texte: "Comandes",), text: "Comandes", width: 130, image: "image/comandes.png"),
+                MenuItem(page: Balance(quieroverBalance: false, verFactura: false, texte: "Comandes",), text: "Comandes", width: 130, image: "image/comandes.png"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 MenuItem(page: Productes(), text: "Productes", width: 130, image: "image/productes.jpeg"),
-                MenuItem(page: Balance(quieroverBalance: true, texte: "Balanç mensual"), text: "Balanç", width: 130, image: "image/servides.png"),
+                MenuItem(page: Balance(quieroverBalance: true, verFactura: false, texte: "Balanç mensual"), text: "Balanç", width: 130, image: "image/servides.png"),
               ],
             ),
           ],

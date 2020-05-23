@@ -25,7 +25,7 @@ class _ClientsState extends State<Clients> {
       body: BackGroundPantalla(
           child: Column(
             children: <Widget>[
-              BannerBaleWater(texte: "Comandes a servir",),
+              BannerBaleWater(texte: "Llistat de clients",),
               Expanded(child:
               _buildBody(context, "comanda")
               ),
@@ -89,7 +89,7 @@ Container _mostrarDetall(BuildContext context, Record record) {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    lineaCard( "Id Client:" , record.idClient.toString() ),
+                    lineaCard( "Id Client:" , record.idClient.toString()),
                     lineaCard( "Nom :" , record.nom ),
                     lineaCard("Cognoms: " , record.cognoms ),
                     lineaCard( "email:" , record.email),

@@ -9,7 +9,7 @@ import '../../BackGroundPantalla.dart';
 import '../../Datos_Firebase.dart';
 
 String producte;
-int unitats;
+int unitats, tamany;
 class Vacia extends StatelessWidget {
   String nomProducte;
   int unitatTextField;
@@ -62,7 +62,7 @@ Widget _buildBody(BuildContext context) {
           print(onError);
         });
       }
-
+      tamany = snapshot.data.documents.length;
       return _buildList(context, snapshot.data.documents );
     },
   );
@@ -80,16 +80,24 @@ Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
 Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
   final record = RecordProveidor.fromSnapshot(datos);
 
+  return StreamBuilder<QuerySnapshot>(
+    stream: Firestore.instance.collection("comandaProveidor").snapshots(),
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) return LinearProgressIndicator();
+      _writeComandaFirebase(context,record);
+      return Text(" bla bla bla");
+    },
+  );
 
 
-      _writeComandaFirebase(context,record,  datos.data.length);
 
 
-      return Text("JOroba quq joroba  " + record.nomProducte);
+
+
 
 }
-Widget _writeComandaFirebase(BuildContext context, RecordProveidor record, int tamany ) {
-  print("..............................................................................111.a.............  " + producte.toString());
+Widget _writeComandaFirebase(BuildContext context, RecordProveidor record ) {
+  print("..............................................................................111.a.............  " + tamany.toString());
   //if ( ah == tamany) {
     Firestore.instance.collection("comandaProveidor").document(tamany.toString())
         .setData({
