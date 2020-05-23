@@ -86,18 +86,19 @@ Widget mostrarFactura(BuildContext context, Record record){
           children: <Widget>[
 
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.only(
+                right: 18.0,
+                left: 18.0,
+                bottom: 18.0,
+              ),
               child: Container(
                   width: screenSize.width,
                   child: Column(
                       children: <Widget>[
-                        Text( text_e,   style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18.0
-                        ),),
+                        titolFactura(),
+                        dataFactura(record),
                         Divider(),
-                        _dades_Empresa(),
+                        _dades_Empresa(record),
                         _dades_Client(record),
                         _cabecera(),
                         dades_Venda(record),
@@ -122,6 +123,69 @@ Widget mostrarFactura(BuildContext context, Record record){
       ),
     ),
   );
+}
+
+Container titolFactura() {
+  return Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text( text_e,   style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18.0
+                          ),),
+                        ),
+                      );
+}
+
+Container dataFactura(Record record) {
+  return Container(
+                        child: Row(
+                          children: <Widget>[
+
+                            Container(
+                              margin: EdgeInsets.only(left: 1.0),
+                              width: 140.0,
+                                decoration: new BoxDecoration(boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blueAccent.withOpacity(0.1),
+                                    blurRadius: 2.0,
+                                  ),
+                                ],
+                                    borderRadius: BorderRadius.circular(5.0)
+                                ),
+                             child: Column(
+                               children: <Widget>[
+                                 Text("Data comanda: " + record.dat_comanda,
+                                 style: TextStyle( fontSize: 10.0),),
+                               ],
+                             )
+
+
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(left: 6.0),
+                                width: 140.0,
+                                decoration: new BoxDecoration(boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blueAccent.withOpacity(0.1),
+                                    blurRadius: 2.0,
+                                  ),
+                                ],
+                                    borderRadius: BorderRadius.circular(5.0)
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text("Data servei: " + record.dat_servei,
+                                      style: TextStyle( fontSize: 10.0),),
+                                  ],
+                                )
+
+
+                            ),
+                          ],
+                        ),
+                      );
 }
 
 Container total_Factura(Record record, double iva, double totalFact) {
@@ -176,10 +240,13 @@ Container dades_Venda(Record record) {
             Container(
                 margin: EdgeInsets.only(left: 0.0),
                 child:
-                Text(record.id.toString()+ "    ")
+                Text(record.product_id,
+                style: TextStyle(
+                  fontSize: 10.0
+                ),)
             ),
             Container(
-                margin: EdgeInsets.only(left: 10),
+                margin: EdgeInsets.only(left: 3),
                 child: Text(record.product_Nom)),
             Container(
                 margin: EdgeInsets.only(left: 25),
@@ -198,9 +265,9 @@ Container dades_Venda(Record record) {
 Container _dades_Client(Record record) {
   return Container(
       margin: EdgeInsets.only(
-          top: 20.0,
+          top: 2.0,
           left: 120.0),
-      width: 120.0,
+      width: 180.0,
       decoration: new BoxDecoration(boxShadow: [
         BoxShadow(
           color: Colors.tealAccent.withOpacity(0.1),
@@ -219,28 +286,40 @@ Container _dades_Client(Record record) {
   );
 }
 
-Container _dades_Empresa() {
+Container _dades_Empresa(Record record) {
   return Container(
-    margin: EdgeInsets.only(
-        top: 5.0,
-        right: 172.0),
-    width: double.maxFinite,
-    decoration: new BoxDecoration(boxShadow: [
-      BoxShadow(
-        color: Colors.tealAccent.withOpacity(0.1),
-        blurRadius: 2.0,
-      ),
-    ],
-        borderRadius: BorderRadius.circular(5.0)
-    ),
-    child:  Column(
+    child: Row(
       children: <Widget>[
-        Text( "Bale Water, S.L.", textAlign: TextAlign.start,),
-        Text( "C/ Balmes, 45 ", textAlign: TextAlign.start  ),
-        Text( "08032 - Barcelona", textAlign: TextAlign.start ),
+        Container(
+          margin: EdgeInsets.only(
+              top: 5.0),
+          width: 150.0,
+          decoration: new BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: Colors.tealAccent.withOpacity(0.1),
+              blurRadius: 2.0,
+            ),
+          ],
+              borderRadius: BorderRadius.circular(5.0)
+          ),
+          child:  Column(
+            children: <Widget>[
+              Text( "Bale Water, S.L.", textAlign: TextAlign.start,),
+              Text( "C/ Balmes, 45 ", textAlign: TextAlign.start  ),
+              Text( "08032 - Barcelona", textAlign: TextAlign.start ),
+            ],
+          ),
+        ),
+        Container(margin: EdgeInsets.only(
+            top: 2.0,
+          left: 75.0
+        ),
+          height: 50.0,
+          child: Text("Nº doc: " +record.id.toString(),
+          style: TextStyle(fontSize: 12.0)),
+        )
       ],
     ),
-
   );
 }
 

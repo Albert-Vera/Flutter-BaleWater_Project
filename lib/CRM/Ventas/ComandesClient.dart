@@ -159,7 +159,7 @@ class _ComandesClientState extends State<ComandesClient> {
           }else
             return GestureDetector(
               onTap: () {
-                pushPage(context, ClientsFac(texte: "Pre-forma", id: widget.documents[index].data['id']));
+                pushPage(context, ClientsFac(texte: "Pro-forma", id: widget.documents[index].data['id']));
               },
               child: Container(
                   child:
