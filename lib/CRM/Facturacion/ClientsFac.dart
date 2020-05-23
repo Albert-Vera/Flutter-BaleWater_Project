@@ -4,7 +4,9 @@ import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/model/Record.dart';
 import 'package:Balewaterproject/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 import '../../Datos_Firebase.dart';
 import 'MostrarFactura.dart';
@@ -185,28 +187,39 @@ Widget mostrarFactura(BuildContext context, Record record){
                           color: Colors.black,
                           height: 16,
                         ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  top: 0.0,
-                                  left: 120.0),
-                              width: 150.0,
-                              decoration: new BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                  color: Colors.blueAccent.withOpacity(0.1),
-                                  blurRadius: 2.0,
-                                ),
-                              ],
-                                  borderRadius: BorderRadius.circular(5.0)
-                              ),
-                              child: Column(
+                              Row(
                                 children: <Widget>[
-                                  _lineaCard( "Total ..." , record.importComanda.toString()),
-                                  _lineaCard( "iva 21% ..." , iva.toString()),
-                                  _lineaCard( "Total factura ..." , totalFact.toString()),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        top: 30.0,
+                                        left: 10.0),
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child:
+                                    FloatingActionButton(
+                                      onPressed: () {
+                                        Toast.show("Imprimint factura", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+                                      },
+                                      child: Icon(Icons.print),
+                                      mini: true,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        top: 0.0,
+                                        left: 80.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        _lineaCard( "Total ..." , record.importComanda.toString()),
+                                        _lineaCard( "iva 21% ..." , iva.toString()),
+                                        _lineaCard( "Total factura ..." , totalFact.toString()),
+                                      ],
+                                    ),
+                                  ),
+
+
                                 ],
                               ),
-                            ),
-
                       ]
                   )
               ),
@@ -219,7 +232,7 @@ Widget mostrarFactura(BuildContext context, Record record){
 Widget _lineaCard( String text_1, String text_2){
   // final screenSize = MediaQuery.of(context).size;
   return  Container(
-    width: double.maxFinite,
+    width: 150,
     //color: Colors.tealAccent,
     child: Padding(
       padding: const EdgeInsets.only(top: 10.0),
