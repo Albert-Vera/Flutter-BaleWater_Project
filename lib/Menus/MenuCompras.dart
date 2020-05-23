@@ -50,7 +50,7 @@ class MenuCompras extends StatelessWidget{
               ],
             ),
 
-             MenuItem(page: ContacteProveidor(), text: "Contacte", width: 150, image: "image/recollida2.jpeg"),
+             MenuItem( page: ContacteProveidor(), text: "Contacte", width: 150, image: "image/recollida2.jpeg"),
 
           ],
         )

@@ -10,9 +10,9 @@ import '../../BackGroundPantalla.dart';
 import '../../Datos_Firebase.dart';
 
 class GestionarComanda extends StatefulWidget {
-  String title;
+  String title, preu;
 
-  GestionarComanda( {Key key,  this.title}): super(key: key);
+  GestionarComanda( {Key key,  this.title, this.preu}): super(key: key);
 
   @override
   _GestionarComandaState createState() => _GestionarComandaState();
@@ -34,7 +34,7 @@ class _GestionarComandaState extends State<GestionarComanda> {
             children: <Widget>[
               BannerBaleWater(texte: "Detall comanda",),
               Expanded(child:
-              _ferComanda(context, widget.title, myController)
+              _ferComanda(context, widget.title, myController, widget.preu)
               ),
             ],
           )
@@ -42,7 +42,7 @@ class _GestionarComandaState extends State<GestionarComanda> {
     );
   }
 }
-Widget _ferComanda(BuildContext context, String title, TextEditingController myController){
+Widget _ferComanda(BuildContext context, String title, TextEditingController myController, String preu){
   final _formKey = GlobalKey<FormState>();
   final _unitats = TextEditingController();
   return Scaffold(
@@ -87,7 +87,7 @@ Widget _ferComanda(BuildContext context, String title, TextEditingController myC
                     //_calcularPreu(title),
                     Container(
                       margin: EdgeInsets.only(top: 35.0),
-                        child: Text("preu: 1.600,00 euros")),
+                        child: Text("Preu unitat: " + preu)),
 
 
                     Container(

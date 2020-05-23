@@ -1,5 +1,6 @@
 
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/CRM/Facturacion/ProveidorsFac.dart';
 import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
 import 'package:Balewaterproject/Menus/MenuItem.dart';
@@ -34,15 +35,15 @@ class MenuInventari extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), text: "xxxxxxx",width: 130, image: "image/recollida2.jpeg" ),
-                MenuItem(page: MenuVendes(), text: "xxxxxxx", width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: enConstruccio(), text: "xxxxxxx",width: 130, image: "image/recollida2.jpeg" ),
+                MenuItem(page: enConstruccio(), text: "xxxxxxx", width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: MenuVendes(), text: "Productes", width: 130, image: "image/recollida2.jpeg"),
-                MenuItem(page: MenuVendes(), text: "xxxxxxxx",width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: enConstruccio(), text: "Productes", width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: enConstruccio(), text: "xxxxxxxx",width: 130, image: "image/recollida2.jpeg"),
               ],
             ),
           ],

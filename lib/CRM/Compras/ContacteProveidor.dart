@@ -1,10 +1,13 @@
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
+import 'package:Balewaterproject/Menus/MenuCompras.dart';
+import 'package:Balewaterproject/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:toast/toast.dart';
 
 import '../../BackGroundPantalla.dart';
 
-final mycontrolador = TextEditingController();
+
 
 class ContacteProveidor extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ class ContacteProveidor extends StatefulWidget {
 }
 
 class _ContacteProveidorState extends State<ContacteProveidor> {
+  final mycontrolador = TextEditingController();
   @override
   void dispose() {
     mycontrolador.dispose();
@@ -24,26 +28,44 @@ class _ContacteProveidorState extends State<ContacteProveidor> {
 
     return Scaffold(
       body: BackGroundPantalla(
-        child:
-        Column(
-          children: <Widget>[
-            BannerBaleWater(texte: "Contacte proveidor"),
-            Expanded(child: detallComanda()),
-          ],
-        ),
+
+          child: new Column(
+            children: <Widget>[
+              Expanded(
+                child: new CustomScrollView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: false,
+                  slivers: <Widget>[
+                    new SliverPadding(
+                      padding: const EdgeInsets.symmetric(vertical: 0.0),
+                      sliver: new SliverList(
+                        delegate: new SliverChildBuilderDelegate(
+                              (context, index) => detallComanda(mycontrolador, context),
+                          childCount: 1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+
+
+
+
+
+
+
         ),
 
     );
   }
 }
 
-Container detallComanda() {
+Container detallComanda(TextEditingController mycontrolador, BuildContext context) {
   return Container(
-    margin: EdgeInsets.only(
-        top: 5.0,
-        left: 15.0,
-        right: 15.0
-    ),
     height: 750, // Se adapta a todas las pantallas
     width: 680,
 
@@ -57,7 +79,7 @@ Container detallComanda() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(
-          height: 30,
+          height: 25,
         ),
         Text("Proveidor",
             style: TextStyle(
@@ -71,27 +93,44 @@ Container detallComanda() {
                   color: Colors.grey, fontSize: 12.0)),
         ),
         SizedBox(
-          height: 30,
+          height: 25,
         ),
-        Text("Consulta",
+        Text("Titol del correo",
             style: TextStyle(
                 fontFamily: "Poppins-Medium",
                 fontSize: 18)),
         TextField(
-          keyboardType: TextInputType.multiline, //Mostrara teclado con salto linea
-//          obscureText: true,
-          //maxLines: 3,
+         // controller: mycontrolador,
           decoration: InputDecoration(
-              hintText: "Consulta",
-              ),
+              hintText: "motiu",
+              hintStyle: TextStyle(
+                  color: Colors.grey, fontSize: 12.0)),
         ),
-//        SizedBox(
-//          height: 35,
-//        ),
-        Container( // Boton Access Staff
+        SizedBox(
+          height: 30,
+        ),
+        Text("Correu",
+            style: TextStyle(
+                fontFamily: "Poppins-Medium",
+                fontSize: 18)),
+        Padding(
+          padding: const EdgeInsets.only(
+              top: 6.0,
+            left: 16.0,
+            right: 16.0
+          ),
+          child: TextField(
+            textInputAction: TextInputAction.newline,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(), labelText: "text correu"),
+            maxLines: 10,
+           // controller: descriptionTextController,
+          ),
+        ),
+        Container( // Boton enviar correo
           margin: EdgeInsets.only(
-              top: 95.0,
-              left: 50.0,
+            top: 20.0,
+              left: 70.0,
               right: 30.0
           ),
           height: 90.0,
@@ -99,11 +138,12 @@ Container detallComanda() {
           child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const SizedBox(height: 30),
+
                 RaisedButton(
                     onPressed: () {
 
-                      //Home();
+                      Toast.show("     Correu enviat      ", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+                      pushPage(context, MenuCompras());
                     },
                     textColor: Colors.white,
 
@@ -113,9 +153,9 @@ Container detallComanda() {
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: <Color>[
-                            //  Color(0xFF0D47A1),
-                            Color(0xFFbdae84),
-                            Color(0xFF281236),
+                            Color(0xFF0D47A1),
+                            Color(0xFF1976D2),
+                            Color(0xFF42A5F5),
                           ],
                         ),
                       ),
@@ -127,7 +167,7 @@ Container detallComanda() {
                           bottom: 10
                       ),
                       child: const Text(
-                          'Login',
+                          'Enviar',
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.black)

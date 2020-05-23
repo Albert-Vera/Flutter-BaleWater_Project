@@ -10,14 +10,15 @@ import 'package:toast/toast.dart';
 
 import '../../Datos_Firebase.dart';
 import 'MostrarFactura.dart';
-
+String text_e;
 class ClientsFac extends StatelessWidget{
   int id;
-  ClientsFac({Key key, this.id}): super (key: key);
+  String texte;
+  ClientsFac({Key key, this.id, this.texte}): super (key: key);
 
   @override
   Widget build(BuildContext context) {
-
+    text_e = texte;
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -44,7 +45,6 @@ Widget _buildBody(BuildContext context, int id ) {
         .snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
-      print("id ........................................................   id ....... " + id.toString() );
       return _buildList(context, snapshot.data.documents );
     },
   );
@@ -81,16 +81,7 @@ Widget mostrarFactura(BuildContext context, Record record){
   return Container(
     margin: EdgeInsets.all(10.0),
     height: screenSize.height - 100,
-//    decoration: new BoxDecoration(boxShadow: [
-//      BoxShadow(
-//        color: Colors.blueAccent.withOpacity(0.2),
-//        blurRadius: 2.0,
-//      ),
-//    ],
-//        borderRadius: BorderRadius.circular(15.0)
-//    ),
     child: Card(
-
       child: Column(
           children: <Widget>[
 
@@ -100,126 +91,29 @@ Widget mostrarFactura(BuildContext context, Record record){
                   width: screenSize.width,
                   child: Column(
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: 5.0,
-                              right: 172.0),
-                          width: double.maxFinite,
-                          decoration: new BoxDecoration(boxShadow: [
-                            BoxShadow(
-                              color: Colors.tealAccent.withOpacity(0.1),
-                              blurRadius: 2.0,
-                            ),
-                          ],
-                              borderRadius: BorderRadius.circular(5.0)
-                          ),
-                          child:  Column(
-                            children: <Widget>[
-                              Text( "Bale Water, S.L.", textAlign: TextAlign.start,),
-                              Text( "C/ Balmes, 45 ", textAlign: TextAlign.start  ),
-                              Text( "08032 - Barcelona", textAlign: TextAlign.start ),
-                            ],
-                          ),
-
-                        ),
-                        Container(
-                            margin: EdgeInsets.only(
-                                top: 20.0,
-                                left: 120.0),
-                            width: 120.0,
-                            decoration: new BoxDecoration(boxShadow: [
-                              BoxShadow(
-                                color: Colors.tealAccent.withOpacity(0.1),
-                                blurRadius: 2.0,
-                              ),
-                            ],
-                                borderRadius: BorderRadius.circular(5.0)
-                            ),
-                            child:  Column(
-                                children: <Widget>[
-                                  Text(record.nom + " " + record.cognoms),
-                                  Text(record.adreca),
-                                  Text(record.cp.toString() + " " + record.localitat),
-                                ]
-                            )
-                        ),
-
-                            _cabecera(),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  top: 10.0,
-                                  left: 20.0),
-                                width: double.maxFinite,
-                              decoration: new BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                  color: Colors.blueAccent.withOpacity(0.1),
-                                  blurRadius: 2.0,
-                                ),
-                              ],
-                                  borderRadius: BorderRadius.circular(5.0)
-                              ),
-                                child:  Row(
-                                    children: <Widget>[
-                                      Container(
-                                        margin: EdgeInsets.only(left: 0.0),
-                                          child:
-                                          Text(record.id.toString()+ "    ")
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 10),
-                                          child: Text(record.product_Nom)),
-                                      Container(
-                                          margin: EdgeInsets.only(left: 25),
-                                          child: Text(record.importComanda.toString())),
-                                      Container(
-                                          margin: EdgeInsets.only(left: 35),
-                                          child: Text(record.horas.toString())),
-                                      Container(
-                                          margin: EdgeInsets.only(left: 60),
-                                          child: Text(record.importComanda.toString())),
-                                    ]
-                                )
-                            ),
+                        Text( text_e,   style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18.0
+                        ),),
+                        Divider(),
+                        _dades_Empresa(),
+                        _dades_Client(record),
+                        _cabecera(),
+                        dades_Venda(record),
                         SizedBox(
-                          height: 150.0,
+                          height: 120.0,
                         ),
                         Divider(
                           color: Colors.black,
                           height: 16,
                         ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        top: 30.0,
-                                        left: 10.0),
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child:
-                                    FloatingActionButton(
-                                      onPressed: () {
-                                        Toast.show("Imprimint factura", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
-                                      },
-                                      child: Icon(Icons.print),
-                                      mini: true,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        top: 0.0,
-                                        left: 80.0),
-                                    child: Column(
-                                      children: <Widget>[
-                                        _lineaCard( "Total ..." , record.importComanda.toString()),
-                                        _lineaCard( "iva 21% ..." , iva.toString()),
-                                        _lineaCard( "Total factura ..." , totalFact.toString()),
-                                      ],
-                                    ),
-                                  ),
-
-
-                                ],
-                              ),
+                        Row(
+                          children: <Widget>[
+                            _icone_Print(context),
+                            total_Factura(record, iva, totalFact),
+                          ],
+                        ),
                       ]
                   )
               ),
@@ -229,6 +123,127 @@ Widget mostrarFactura(BuildContext context, Record record){
     ),
   );
 }
+
+Container total_Factura(Record record, double iva, double totalFact) {
+  return Container(
+    margin: EdgeInsets.only(
+        top: 0.0,
+        left: 80.0),
+    child: Column(
+      children: <Widget>[
+        _lineaCard( "Total ..." , record.importComanda.toString()),
+        _lineaCard( "iva 21% ..." , iva.toString()),
+        _lineaCard( "Total factura ..." , totalFact.toString()),
+      ],
+    ),
+  );
+}
+
+Container _icone_Print(BuildContext context) {
+  return Container(
+    margin: EdgeInsets.only(
+        top: 30.0,
+        left: 10.0),
+    width: 50.0,
+    height: 50.0,
+    child:
+    FloatingActionButton(
+      onPressed: () {
+        Toast.show("Imprimint factura", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+      },
+      child: Icon(Icons.print),
+      mini: true,
+    ),
+  );
+}
+
+Container dades_Venda(Record record) {
+  return Container(
+      margin: EdgeInsets.only(
+          top: 10.0,
+          left: 20.0),
+      width: double.maxFinite,
+      decoration: new BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.blueAccent.withOpacity(0.1),
+          blurRadius: 2.0,
+        ),
+      ],
+          borderRadius: BorderRadius.circular(5.0)
+      ),
+      child:  Row(
+          children: <Widget>[
+            Container(
+                margin: EdgeInsets.only(left: 0.0),
+                child:
+                Text(record.id.toString()+ "    ")
+            ),
+            Container(
+                margin: EdgeInsets.only(left: 10),
+                child: Text(record.product_Nom)),
+            Container(
+                margin: EdgeInsets.only(left: 25),
+                child: Text(record.importComanda.toString())),
+            Container(
+                margin: EdgeInsets.only(left: 35),
+                child: Text(record.horas.toString())),
+            Container(
+                margin: EdgeInsets.only(left: 60),
+                child: Text(record.importComanda.toString())),
+          ]
+      )
+  );
+}
+
+Container _dades_Client(Record record) {
+  return Container(
+      margin: EdgeInsets.only(
+          top: 20.0,
+          left: 120.0),
+      width: 120.0,
+      decoration: new BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.tealAccent.withOpacity(0.1),
+          blurRadius: 2.0,
+        ),
+      ],
+          borderRadius: BorderRadius.circular(5.0)
+      ),
+      child:  Column(
+          children: <Widget>[
+            Text(record.nom + " " + record.cognoms),
+            Text(record.adreca),
+            Text(record.cp.toString() + " " + record.localitat),
+          ]
+      )
+  );
+}
+
+Container _dades_Empresa() {
+  return Container(
+    margin: EdgeInsets.only(
+        top: 5.0,
+        right: 172.0),
+    width: double.maxFinite,
+    decoration: new BoxDecoration(boxShadow: [
+      BoxShadow(
+        color: Colors.tealAccent.withOpacity(0.1),
+        blurRadius: 2.0,
+      ),
+    ],
+        borderRadius: BorderRadius.circular(5.0)
+    ),
+    child:  Column(
+      children: <Widget>[
+        Text( "Bale Water, S.L.", textAlign: TextAlign.start,),
+        Text( "C/ Balmes, 45 ", textAlign: TextAlign.start  ),
+        Text( "08032 - Barcelona", textAlign: TextAlign.start ),
+      ],
+    ),
+
+  );
+}
+
 Widget _lineaCard( String text_1, String text_2){
   // final screenSize = MediaQuery.of(context).size;
   return  Container(
@@ -265,7 +280,7 @@ Widget _lineaCard( String text_1, String text_2){
 Widget _cabecera(){
   return Container(
       margin: EdgeInsets.only(top: 40.0),
-     // color: Colors.blueAccent.withOpacity(0.15),
+      // color: Colors.blueAccent.withOpacity(0.15),
       height: 54.0,
       width: double.maxFinite,
       child: Column(

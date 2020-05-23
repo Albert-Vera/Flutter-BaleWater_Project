@@ -24,7 +24,6 @@ class LlistarProduct extends StatelessWidget {
 
 class StuffInTiles extends StatelessWidget {
   final MyTile myTile;
-  //final Subtitle listSubtitle;
   final BuildContext context;
   StuffInTiles(this.myTile, this.context);
 
@@ -40,11 +39,11 @@ class StuffInTiles extends StatelessWidget {
           enabled: true,
           isThreeLine: false,
           onLongPress: () => print("long press"),
-          onTap: () => pushPage(context, GestionarComanda(title: t.title)),
-          subtitle: new Text("subTitol"),
-          leading: new Text("Producte"),
+          onTap: () => pushPage(context, GestionarComanda(title: t.title, preu: t.preu)),
+          subtitle: new Text(t.subtitle),
+          leading: new Text(t.id),
           selected: true,
-          trailing: new Text("Fer comanda"),
+          trailing: new Text(t.preu + ",00e."),
           title: new Text(t.title,  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)));
 
     return new ExpansionTile(
@@ -56,37 +55,25 @@ class StuffInTiles extends StatelessWidget {
 }
 
 class MyTile {
-  String title;
+  String title, subtitle, id, preu;
   List<MyTile> children;
-  MyTile(this.title, [this.children = const <MyTile>[]]);
-}
-class Subtitle{
-  String subtitle;
-  List<Subtitle> hijos;
-  Subtitle(String children,  [this.hijos = const <Subtitle>[]]);
+  MyTile(this.title, this.subtitle, this.id, this.preu,[this.children = const <MyTile>[]]);
 }
 
 List<MyTile> listOfTiles = <MyTile>[
   new MyTile(
-    'Triar un Producte per fer la comanda',
+    'Triar un Producte per fer la comanda', '', '','',  // 4 parámetres
     <MyTile>[
-      new MyTile('Salta Bolas'),
-      new MyTile('Rocódromo'),
-      new MyTile('Tobogán del espacio'),
-      new MyTile('Fútbol burbuja'),
-      new MyTile('Turbina inflador'),
+      new MyTile('Salta Bolas', 'Euro Hinchable', 'SB-015', '2500'),
+      new MyTile('Rocódromo','Hinchables España', 'RT-005', '2900' ),
+      new MyTile('Tobogán del espacio', 'Amazón', 'FB-055', '2500'),
+      new MyTile('Fútbol burbuja', 'JB-Hinchables', 'FB-001', '360'),
+      new MyTile('Turbina inflador', 'Amazón', 'TB-005', '299'),
     ],
 
 
   ),
 
 ];
-List<Subtitle> listOfsubTitles = <Subtitle>[
-  new Subtitle(
-    'Triar un Producte per fer la comanda'
 
-
-  ),
-
-];
 

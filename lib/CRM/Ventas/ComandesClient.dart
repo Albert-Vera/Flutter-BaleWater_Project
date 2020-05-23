@@ -7,19 +7,9 @@ import 'GraphWidget.dart';
 
 class ComandesClient extends StatefulWidget {
   final List<DocumentSnapshot> documents;
-  final double total;
-  final List<double> perDay;
   bool verFactura;
 
-  ComandesClient({Key key, this.documents, this.verFactura})
-      : total = documents.map((doc) => doc['importComanda'])
-      .fold(0.0, (a, b) => a + b),
-        perDay = List.generate(30, (int index) {
-          return documents.where((doc) => doc['dia'] == (index + 1))
-              .map((doc) => doc['importComanda'])
-              .fold(0.0, (a, b) => a + b);
-        }),
-        super(key: key);
+  ComandesClient({Key key, this.documents, this.verFactura}):super(key: key);
 
   @override
   _ComandesClientState createState() => _ComandesClientState();
@@ -85,7 +75,7 @@ class _ComandesClientState extends State<ComandesClient> {
                     fontWeight: FontWeight.w400,
                     fontSize: 12.0
                 ),),
-            )
+            ),
           ],
         )
 
@@ -118,43 +108,34 @@ class _ComandesClientState extends State<ComandesClient> {
           color: Colors.blueAccent.withOpacity(0.2),
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("$value",
-            style: TextStyle(
-              color: Colors.blueAccent,
-              fontWeight: FontWeight.w500,
-              fontSize: 12.0,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("$value",
+                style: TextStyle(
+                  color: Colors.blueAccent,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12.0,
+                ),
+              ),
             ),
-          ),
+
+            Padding(
+              padding: const EdgeInsets.all(1.0),
+              child: Text("Cobrada",
+                style: TextStyle(
+
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12.0,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
-//  Widget _impresioDades( int id, String name, String productId, String value) {
-//    return Container(
-//      margin: EdgeInsets.symmetric(vertical: 6.0),
-//      height: 50.0,
-//      child: Container(
-//        decoration: new BoxDecoration(boxShadow: [
-//          new BoxShadow(
-//            color: Colors.blueAccent.withOpacity(0.2),
-//            blurRadius: 2.0,
-//          ),
-//        ]),
-//        child: Card(
-//            child: Row(
-//              children: <Widget>[
-//                Text(  id.toString()),
-//                Text( productId ),
-//                Text( name),
-//
-//              ],
-//            )
-//        ),
-//      ),
-//    );
-//  }
 
   Widget _list(bool verFactura) {
     return Expanded(
@@ -168,7 +149,7 @@ class _ComandesClientState extends State<ComandesClient> {
           if ( verFactura ) {
             return GestureDetector(
               onTap: () {
-                pushPage(context, ClientsFac(id: widget.documents[index].data['id']));
+                pushPage(context, ClientsFac(texte: "Factura", id: widget.documents[index].data['id']));
               },
               child: Container(
                   child:
@@ -178,9 +159,7 @@ class _ComandesClientState extends State<ComandesClient> {
           }else
             return GestureDetector(
               onTap: () {
-                final snackBar = SnackBar(content: Text("Tap"));
-
-                Scaffold.of(context).showSnackBar(snackBar);
+                pushPage(context, ClientsFac(texte: "Pre-forma", id: widget.documents[index].data['id']));
               },
               child: Container(
                   child:

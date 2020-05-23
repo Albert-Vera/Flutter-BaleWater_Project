@@ -8,6 +8,14 @@ class Balance3 extends StatefulWidget {
   final double total;
   final List<double> perDay;
 
+  // Constructor bien curioso
+  // en el mismo constructor recibe el documento leido en Firebase
+  // pasa a map el contenido de "importComanda"
+  // y esos importe los va recorriendo con el método .fold()
+  // teniendo en el map el valor anterior y el actual leido
+  // y luego los suma...  Cojonudo
+  // Luego hace un calculo de importe por dia, pero lo hace por 30
+  // lo que sucederá es que hay meses de 31.
   Balance3({Key key, this.documents})
       : total = documents.map((doc) => doc['importComanda'])
             .fold(0.0, (a, b) => a + b),
