@@ -1,18 +1,12 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/CRM/Compras/ComandesARebre.dart';
 import 'package:Balewaterproject/CRM/Compras/ComandesProveidor.dart';
-import 'package:Balewaterproject/CRM/Ventas/Balance.dart';
 import 'package:Balewaterproject/CRM/Compras/ContacteProveidor.dart';
 import 'package:Balewaterproject/CRM/Compras/Proveidors.dart';
-import 'package:Balewaterproject/CRM/Ventas/Clients.dart';
 import 'package:Balewaterproject/CRM/Ventas/Productes.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuItem.dart';
-import 'package:Balewaterproject/Providers/StockModel.dart';
-import 'package:Balewaterproject/CRM/Compras/LlistarProduct.dart';
 import 'package:flutter/material.dart';
-
-import 'MenuVendes.dart';
 
 class MenuCompras extends StatelessWidget{
   @override

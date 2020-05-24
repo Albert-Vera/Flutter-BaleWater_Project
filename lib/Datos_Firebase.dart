@@ -25,14 +25,19 @@ Widget buildBody(BuildContext context, String coleccio) {
 }
 
 Widget buildList(BuildContext context, List<DocumentSnapshot> snapshot, String coleccio) {
-  return
-    ListView.builder(
+  return ListView.builder(
       padding: const EdgeInsets.only(top: 30.0),
       itemCount: snapshot.length,
       itemBuilder: (context, index){
         return buildListItem(context, snapshot[index], coleccio);
       },
     );
+
+//  return ListView(
+//    padding: const EdgeInsets.only(top: 30.0),
+//    children: snapshot.map((data) =>
+//      buildListItem(context, data, coleccio)).toList(),
+//  );
 }
 
 Widget buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {
