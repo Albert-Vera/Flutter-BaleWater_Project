@@ -72,7 +72,7 @@ class DadesClient extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           _btnRetroceso(context, record ),
-                          if (texte != "") _boton(context, record),
+                          texte != ""  ? _boton(context, record) : null,
                         ],
                       )
                     ]

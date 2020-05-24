@@ -18,7 +18,7 @@ Widget buildBody(BuildContext context, String coleccio) {
       if (snapshot.data.documents.isEmpty)   {
         if ( coleccio == "comandesAservir") return comanServidasVacio(context, "servir");
         else return comanServidasVacio(context, "recollir");
-    }
+      }
       else return buildList(context, snapshot.data.documents, coleccio );
     },
   );
@@ -26,36 +26,31 @@ Widget buildBody(BuildContext context, String coleccio) {
 
 Widget buildList(BuildContext context, List<DocumentSnapshot> snapshot, String coleccio) {
   return
-    ListView(
+    ListView.builder(
       padding: const EdgeInsets.only(top: 30.0),
-      children: snapshot.map((data) =>
-          buildListItem(context, data, coleccio)).toList(),
+      itemCount: snapshot.length,
+      itemBuilder: (context, index){
+        return buildListItem(context, snapshot[index], coleccio);
+      },
     );
 }
 
 Widget buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {
   final record = Record.fromSnapshot(datos);
-  return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection("comanda").snapshots(),
-    builder: (context, snapshot) {
-
-      if (!snapshot.hasData) return LinearProgressIndicator();
-      if (record.servida == false) {
-        deleteFirebase(context, record, "perRecollir");
-        writeFirebase(context, record, "comanda");
-        writeFirebase(context, record, "comandesAservir");
-        return impresioDades(context, record, coleccio);
-      } else if (record.recollida == false) {
-        deleteFirebase(context, record, "comandesAservir");
-        writeFirebase(context, record, "comanda");
-        writeFirebase(context, record, "perRecollir");
-        return impresioDades(context, record, coleccio);
-      } else {
-        deleteFirebase(context, record, "perRecollir");
-        return impresioDades(context, record, coleccio);
-      }
-    },
-  );
+  if (record.servida == false) {
+    deleteFirebase(context, record, "perRecollir");
+    writeFirebase(context, record, "comanda");
+    writeFirebase(context, record, "comandesAservir");
+    return impresioDades(context, record, coleccio);
+  } else if (record.recollida == false) {
+    deleteFirebase(context, record, "comandesAservir");
+    writeFirebase(context, record, "comanda");
+    writeFirebase(context, record, "perRecollir");
+    return impresioDades(context, record, coleccio);
+  } else {
+    deleteFirebase(context, record, "perRecollir");
+    return impresioDades(context, record, coleccio);
+  }
 }
 
 void deleteFirebase(BuildContext context, Record record, String coleccion) {
