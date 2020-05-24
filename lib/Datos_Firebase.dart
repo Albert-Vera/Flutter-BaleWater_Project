@@ -26,16 +26,17 @@ Widget buildBody(BuildContext context, String coleccio) {
 
 Widget buildList(BuildContext context, List<DocumentSnapshot> snapshot, String coleccio) {
   return
-    ListView(
+    ListView.builder(
       padding: const EdgeInsets.only(top: 30.0),
-      children: snapshot.map((data) =>
-          buildListItem(context, data, coleccio)).toList(),
+      itemCount: snapshot.length,
+      itemBuilder: (context, index){
+        return buildListItem(context, snapshot[index], coleccio);
+      },
     );
 }
 
 Widget buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {
   final record = Record.fromSnapshot(datos);
-
   if (record.servida == false) {
     deleteFirebase(context, record, "perRecollir");
     writeFirebase(context, record, "comanda");
@@ -59,14 +60,14 @@ void deleteFirebase(BuildContext context, Record record, String coleccion) {
 
 void writeFirebase(BuildContext context, Record record, String coleccion) {
   String a, b;
-  // Retalla data per obtenir dia i mes
+  // Retalla data er obtenir dia i mes
   if (record.dat_servei.length == 7 || record.dat_servei.length == 9) {
-    a = record.dat_servei.substring(2, 4);
-    b = record.dat_servei.substring(0, 1);
+     a = record.dat_servei.substring(2, 4);
+     b = record.dat_servei.substring(0, 1);
   }
   if (record.dat_servei.length == 8 || record.dat_servei.length == 10) {
-    a = record.dat_servei.substring(3, 5);
-    b = record.dat_servei.substring(0, 2);
+     a = record.dat_servei.substring(3, 5);
+     b = record.dat_servei.substring(0, 2);
   }
   Firestore.instance.collection(coleccion).document(record.id.toString())
       .setData({
