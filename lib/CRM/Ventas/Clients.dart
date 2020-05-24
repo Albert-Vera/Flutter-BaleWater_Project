@@ -4,42 +4,11 @@ import 'package:Balewaterproject/model/Record.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../Datos_Firebase.dart';
 
 
-class Clients extends StatefulWidget{
-  @override
-  _ClientsState createState() => _ClientsState();
-}
-
-class _ClientsState extends State<Clients> {
-  var clients = [];
-
-  @override
-  void initState() {
-    getClients();
-    super.initState();
-  }
-
-  getClients() async {
-    var comandes = await Firestore.instance.collection("comanda").getDocuments();
-
-    final clients = [];
-    final emails = new Set<String>();
-    for(DocumentSnapshot comanda in comandes.documents){
-      if(!emails.contains(comanda.data["email"])){
-        emails.add(comanda.data["email"]);
-        clients.add(comanda);
-      }
-    }
-
-    setState(() {
-      this.clients = clients;
-    });
-  }
-
+class Clients extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +17,7 @@ class _ClientsState extends State<Clients> {
             children: <Widget>[
               BannerBaleWater(texte: "Llistat de clients",),
               Expanded(child:
-              _buildBody("comanda"),
+              _buildBody(context, "comanda"),
               ),
             ],
           )
@@ -56,7 +25,7 @@ class _ClientsState extends State<Clients> {
     );
   }
 
-  Widget _buildBody(String coleccio) {
+  Widget _buildBody(BuildContext context, String coleccio) {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection(coleccio).snapshots(),
       builder: (context, snapshot) {
@@ -65,17 +34,17 @@ class _ClientsState extends State<Clients> {
         final nomsEnLaLlista = Set<String>();
         final unics = snapshot.data.documents.where((element) => nomsEnLaLlista.add(element.data["nom"] + element.data["cognoms"])).toList();
 
-        return _buildList(unics, coleccio );
+        return _buildList(context, unics, coleccio );
       },
     );
   }
 
-  Widget _buildList(List<DocumentSnapshot> snapshot, String coleccio) {
+  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot, String coleccio) {
     return ListView.builder(
         padding: const EdgeInsets.only(top: 30.0),
         itemCount: snapshot.length,
         itemBuilder: (context, index){
-          return _buildListItem(snapshot[index], coleccio);
+          return _buildListItem(context, snapshot[index], coleccio);
         },
       );
   }
@@ -91,9 +60,9 @@ class _ClientsState extends State<Clients> {
 //  return  documentList;
 //}
 
-  Widget _buildListItem(DocumentSnapshot datos, String coleccio)  {
+  Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio)  {
     final record = Record.fromSnapshot(datos);
-    return _mostrarDetall(record);
+    return _mostrarDetall(context, record);
 //  print("dkalsdkla -----------------------111111---------------------------  " + numeroRepetidos.toString());
 //      final  <Future> a =  busqueda(record); // si meto ASYNC el metodo no admite async
 //
@@ -108,7 +77,7 @@ class _ClientsState extends State<Clients> {
     return Container();
   }
 
-  Container _mostrarDetall(Record record) {
+  Container _mostrarDetall(BuildContext context, Record record) {
     final screenSize = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.all(10.0),
@@ -159,6 +128,9 @@ class _ClientsState extends State<Clients> {
   }
 
   void _writeFirebase(Record record  ) {
+    // aquí no deuria haver un StreamBuilder.
+    // StreamBuilder és per a mostrar dades a partir d'un stream (consulta a firebase)
+
     StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
         .collection('client')
