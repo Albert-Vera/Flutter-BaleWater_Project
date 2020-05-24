@@ -50,16 +50,7 @@ class _ContacteProveidorState extends State<ContacteProveidor> {
               ),
             ],
           ),
-
-
-
-
-
-
-
-
-        ),
-
+      ),
     );
   }
 }

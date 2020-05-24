@@ -18,7 +18,7 @@ Widget buildBody(BuildContext context, String coleccio) {
       if (snapshot.data.documents.isEmpty)   {
         if ( coleccio == "comandesAservir") return comanServidasVacio(context, "servir");
         else return comanServidasVacio(context, "recollir");
-    }
+      }
       else return buildList(context, snapshot.data.documents, coleccio );
     },
   );
@@ -35,27 +35,21 @@ Widget buildList(BuildContext context, List<DocumentSnapshot> snapshot, String c
 
 Widget buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {
   final record = Record.fromSnapshot(datos);
-  return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection("comanda").snapshots(),
-    builder: (context, snapshot) {
 
-      if (!snapshot.hasData) return LinearProgressIndicator();
-      if (record.servida == false) {
-        deleteFirebase(context, record, "perRecollir");
-        writeFirebase(context, record, "comanda");
-        writeFirebase(context, record, "comandesAservir");
-        return impresioDades(context, record, coleccio);
-      } else if (record.recollida == false) {
-        deleteFirebase(context, record, "comandesAservir");
-        writeFirebase(context, record, "comanda");
-        writeFirebase(context, record, "perRecollir");
-        return impresioDades(context, record, coleccio);
-      } else {
-        deleteFirebase(context, record, "perRecollir");
-        return impresioDades(context, record, coleccio);
-      }
-    },
-  );
+  if (record.servida == false) {
+    deleteFirebase(context, record, "perRecollir");
+    writeFirebase(context, record, "comanda");
+    writeFirebase(context, record, "comandesAservir");
+    return impresioDades(context, record, coleccio);
+  } else if (record.recollida == false) {
+    deleteFirebase(context, record, "comandesAservir");
+    writeFirebase(context, record, "comanda");
+    writeFirebase(context, record, "perRecollir");
+    return impresioDades(context, record, coleccio);
+  } else {
+    deleteFirebase(context, record, "perRecollir");
+    return impresioDades(context, record, coleccio);
+  }
 }
 
 void deleteFirebase(BuildContext context, Record record, String coleccion) {
@@ -65,14 +59,14 @@ void deleteFirebase(BuildContext context, Record record, String coleccion) {
 
 void writeFirebase(BuildContext context, Record record, String coleccion) {
   String a, b;
-  // Retalla data er obtenir dia i mes
+  // Retalla data per obtenir dia i mes
   if (record.dat_servei.length == 7 || record.dat_servei.length == 9) {
-     a = record.dat_servei.substring(2, 4);
-     b = record.dat_servei.substring(0, 1);
+    a = record.dat_servei.substring(2, 4);
+    b = record.dat_servei.substring(0, 1);
   }
   if (record.dat_servei.length == 8 || record.dat_servei.length == 10) {
-     a = record.dat_servei.substring(3, 5);
-     b = record.dat_servei.substring(0, 2);
+    a = record.dat_servei.substring(3, 5);
+    b = record.dat_servei.substring(0, 2);
   }
   Firestore.instance.collection(coleccion).document(record.id.toString())
       .setData({

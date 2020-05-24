@@ -24,10 +24,7 @@ class ClientsFac extends StatelessWidget{
       body: Container(
         child:  Column(
           children: <Widget>[
-
-
             Expanded(child: _buildBody(context, id)),
-            //_mostrarFactura(),
           ],
         ),
       ),
@@ -61,14 +58,8 @@ Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
 
 Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
   final record = Record.fromSnapshot(datos);
-  return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection("comanda").snapshots(),
-    builder: (context, snapshot) {
-      if (!snapshot.hasData) return LinearProgressIndicator();
 
-      return  mostrarFactura(context, record);
-    },
-  );
+  return  mostrarFactura(context, record);
 }
 
 Widget mostrarFactura(BuildContext context, Record record ){

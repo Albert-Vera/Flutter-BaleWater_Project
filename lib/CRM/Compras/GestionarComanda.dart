@@ -1,5 +1,5 @@
 
-import 'package:Balewaterproject/CRM/Compras/Vacia.dart';
+import 'package:Balewaterproject/CRM/Compras/RegistrarComanda.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:Balewaterproject/util.dart';
@@ -72,7 +72,7 @@ Widget _ferComanda(BuildContext context, String productId, String title, TextEdi
                       margin: EdgeInsets.only(top: 35.0),
                       child: TextFormField(
                         controller: myController, // per obtenir valor del texfield i despres pasarlo a Int
-//                        controller: _unitats,
+                        keyboardType: TextInputType.number,
                         decoration: const InputDecoration(
                           hintText: 'unitats...',
                         ),
@@ -100,7 +100,7 @@ Widget _ferComanda(BuildContext context, String productId, String title, TextEdi
                         child: RaisedButton(
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              pushPage(context, Vacia(productId: productId, nomProducte: title, unitats: int.parse(myController.text)));
+                              pushPage(context, RegistrarComanda(productId: productId, nomProducte: title, unitats: int.parse(myController.text)));
                             }
                             //}
                           },
@@ -118,64 +118,4 @@ Widget _ferComanda(BuildContext context, String productId, String title, TextEdi
   );
 }
 
-Widget _calcularPreu(String title){
-
-  //TODO falta obtener precio producto
-
-if (title != null) {
-  StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance
-        .collection('productes')
-        .where("nomCastle", isEqualTo: title)
-        .snapshots(),
-    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
-      if (data.hasData) {
-        List<DocumentSnapshot> lista = (data.data.documents.map((doc) => doc['preuAlquiler']));
-        return Text("maravillos...  " + lista.contains(title).toString());
-      }
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    },
-  );
-}
-}
-Widget _writeComandaFirebase(BuildContext context ) {
-  print("..............................................................................111.a.............  ");
-  return StreamBuilder(
-    stream: Firestore.instance.collection('comandaProveidor').snapshots(),
-    builder:(context, snapshot) {
-      if (!snapshot.hasData) {
-
-          print("..............................................................................2222.a.............  " + snapshot.data['idComanda'].toString());
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Disponibles en almacén: " + snapshot.data['idComanda'].toString()),
-          );
-        Firestore.instance.collection("comandaProveidor").document("09ij0")
-            .setData({
-          'idComanda':  's',
-          'nomProducte': 's',
-          'idProducte': 's',
-          'nomProveidor':  's',
-          'idProveidor':  's',
-          'dataComanda':  's',
-          'dataEntrega':  's',
-          'preuUnitat':  's',
-          'preuTotal':  's' })
-            .then((_) {
-
-        }).catchError((onError) {
-          print(onError);
-        });
-      }
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    },
-  );
-
-
-
-}
 

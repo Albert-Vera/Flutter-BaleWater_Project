@@ -112,20 +112,20 @@ Widget graella(BuildContext context) {
       height: 300,
       child: Column(
         children: <Widget>[
-      Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
-          MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "a recollir", width: 130, image: "image/servidas.jpeg"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
+              MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "a recollir", width: 130, image: "image/servidas.jpeg"),
+            ],
+          ),
+          Expanded(child:
+          _buildBody(context) // NO mostar res per pantalla pero actualitzar comandas que arriban de la Web.
+
+          ),
+
         ],
-      ),
-      Expanded(child:
-         _buildBody(context) // NO mostar res per pantalla pero actualitzar comandas que arriban de la Web.
-
-      ),
-
-  ],
-  )
+      )
   );
 }
 Widget _buildBody(BuildContext context ) {
@@ -150,26 +150,21 @@ Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
 
 Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
   final record = Record.fromSnapshot(datos);
-  return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection("comanda").snapshots(),
-    builder: (context, snapshot) {
-      if (!snapshot.hasData) return LinearProgressIndicator();
-      if (record.servida == false) {
-        _deleteFirebase(context, record, "perRecollir");
-        _writeFirebase(context, record, "comanda");
-        _writeFirebase(context, record, "comandesAservir");
-        return Container();
-      } else if (record.recollida == false) {
-        _deleteFirebase(context, record, "comandesAservir");
-        _writeFirebase(context, record, "comanda");
-        _writeFirebase(context, record, "perRecollir");
-        return Container();
-      } else {
-        _deleteFirebase(context, record, "perRecollir");
-        return Container();
-      }
-    },
-  );
+
+  if (record.servida == false) {
+    _deleteFirebase(context, record, "perRecollir");
+    _writeFirebase(context, record, "comanda");
+    _writeFirebase(context, record, "comandesAservir");
+    return Container();
+  } else if (record.recollida == false) {
+    _deleteFirebase(context, record, "comandesAservir");
+    _writeFirebase(context, record, "comanda");
+    _writeFirebase(context, record, "perRecollir");
+    return Container();
+  } else {
+    _deleteFirebase(context, record, "perRecollir");
+    return Container();
+  }
 }
 void _deleteFirebase(BuildContext context, Record record, String coleccion) {
   Firestore.instance.collection(coleccion).document(record.id.toString())

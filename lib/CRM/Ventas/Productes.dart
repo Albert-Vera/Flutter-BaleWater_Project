@@ -60,17 +60,10 @@ class _ProductesState extends State<Productes> {
       );
   }
 
-  Widget _buildListItem(BuildContext context, DocumentSnapshot datos,
-      String coleccio) {
+  Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {
     final record = RecordProducte.fromSnapshot(datos);
 
-    return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection("productes").snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return LinearProgressIndicator();
-        return _actualitzarDades(context, record);
-      },
-    );
+    return _actualitzarDades(context, record);
   }
 
   Widget _actualitzarDades(BuildContext context, RecordProducte record) {
