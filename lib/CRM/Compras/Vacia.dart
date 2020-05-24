@@ -91,6 +91,26 @@ class _VaciaState extends State<Vacia> {
       'preuTotal': (preu)*widget.unitats});
   }
 
+// Este _writeComanda usa el metodo add() en lugar de setData()
+// Con add() firebase genera automaticamente un id
+//  void _writeComandaFirebase() async {
+//
+//    var preu = (await Firestore.instance.collection("productes").document(widget.productId).get()).data["precioCoste"];
+//
+//    Firestore.instance.collection("comandaProveidor")
+//      .add({
+//      'nomProducte': widget.nomProducte,
+//      'idProducte': 's',
+//      'nomProveidor': 's',
+//      'idProveidor': 's',
+//      'dataComanda': 's',
+//      'dataEntrega': 's',
+//      'unitats': widget.unitats,
+//      'preuUnitat': preu,
+//      'preuTotal': (preu)*widget.unitats});
+//  }
+
+
   AlertDialog _comandaEnviada(BuildContext context) {
     return AlertDialog(
       title: Text('Comande enviada ' ),
