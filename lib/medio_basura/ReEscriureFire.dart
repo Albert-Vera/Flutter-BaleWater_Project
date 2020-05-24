@@ -7,30 +7,30 @@ class ReEscriureFire{
       void escriure() {
         var nombre = [ "", "Ana", "Maria", "Carme", "Silvie", "Jordi", "Javier", "Albert", "Señor", "Pere", "Tomás", "Señor", "Enric", "Andreu", "Alba", "Asunción" ];
         var apellido = ["", "Manzana", "Pera" ,"Filemon", "Mortadelo","Naranjo","Martin", "Betancurt", "Garcia", "Bonaparte", "Sin Miedo", "Mandarina", "Platano", "Chirimoya","Aguacate", "Guayaba"];
-        for (int x= 1; x<16; x++) {
-          Firestore.instance.collection("comanda").document(x.toString())
+        for (int x= 60, i = 1; x<69 && i < 16 ; x++, i++) {
+        Firestore.instance.collection("comanda").document(x.toString())
               .setData(
               {
                       'id': x,
-                      'idClient': 0,
-                      'nom': nombre[x],
-                      'cognoms': apellido[x],
-                  'email': "señora@gmail.com",
-                'telef': "666 666 666",
-                      'data_servei': "26/04/2020",
+                      'idClient': 2+x,
+                      'nom': nombre[i],
+                      'cognoms': apellido[i],
+                      'email': "señora@gmail.com",
+                      'telef': "666 666 666",
+                      'data_servei': (i+10).toString() + "/04/2020",
                       'data_comanda': "01/04/2020",
                       'horas': 4,
-                      'product_id': "FB-055",
+                      'product_id': "RT-005",
                       'recollida': false,
                       'servida': false,
-                      'importComanda': 450,
-                      'productNom': "Tobogán",
+                      'importComanda': 650,
+                      'productNom': "Rocodromo",
                       'adreca': "vista al mar, 13",
                       'localitat': "Barcelona",
                       'provincia': "Barcelona",
                       'cp': 08080,
-                      'mes' : 4,
-                      'dia' : 26
+                      'mes' : 5,
+                      'dia' : i
               });
         }
 
