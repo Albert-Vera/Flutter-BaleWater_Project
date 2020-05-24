@@ -2,7 +2,6 @@ import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/model/Record.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 import '../Datos_Firebase.dart';

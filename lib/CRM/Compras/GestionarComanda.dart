@@ -10,9 +10,9 @@ import '../../BackGroundPantalla.dart';
 import '../../Datos_Firebase.dart';
 
 class GestionarComanda extends StatefulWidget {
-  String title, preu;
+  String productId, title, preu;
 
-  GestionarComanda( {Key key,  this.title, this.preu}): super(key: key);
+  GestionarComanda( {Key key,  this.productId, this.title, this.preu}): super(key: key);
 
   @override
   _GestionarComandaState createState() => _GestionarComandaState();
@@ -34,7 +34,7 @@ class _GestionarComandaState extends State<GestionarComanda> {
             children: <Widget>[
               BannerBaleWater(texte: "Detall comanda",),
               Expanded(child:
-              _ferComanda(context, widget.title, myController, widget.preu)
+              _ferComanda(context, widget.productId, widget.title, myController, widget.preu)
               ),
             ],
           )
@@ -42,7 +42,8 @@ class _GestionarComandaState extends State<GestionarComanda> {
     );
   }
 }
-Widget _ferComanda(BuildContext context, String title, TextEditingController myController, String preu){
+
+Widget _ferComanda(BuildContext context, String productId, String title, TextEditingController myController, String preu){
   final _formKey = GlobalKey<FormState>();
   final _unitats = TextEditingController();
   return Scaffold(
@@ -99,7 +100,7 @@ Widget _ferComanda(BuildContext context, String title, TextEditingController myC
                         child: RaisedButton(
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              pushPage(context, Vacia(nomProducte: title, unitatTextField: int.parse(myController.text)));
+                              pushPage(context, Vacia(productId: productId, nomProducte: title, unitats: int.parse(myController.text)));
                             }
                             //}
                           },
@@ -116,6 +117,7 @@ Widget _ferComanda(BuildContext context, String title, TextEditingController myC
       )
   );
 }
+
 Widget _calcularPreu(String title){
 
   //TODO falta obtener precio producto

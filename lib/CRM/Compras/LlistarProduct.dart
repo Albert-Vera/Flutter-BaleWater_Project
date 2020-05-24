@@ -39,7 +39,7 @@ class StuffInTiles extends StatelessWidget {
           enabled: true,
           isThreeLine: false,
           onLongPress: () => print("long press"),
-          onTap: () => pushPage(context, GestionarComanda(title: t.title, preu: t.preu)),
+          onTap: () => pushPage(context, GestionarComanda(productId: t.id, title: t.title, preu: t.preu)),
           subtitle: new Text(t.subtitle),
           leading: new Text(t.id),
           selected: true,
