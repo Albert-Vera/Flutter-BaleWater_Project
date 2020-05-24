@@ -85,16 +85,9 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
       _writeComandaFirebase(context,record);
-      return Text(" bla bla bla");
+      return Container();
     },
   );
-
-
-
-
-
-
-
 }
 Widget _writeComandaFirebase(BuildContext context, RecordProveidor record ) {
   print("..............................................................................111.a.............  " + tamany.toString());

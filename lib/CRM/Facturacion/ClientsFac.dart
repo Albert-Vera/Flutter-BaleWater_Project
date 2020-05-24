@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
 import '../../Datos_Firebase.dart';
-import 'MostrarFactura.dart';
 String text_e;
 class ClientsFac extends StatelessWidget{
   int id;
@@ -67,13 +66,12 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
 
-
       return  mostrarFactura(context, record);
     },
   );
 }
 
-Widget mostrarFactura(BuildContext context, Record record){
+Widget mostrarFactura(BuildContext context, Record record ){
   final screenSize = MediaQuery.of(context).size;
   double iva = record.importComanda * 21/100;
   double totalFact = record.importComanda + iva;
@@ -101,7 +99,7 @@ Widget mostrarFactura(BuildContext context, Record record){
                         _dades_Empresa(record),
                         _dades_Client(record),
                         _cabecera(),
-                        dades_Venda(record),
+                        dades_Venda(record ),
                         SizedBox(
                           height: 120.0,
                         ),
@@ -221,7 +219,13 @@ Container _icone_Print(BuildContext context) {
   );
 }
 
-Container dades_Venda(Record record) {
+Container dades_Venda(Record record ) {
+
+  String nomRetallat;
+  if (record.product_Nom.length > 9){ // Controla que el camp no sigui massa gran, si no trenca la factura
+    nomRetallat = record.product_Nom.substring(0,10);
+  }else nomRetallat = record.product_Nom;
+
   return Container(
       margin: EdgeInsets.only(
           top: 10.0,
@@ -245,9 +249,9 @@ Container dades_Venda(Record record) {
                   fontSize: 10.0
                 ),)
             ),
-            Container(
-                margin: EdgeInsets.only(left: 3),
-                child: Text(record.product_Nom)),
+            Center(
+                //margin: EdgeInsets.only(left: 3),
+                child: Text(nomRetallat )),
             Container(
                 margin: EdgeInsets.only(left: 25),
                 child: Text(record.importComanda.toString())),
@@ -255,7 +259,7 @@ Container dades_Venda(Record record) {
                 margin: EdgeInsets.only(left: 35),
                 child: Text(record.horas.toString())),
             Container(
-                margin: EdgeInsets.only(left: 60),
+                margin: EdgeInsets.only(left: 50),
                 child: Text(record.importComanda.toString())),
           ]
       )

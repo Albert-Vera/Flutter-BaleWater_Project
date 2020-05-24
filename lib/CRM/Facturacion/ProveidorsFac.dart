@@ -32,11 +32,11 @@ Widget enConstruccio(){
         children: <Widget>[
           //const SectionTitle(title: 'Tappable'),
           SizedBox(
-            height: 200,
+            height: 150,
           ),
           Image.asset("image/enconstruccio.jpeg",
               width: 200,
-              height: 240,
+              height: 120,
               fit:BoxFit.fill ),
 
         ]

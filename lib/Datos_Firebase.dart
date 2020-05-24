@@ -64,8 +64,16 @@ void deleteFirebase(BuildContext context, Record record, String coleccion) {
 }
 
 void writeFirebase(BuildContext context, Record record, String coleccion) {
-  String a = record.dat_servei.substring(3,5);
-  String b = record.dat_servei.substring(0,2);
+  String a, b;
+  // Retalla data er obtenir dia i mes
+  if (record.dat_servei.length == 7 || record.dat_servei.length == 9) {
+     a = record.dat_servei.substring(2, 4);
+     b = record.dat_servei.substring(0, 1);
+  }
+  if (record.dat_servei.length == 8 || record.dat_servei.length == 10) {
+     a = record.dat_servei.substring(3, 5);
+     b = record.dat_servei.substring(0, 2);
+  }
   Firestore.instance.collection(coleccion).document(record.id.toString())
       .setData({
     'id': record.id,
