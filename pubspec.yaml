@@ -38,6 +38,7 @@ dependencies:
 
   toast: ^0.1.5
 
+  rxdart:
 
 
 dev_dependencies:

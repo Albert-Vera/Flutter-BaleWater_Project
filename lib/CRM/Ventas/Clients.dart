@@ -4,6 +4,7 @@ import 'package:Balewaterproject/model/Record.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../Datos_Firebase.dart';
 
@@ -60,14 +61,17 @@ class _ClientsState extends State<Clients> {
       stream: Firestore.instance.collection(coleccio).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        return _buildList(snapshot.data.documents, coleccio );
+
+        final nomsEnLaLlista = Set<String>();
+        final unics = snapshot.data.documents.where((element) => nomsEnLaLlista.add(element.data["nom"] + element.data["cognoms"])).toList();
+
+        return _buildList(unics, coleccio );
       },
     );
   }
 
   Widget _buildList(List<DocumentSnapshot> snapshot, String coleccio) {
-    return
-      ListView.builder(
+    return ListView.builder(
         padding: const EdgeInsets.only(top: 30.0),
         itemCount: snapshot.length,
         itemBuilder: (context, index){
