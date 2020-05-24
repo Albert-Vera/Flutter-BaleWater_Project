@@ -146,7 +146,7 @@ Widget _list(List<DocumentSnapshot> documents) {
         String id = documents[index].data['codigo'];
         String empresa = documents[index].data['empresa'] ;
         String situada = documents[index].data['situadaEn'];
-        String articulo = documents[index].data['articulos'];
+        String articulo = documents[index].data['articulo'];
         print("....................................................antes return " + index.toString());
         return _item( id, empresa, situada, articulo, documents, index);
       },

@@ -63,7 +63,7 @@ Widget _cabecera(){
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 70.0),
-                  child: Text("Nom client",
+                  child: Text("Producte",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
@@ -82,26 +82,18 @@ Widget _cabecera(){
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.only(right: 30.0),
-            child: Text("Producte",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12.0
-              ),),
-          )
         ],
       )
 
   );
 }
-Widget _item( String id, String empresa, String situada, String articulo, List<DocumentSnapshot> documents, int index) {
-  print("................................................. ... dentro ...  " + documents[0].data['codigo']);
+Widget _item( int id, String empresa, int unitats, String articulo, List<DocumentSnapshot> documents, int index) {
+
 
   return ListTile(
     leading: Padding(
       padding: const EdgeInsets.only(top: 10.0),
-      child: Text(id,
+      child: Text(id.toString(),
         style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15.0
@@ -113,7 +105,7 @@ Widget _item( String id, String empresa, String situada, String articulo, List<D
           fontSize: 15.0
       ),
     ),
-    subtitle: Text(situada,
+    subtitle: Text("unitats: " + unitats.toString(),
       style: TextStyle(
         fontSize: 16.0,
         color: Colors.blueGrey,
@@ -138,18 +130,16 @@ Widget _item( String id, String empresa, String situada, String articulo, List<D
   );
 }
 Widget _list(List<DocumentSnapshot> documents) {
-  print("....................................................longi " + documents[0].data['codigo']);
-  print("....................................................longi " + documents.length.toString());
+
   return Expanded(
     child: ListView.separated(
       itemCount: documents.length,
       itemBuilder: (BuildContext context, int index) {
-        String id = documents[index].data['codigo'];
-        String empresa = documents[index].data['empresa'] ;
-        String situada = documents[index].data['situadaEn'];
-        String articulo = documents[index].data['articulos'];
-        print("....................................................antes return " + index.toString());
-        return _item( id, empresa, situada, articulo, documents, index);
+        int id = documents[index].data['idComanda'];
+        String empresa = documents[index].data['nomProveidor'] ;
+        int unitats = documents[index].data['unitats'];
+        String articulo = documents[index].data['dataEntrega'];
+        return _item( id, empresa, unitats, articulo, documents, index);
       },
 
       separatorBuilder: (BuildContext context, int index) {

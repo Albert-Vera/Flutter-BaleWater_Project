@@ -54,30 +54,30 @@ Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot, String 
           _buildListItem(context, data, coleccio)).toList(),
     );
 }
-Future<DocumentSnapshot> busqueda (Record record) async {
-  List<DocumentSnapshot> documentList = (await Firestore.instance
-      .collection("clients")
-      .where("nom", isEqualTo: record.nom)
-      .where("cognoms", isEqualTo: record.cognoms)
-      .getDocuments())
-      .documents;
-  print("dkalsdkla --------------------------------------------------  " + documentList.length.toString());
-  return  documentList;
-}
+//Future<DocumentSnapshot> busqueda (Record record) async {
+//  List<DocumentSnapshot> documentList = (await Firestore.instance
+//      .collection("clients")
+//      .where("nom", isEqualTo: record.nom)
+//      .where("cognoms", isEqualTo: record.cognoms)
+//      .getDocuments())
+//      .documents;
+//  print("dkalsdkla --------------------------------------------------  " + documentList.length.toString());
+//  return  documentList;
+//}
 
 Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio)  {
   final record = Record.fromSnapshot(datos);
-  print("dkalsdkla -----------------------111111---------------------------  " + numeroRepetidos.toString());
-      final  <Future> a =  busqueda(record); // si meto ASYNC el metodo no admite async
-
-      if ( numeroRepetidos != null) {
-        if (numeroRepetidos == 0) {
-          _writeFirebase(context, record);
-          return _mostrarDetall(context, record);
-        } else {
-          return Container();
-        }
-      }
+//  print("dkalsdkla -----------------------111111---------------------------  " + numeroRepetidos.toString());
+//      final  <Future> a =  busqueda(record); // si meto ASYNC el metodo no admite async
+//
+//      if ( numeroRepetidos != null) {
+//        if (numeroRepetidos == 0) {
+//          _writeFirebase(context, record);
+//          return _mostrarDetall(context, record);
+//        } else {
+//          return Container();
+//        }
+//      }
       return Container();
 }
 Container _mostrarDetall(BuildContext context, Record record) {
