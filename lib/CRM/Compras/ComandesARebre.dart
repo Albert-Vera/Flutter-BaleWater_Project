@@ -1,4 +1,5 @@
 import 'package:Balewaterproject/CRM/Compras/Proveidors.dart';
+import 'package:Balewaterproject/CRM/Facturacion/ClientsFac.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import '../../BackGroundPantalla.dart';
 import '../../util.dart';
 class ComandesARebre extends StatelessWidget {
+  bool verFactura;
+  ComandesARebre({Key key, this.verFactura}):super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -21,11 +24,12 @@ class ComandesARebre extends StatelessWidget {
               stream: Firestore.instance.collection("comandaProveidor").snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  if (snapshot.data.documents.length == 0) _noComandes(context);
                   return  Expanded(
                     child: Column(
                       children: [
                         _cabecera(),
-                        _list(snapshot.data.documents),
+                        _list(snapshot.data.documents, verFactura),
                       ],
                     ),
                   );
@@ -129,7 +133,7 @@ Widget _item( int id, String empresa, int unitats, String articulo, List<Documen
     ),
   );
 }
-Widget _list(List<DocumentSnapshot> documents) {
+Widget _list(List<DocumentSnapshot> documents, bool verFactura) {
 
   return Expanded(
     child: ListView.separated(
@@ -139,7 +143,32 @@ Widget _list(List<DocumentSnapshot> documents) {
         String empresa = documents[index].data['nomProveidor'] ;
         int unitats = documents[index].data['unitats'];
         String articulo = documents[index].data['dataEntrega'];
-        return _item( id, empresa, unitats, articulo, documents, index);
+        //return _item( id, empresa, unitats, articulo, documents, index);
+
+        if ( verFactura ) {
+          return GestureDetector(
+            onTap: () {
+              pushPage(context, ClientsFac(texte: "Factura", id: documents[index].data['id']));
+            },
+            child: Container(
+                child:
+                _item( id, empresa, unitats, articulo, documents, index)
+            ),
+          );
+        }else
+          return GestureDetector(
+            onTap: () {
+              pushPage(context, ClientsFac(texte: "Pro-forma", id: documents[index].data['id']));
+            },
+            child: Container(
+                child:
+                _item( id, empresa, unitats, articulo, documents, index)
+            ),
+          );
+
+
+
+
       },
 
       separatorBuilder: (BuildContext context, int index) {

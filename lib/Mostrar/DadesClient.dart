@@ -198,6 +198,7 @@ class DadesClient extends StatelessWidget {
   }
   //Lee de Firebase disponible de producto en almacén
   Widget _stockProducte(BuildContext context, Record record) {
+    print("--------------------------------------------------------- id ---- " + record.product_id);
     return StreamBuilder(
         stream: Firestore.instance.collection("productes").document(
             record.product_id).snapshots(),

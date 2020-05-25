@@ -75,7 +75,7 @@ void writeFirebase(BuildContext context, Record record, String coleccion) {
      b = record.dat_servei.substring(0, 2);
   }
   Firestore.instance.collection(coleccion).document(record.id.toString())
-      .setData({
+      .updateData({
     'id': record.id,
     'idClient': record.idClient,
     'nom': record.nom,
@@ -150,7 +150,7 @@ Widget impresioDades(BuildContext context, Record record, String coleccio) {
           child: Row(
             children: <Widget>[
               Container(
-                width: 155.0,
+                width: 150.0,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -164,7 +164,7 @@ Widget impresioDades(BuildContext context, Record record, String coleccio) {
                 width: 5.0,
               ),
               Container(
-                width: 160.0,
+                width: 165.0,
                 child: Column(
 
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -201,7 +201,7 @@ Widget lineaCard( String text_1, String text_2){
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w800,
-                    fontSize: 16.0
+                    fontSize: 14.0
                 ),
                 textAlign: TextAlign.end),
           )

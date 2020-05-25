@@ -60,54 +60,10 @@ Widget _ferComanda(BuildContext context, String productId, String title, TextEdi
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    TextField(
-                        decoration: InputDecoration(
-                          // helperText: "Producte", hoverColor: Colors.blueAccent,
-                          labelText: title,
-
-                        ),
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0, color: Colors.blueAccent)
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 35.0),
-                      child: TextFormField(
-                        controller: myController, // per obtenir valor del texfield i despres pasarlo a Int
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          hintText: 'unitats...',
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Si us plau inserta una quantitat ';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    //TODO métode preu arreglar-lo
-                    //_calcularPreu(title),
-                    Container(
-                      margin: EdgeInsets.only(top: 35.0),
-                        child: Text("Preu unitat: " + preu)),
-
-
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: 60.0,
-                      left: 60.0),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: RaisedButton(
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              pushPage(context, RegistrarComanda(productId: productId, nomProducte: title, unitats: int.parse(myController.text)));
-                            }
-                            //}
-                          },
-                          child: Text('Enviar comanda'),
-                        ),
-                      ),
-                    ),
+                    _mostrar_Producte(title),
+                    _lectura_Unitats(myController),
+                    _mostrar_PreuUnitat(preu),
+                    _boto_EnviarComanda(_formKey, context, productId, title, myController),
                   ],
                 ),
               ),
@@ -116,6 +72,62 @@ Widget _ferComanda(BuildContext context, String productId, String title, TextEdi
         ),
       )
   );
+}
+
+TextField _mostrar_Producte(String title) {
+  return TextField(
+                      decoration: InputDecoration(
+                        // helperText: "Producte", hoverColor: Colors.blueAccent,
+                        labelText: title,
+
+                      ),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0, color: Colors.blueAccent)
+                  );
+}
+
+Container _mostrar_PreuUnitat(String preu) {
+  return Container(
+                    margin: EdgeInsets.only(top: 35.0),
+                      child: Text("Preu unitat: " + preu));
+}
+
+Container _lectura_Unitats(TextEditingController myController) {
+  return Container(
+                    margin: EdgeInsets.only(top: 35.0),
+                    child: TextFormField(
+                      controller: myController, // per obtenir valor del texfield i despres pasarlo a Int
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        hintText: 'unitats...',
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Si us plau inserta una quantitat ';
+                        }
+                        return null;
+                      },
+                    ),
+                  );
+}
+
+Container _boto_EnviarComanda(GlobalKey<FormState> _formKey, BuildContext context, String productId, String title, TextEditingController myController) {
+  return Container(
+                    margin: EdgeInsets.only(
+                        top: 60.0,
+                    left: 60.0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: RaisedButton(
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            pushPage(context, RegistrarComanda(productId: productId, nomProducte: title, unitats: int.parse(myController.text)));
+                          }
+                          //}
+                        },
+                        child: Text('Enviar comanda'),
+                      ),
+                    ),
+                  );
 }
 
 

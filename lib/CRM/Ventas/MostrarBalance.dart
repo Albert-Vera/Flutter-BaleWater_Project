@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'GraphWidget.dart';
 
-class Balance3 extends StatefulWidget {
+class MostrarBalance extends StatefulWidget {
   final List<DocumentSnapshot> documents;
   final double total;
   final List<double> perDay;
@@ -16,7 +16,7 @@ class Balance3 extends StatefulWidget {
   // y luego los suma...  Cojonudo
   // Luego hace un calculo de importe por dia, pero lo hace por 30
   // lo que sucederá es que hay meses de 31.
-  Balance3({Key key, this.documents})
+  MostrarBalance({Key key, this.documents})
       : total = documents.map((doc) => doc['importComanda'])
             .fold(0.0, (a, b) => a + b),
         perDay = List.generate(30, (int index) {
@@ -27,10 +27,10 @@ class Balance3 extends StatefulWidget {
         super(key: key);
 
   @override
-  _Balance3State createState() => _Balance3State();
+  _MostrarBalanceState createState() => _MostrarBalanceState();
 }
 
-class _Balance3State extends State<Balance3> {
+class _MostrarBalanceState extends State<MostrarBalance> {
   @override
   Widget build(BuildContext context) {
     return Expanded(

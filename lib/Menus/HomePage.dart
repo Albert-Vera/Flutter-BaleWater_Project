@@ -76,9 +76,10 @@ class HomePageState extends State<HomePage> {
     else if (settings.name == '/factures') {
       child =  MenuFactures();
     }
-    else if (settings.name == '/inventari') {
-      child =  MenuInventari();
-    }
+//    else if (settings.name == '/inventari') {
+//      child =  MenuInventari();
+//    }
+
     if (child != null) {
       return  MaterialPageRoute(builder: (c) => child);
     }
@@ -115,7 +116,7 @@ Widget graella(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "", width: 130, image: "image/a_servir.png"),
-              MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "", width: 130, image: "image/a_recollir.png"),
+              MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "", width: 130, image: "image/a_recollir.jpeg"),
             ],
           ),
               Expanded(child:
