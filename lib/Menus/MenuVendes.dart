@@ -26,22 +26,23 @@ class MenuVendes extends StatelessWidget{
 
   Widget graella(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 50.0, left: 10.0),
+        margin: EdgeInsets.only(top: 50.0, left: 1.0),
         height: 300,
         child: Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Clients(), text: "Clients", width: 130, image: "image/clients.jpeg" ),
+                MenuItem(page: Clients(), text: "Clients", width: 130, image: "image/clients.png" ),
                 MenuItem(page: Balance(quieroverBalance: false, verFactura: false, texte: "Comandes",), text: "Comandes", width: 130, image: "image/comandes.png"),
               ],
             ),
+            SizedBox( height: 12.0,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Productes(), text: "Productes", width: 130, image: "image/productes.jpeg"),
-                MenuItem(page: Balance(quieroverBalance: true, verFactura: false, texte: "Balanç mensual"), text: "Balanç", width: 130, image: "image/servides.png"),
+                MenuItem(page: Productes(), text: "Productes", width: 130, image: "image/productes.png"),
+                MenuItem(page: Balance(quieroverBalance: true, verFactura: false, texte: "Balanç mensual"), text: "Balanç", width: 130, image: "image/balance.png"),
               ],
             ),
           ],

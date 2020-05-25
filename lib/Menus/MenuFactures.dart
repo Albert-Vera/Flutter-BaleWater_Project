@@ -30,17 +30,18 @@ class MenuFactures extends StatelessWidget{
 
   Widget graella(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 100.0, left: 20.0),
+        margin: EdgeInsets.only(top: 100.0, left: 1.0),
         height: 300,
         child: Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Balance(quieroverBalance: false, verFactura: true,texte: "Factures client"), text: "Clients", width: 130, image: "image/recollida2.jpeg" ),
-                MenuItem(page: ProveidorsFac(), text: "Proveidors", width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: Balance(quieroverBalance: false, verFactura: true,texte: "Factures client"), text: "Clients", width: 130, image: "image/clients.png" ),
+                MenuItem(page: ProveidorsFac(), text: "Proveidors", width: 130, image: "image/proveidors.png"),
               ],
             ),
+            SizedBox(height: 12.0,),
             MenuItem(page: enConstruccio(), text: "Pagaments", width: 150, image: "image/recollida2.jpeg"),
 
           ],

@@ -40,7 +40,7 @@ Widget _buildBody(BuildContext context, int id ) {
         .where("id", isEqualTo: id )
         .snapshots(),
     builder: (context, snapshot) {
-      if (!snapshot.hasData) return LinearProgressIndicator();
+      if (!snapshot.hasData) return CircularProgressIndicator();
       return _buildList(context, snapshot.data.documents );
     },
   );

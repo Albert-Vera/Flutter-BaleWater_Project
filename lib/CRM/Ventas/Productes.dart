@@ -42,7 +42,7 @@ class _ProductesState extends State<Productes> {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection("productes").snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return LinearProgressIndicator();
+        if (!snapshot.hasData) return CircularProgressIndicator();
 
         // if (snapshot.data.documents.isEmpty)  _comanServidasVacio(context);
         return _buildList(context, snapshot.data.documents, coleccio);

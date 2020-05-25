@@ -14,7 +14,7 @@ Widget buildBody(BuildContext context, String coleccio) {
   return StreamBuilder<QuerySnapshot>(
     stream: Firestore.instance.collection(coleccio).snapshots(),
     builder: (context, snapshot) {
-      if (!snapshot.hasData) return LinearProgressIndicator();
+      if (!snapshot.hasData) return CircularProgressIndicator();
       if (snapshot.data.documents.isEmpty)   {
         if ( coleccio == "comandesAservir") return comanServidasVacio(context, "servir");
         else return comanServidasVacio(context, "recollir");
@@ -154,7 +154,7 @@ Widget impresioDades(BuildContext context, Record record, String coleccio) {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      lineaCard( "Comanda:" , "0" + record.id.toString()),
+                      lineaCard( "Comanda:" ,  record.id.toString()),
                       lineaCard("Id producte: " , record.product_id ),
                       boton(context, record, coleccio)
                     ]
@@ -184,7 +184,7 @@ Widget impresioDades(BuildContext context, Record record, String coleccio) {
 Widget lineaCard( String text_1, String text_2){
   // final screenSize = MediaQuery.of(context).size;
   return  Container(
-    width: double.maxFinite,
+    width: 250.0,
     //color: Colors.tealAccent,
     child: Padding(
       padding: const EdgeInsets.only(top: 15.0),
@@ -193,14 +193,15 @@ Widget lineaCard( String text_1, String text_2){
         children: <Widget>[
           Expanded(
             child: Text(text_1,
-                textAlign: TextAlign.start),
+                textAlign: TextAlign.start,
+                style: const TextStyle(fontSize: 14.0)),
           ),
           Expanded(
             child: Text(text_2,
                 style: TextStyle(
                     color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.0
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16.0
                 ),
                 textAlign: TextAlign.end),
           )

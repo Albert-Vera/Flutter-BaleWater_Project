@@ -25,26 +25,27 @@ class MenuCompras extends StatelessWidget{
 
   Widget graella(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 0.0, left: 20.0),
+        margin: EdgeInsets.only(top: 0.0, left: 1.0),
         height: 300,
         child: Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Proveidors(), text: "Proveidors", width: 130, image: "image/providers.jpeg" ),
-                MenuItem(page: ComandesProveidor(), text: "Comandes", width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: Proveidors(), text: "Proveidors", width: 130, image: "image/proveidors.png" ),
+                MenuItem(page: ComandesProveidor(), text: "Comandes", width: 130, image: "image/comandesPro.png"),
               ],
             ),
+            SizedBox(height: 12.0,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MenuItem(page: Productes(), text: "Productes", width: 130, image: "image/productes.jpeg"),
-                MenuItem(page: ComandesARebre(), text: "Prod a rebre", width: 130, image: "image/recollida2.jpeg"),
+                MenuItem(page: Productes(), text: "Productes", width: 130, image: "image/productesPro.png"),
+                MenuItem(page: ComandesARebre(), text: "Prod a rebre", width: 130, image: "image/productArebre.png"),
               ],
             ),
-
-             MenuItem( page: ContacteProveidor(), text: "Contacte", width: 150, image: "image/recollida2.jpeg"),
+            SizedBox(height: 12.0,),
+             MenuItem( page: ContacteProveidor(), text: "Contacte", width: 150, image: "image/contacte.jpeg"),
 
           ],
         )

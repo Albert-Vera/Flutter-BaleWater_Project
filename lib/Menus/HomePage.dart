@@ -32,7 +32,6 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   final _navigatorKey =  GlobalKey<NavigatorState>();
-
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -108,21 +107,21 @@ Widget graella(BuildContext context) {
   return Container(
       margin: EdgeInsets.only(
           top: 100.0,
-          left: 20.0),
+          left: 1.0),
       height: 300,
       child: Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "a servir", width: 130, image: "image/recollida2.jpeg"),
-              MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "a recollir", width: 130, image: "image/servidas.jpeg"),
+              MenuItem(page: ComandesAServir(coleccion: "comandesAservir"),  text: "", width: 130, image: "image/a_servir.png"),
+              MenuItem(page: ComandesARecollir(coleccion: "perRecollir"), text: "", width: 130, image: "image/a_recollir.png"),
             ],
           ),
-          Expanded(child:
-          _buildBody(context) // NO mostar res per pantalla pero actualitzar comandas que arriban de la Web.
+              Expanded(child:
+              _buildBody(context) // NO mostar res per pantalla pero actualitzar comandas que arriban de la Web.
 
-          ),
+              ),
 
         ],
       )
@@ -132,7 +131,7 @@ Widget _buildBody(BuildContext context ) {
   return StreamBuilder<QuerySnapshot>(
     stream: Firestore.instance.collection("comanda").snapshots(),
     builder: (context, snapshot) {
-      if (!snapshot.hasData) return LinearProgressIndicator();
+      if (!snapshot.hasData) return CircularProgressIndicator();
       return _buildList(context, snapshot.data.documents );
     },
   );

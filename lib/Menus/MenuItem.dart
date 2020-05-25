@@ -19,17 +19,16 @@ class MenuItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => pushPage(context, page),
       child:  Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
+        borderOnForeground: true,
+        elevation: 8.0,
             child: Column(
                 children: <Widget>[
                   //const SectionTitle(title: 'Tappable'),
                   Image.asset(image,
                       width: 130,
-                      height: 100,
+                      height: 120,
                       fit:BoxFit.fill ),
-                  Text(text, textAlign: TextAlign.end)
+
                 ]
             ),
           )
