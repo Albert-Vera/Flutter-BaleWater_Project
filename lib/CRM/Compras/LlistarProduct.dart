@@ -66,9 +66,9 @@ List<MyTile> listOfTiles = <MyTile>[
     <MyTile>[
       new MyTile('Salta Bolas', 'Euro Hinchable', 'SB-015', '2500'),
       new MyTile('Rocódromo','Hinchables España', 'RT-005', '2900' ),
-      new MyTile('Tobogán', 'Amazón', 'FB-055', '2500'),
+      new MyTile('Tobogán', 'Amazon', 'FB-055', '2500'),
       new MyTile('Fútbol burbuja', 'JB-Hinchables', 'FB-001', '360'),
-      new MyTile('Turbina inflador', 'Amazón', 'TB-005', '299'),
+      new MyTile('Turbina inflador', 'Amazon', 'TB-005', '299'),
     ],
 
 

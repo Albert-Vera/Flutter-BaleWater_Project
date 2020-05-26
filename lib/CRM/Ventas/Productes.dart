@@ -63,16 +63,7 @@ class _ProductesState extends State<Productes> {
   Widget _buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {
     final record = RecordProducte.fromSnapshot(datos);
 
-    return _actualitzarDades(context, record);
-  }
-
-  Widget _actualitzarDades(BuildContext context, RecordProducte record) {
-
-
-    //todo
-
     return _impresioDades(context, record);
-
   }
 
   Widget _impresioDades(BuildContext context, RecordProducte record) {

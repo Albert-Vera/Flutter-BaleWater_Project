@@ -443,12 +443,13 @@ Widget _cabecera(){
 }
 AlertDialog _alertDialog(BuildContext context, RecordProveidor record) {
   String dato = record.unitats.toString();
+  String nom = record.nomProducte;
   return  AlertDialog(
     title: Text("Vols fer l'entrada a magatgem ?."),
     content: SingleChildScrollView(
       child: ListBody(
         children: <Widget>[
-          Text('S\'ha afegiran $dato unitas a stock'),
+          Text('S\'ha afegiran $dato unitas a stock de $nom'),
         ],
       ),
     ),
