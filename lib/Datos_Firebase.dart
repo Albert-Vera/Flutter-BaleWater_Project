@@ -32,12 +32,6 @@ Widget buildList(BuildContext context, List<DocumentSnapshot> snapshot, String c
         return buildListItem(context, snapshot[index], coleccio);
       },
     );
-
-//  return ListView(
-//    padding: const EdgeInsets.only(top: 30.0),
-//    children: snapshot.map((data) =>
-//      buildListItem(context, data, coleccio)).toList(),
-//  );
 }
 
 Widget buildListItem(BuildContext context, DocumentSnapshot datos, String coleccio) {

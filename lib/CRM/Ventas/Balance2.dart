@@ -1,4 +1,5 @@
 import 'package:Balewaterproject/CRM/Ventas/ComandesClient.dart';
+import 'package:Balewaterproject/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -43,8 +44,8 @@ class _Balance2State extends State<Balance2> {
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) {
                   if (data.hasData) {
-                    if (widget.quieroverBalance2) return MostrarBalance( documents: data.data.documents);
-                    else return ComandesClient(documents: data.data.documents, verFactura: widget.verFactura,);
+                    if (widget.quieroverBalance2) return MostrarBalance( days: daysInMonth(currentPage + 1), documents: data.data.documents);
+                    else return ComandesClient( documents: data.data.documents, verFactura: widget.verFactura,);
                   }
                   return Center(
                     child: CircularProgressIndicator(),

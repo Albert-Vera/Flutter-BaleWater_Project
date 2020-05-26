@@ -46,7 +46,6 @@ class _GestionarComandaState extends State<GestionarComanda> {
 Widget _ferComanda(BuildContext context, String productId, String title, String proveidor, TextEditingController myController, String preu){
   final _formKey = GlobalKey<FormState>();
   final _unitats = TextEditingController();
-  print( "das.......................................................proveidor......................" + proveidor);
   return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -54,8 +53,8 @@ Widget _ferComanda(BuildContext context, String productId, String title, String 
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(
-                left: 50.0,
-              right: 50.0),
+                  left: 50.0,
+                  right: 50.0),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -77,58 +76,94 @@ Widget _ferComanda(BuildContext context, String productId, String title, String 
 
 TextField _mostrar_Producte(String title) {
   return TextField(
-                      decoration: InputDecoration(
-                        // helperText: "Producte", hoverColor: Colors.blueAccent,
-                        labelText: title,
+      decoration: InputDecoration(
+        // helperText: "Producte", hoverColor: Colors.blueAccent,
+        labelText: title,
 
-                      ),
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0, color: Colors.blueAccent)
-                  );
+      ),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0, color: Colors.blueAccent)
+  );
 }
 
 Container _mostrar_PreuUnitat(String preu) {
   return Container(
-                    margin: EdgeInsets.only(top: 35.0),
-                      child: Text("Preu unitat: " + preu));
+      margin: EdgeInsets.only(top: 35.0),
+      child: Text("Preu unitat: " + preu));
 }
 
 Container _lectura_Unitats(TextEditingController myController) {
   return Container(
-                    margin: EdgeInsets.only(top: 35.0),
-                    child: TextFormField(
-                      controller: myController, // per obtenir valor del texfield i despres pasarlo a Int
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        hintText: 'unitats...',
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Si us plau inserta una quantitat ';
-                        }
-                        return null;
-                      },
-                    ),
-                  );
+    margin: EdgeInsets.only(top: 35.0),
+    child: TextFormField(
+      controller: myController, // per obtenir valor del texfield i despres pasarlo a Int
+      keyboardType: TextInputType.number,
+      decoration: const InputDecoration(
+        hintText: 'unitats...',
+      ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Si us plau inserta una quantitat ';
+        }
+        return null;
+      },
+    ),
+  );
 }
 
 Container _boto_EnviarComanda(GlobalKey<FormState> _formKey, BuildContext context, String productId, String title, String proveidor, TextEditingController myController) {
   return Container(
-                    margin: EdgeInsets.only(
-                        top: 60.0,
-                    left: 60.0),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: RaisedButton(
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            pushPage(context, RegistrarComanda(productId: productId, nomProducte: title, proveidor: proveidor, unitats: int.parse(myController.text)));
-                          }
-                          //}
-                        },
-                        child: Text('Enviar comanda'),
-                      ),
-                    ),
-                  );
+    margin: EdgeInsets.only(
+        top: 60.0,
+        left: 30.0,
+        right: 30.0
+    ),
+    height: 90.0,
+    width: 340.0,
+    child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+
+          RaisedButton(
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  pushPage(context, RegistrarComanda(productId: productId, nomProducte: title, proveidor: proveidor, unitats: int.parse(myController.text)));
+                }
+//}
+              },
+              textColor: Colors.white,
+
+              padding: const EdgeInsets.all(0.0),
+              child: Container(
+
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),
+                    ],
+                  ),
+                ),
+
+                padding: const EdgeInsets.only(
+                    top: 10.0,
+                    left: 30.0,
+                    right: 30.0,
+                    bottom: 10
+                ),
+                child: Center(
+                  child: const Text(
+                      'Enviar comanda',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black)
+                  ),
+                ),
+              )
+          )
+        ]
+    ),
+  );
 }
 
 

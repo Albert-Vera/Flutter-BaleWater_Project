@@ -14,12 +14,12 @@ class MostrarBalance extends StatefulWidget {
   // y esos importe los va recorriendo con el método .fold()
   // teniendo en el map el valor anterior y el actual leido
   // y luego los suma...  Cojonudo
-  // Luego hace un calculo de importe por dia, pero lo hace por 30
-  // lo que sucederá es que hay meses de 31.
-  MostrarBalance({Key key, this.documents})
+  // Luego hace un calculo de importe por dia,
+  // Para calcular si el mes tiene 30 o 31 dias tiene el método en Utils..
+  MostrarBalance({Key key, days, this.documents})
       : total = documents.map((doc) => doc['importComanda'])
             .fold(0.0, (a, b) => a + b),
-        perDay = List.generate(30, (int index) {
+        perDay = List.generate(days, (int index) {
           return documents.where((doc) => doc['dia'] == (index + 1))
               .map((doc) => doc['importComanda'])
               .fold(0.0, (a, b) => a + b);

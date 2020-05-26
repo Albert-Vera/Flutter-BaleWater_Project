@@ -204,7 +204,7 @@ class DadesClient extends StatelessWidget {
             record.product_id).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Text("Loading");
-          //_disponible = snapshot.data['enAlmacen'];
+          _disponible = snapshot.data['enAlmacen'];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Disponibles en almacén: " + snapshot.data['enAlmacen'].toString()),

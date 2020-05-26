@@ -173,7 +173,6 @@ Widget _list(List<DocumentSnapshot> documents, bool verFactura) {
       },
 
       separatorBuilder: (BuildContext context, int index) {
-        print("....................................................nn333");
         return Container(
           color: Colors.blueAccent.withOpacity(0.2),
           height: 6.0,
@@ -183,7 +182,6 @@ Widget _list(List<DocumentSnapshot> documents, bool verFactura) {
   );
 }
 AlertDialog _noComandes(BuildContext context) {
-  print( "...................................................................sss................");
   return AlertDialog(
 
     title: Text('Comandes a rebre ' ),
@@ -198,7 +196,6 @@ AlertDialog _noComandes(BuildContext context) {
       FlatButton(
         child: Text('Ok.'),
         onPressed: () {
-          print( "...................................................................22222................");
           pushPage(context, MenuCompras());
         },
       ),
