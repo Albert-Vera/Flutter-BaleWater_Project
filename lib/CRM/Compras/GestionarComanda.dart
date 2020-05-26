@@ -10,9 +10,9 @@ import '../../BackGroundPantalla.dart';
 import '../../Datos_Firebase.dart';
 
 class GestionarComanda extends StatefulWidget {
-  String productId, title, preu;
+  String productId, title,proveidor, preu;
 
-  GestionarComanda( {Key key,  this.productId, this.title, this.preu}): super(key: key);
+  GestionarComanda( {Key key,  this.productId, this.title,this.proveidor, this.preu}): super(key: key);
 
   @override
   _GestionarComandaState createState() => _GestionarComandaState();
@@ -34,7 +34,7 @@ class _GestionarComandaState extends State<GestionarComanda> {
             children: <Widget>[
               BannerBaleWater(texte: "Detall comanda",),
               Expanded(child:
-              _ferComanda(context, widget.productId, widget.title, myController, widget.preu)
+              _ferComanda(context, widget.productId, widget.title, widget.proveidor, myController, widget.preu)
               ),
             ],
           )
@@ -43,9 +43,10 @@ class _GestionarComandaState extends State<GestionarComanda> {
   }
 }
 
-Widget _ferComanda(BuildContext context, String productId, String title, TextEditingController myController, String preu){
+Widget _ferComanda(BuildContext context, String productId, String title, String proveidor, TextEditingController myController, String preu){
   final _formKey = GlobalKey<FormState>();
   final _unitats = TextEditingController();
+  print( "das.......................................................proveidor......................" + proveidor);
   return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -63,7 +64,7 @@ Widget _ferComanda(BuildContext context, String productId, String title, TextEdi
                     _mostrar_Producte(title),
                     _lectura_Unitats(myController),
                     _mostrar_PreuUnitat(preu),
-                    _boto_EnviarComanda(_formKey, context, productId, title, myController),
+                    _boto_EnviarComanda(_formKey, context, productId, title, proveidor, myController),
                   ],
                 ),
               ),
@@ -110,7 +111,7 @@ Container _lectura_Unitats(TextEditingController myController) {
                   );
 }
 
-Container _boto_EnviarComanda(GlobalKey<FormState> _formKey, BuildContext context, String productId, String title, TextEditingController myController) {
+Container _boto_EnviarComanda(GlobalKey<FormState> _formKey, BuildContext context, String productId, String title, String proveidor, TextEditingController myController) {
   return Container(
                     margin: EdgeInsets.only(
                         top: 60.0,
@@ -120,7 +121,7 @@ Container _boto_EnviarComanda(GlobalKey<FormState> _formKey, BuildContext contex
                       child: RaisedButton(
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            pushPage(context, RegistrarComanda(productId: productId, nomProducte: title, unitats: int.parse(myController.text)));
+                            pushPage(context, RegistrarComanda(productId: productId, nomProducte: title, proveidor: proveidor, unitats: int.parse(myController.text)));
                           }
                           //}
                         },

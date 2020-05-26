@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RecordProveidor {
-  final String idProducte,idProveidor, nomProducte;
+  final String idProducte, nomProducte;
   final String nomProveidor, dataComanda, dataEntrega;
   int preuUnitat, preuTotal, idComanda, unitats;
 
@@ -11,7 +11,7 @@ class RecordProveidor {
   RecordProveidor.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['idComanda'] != null),
         assert(map['idProducte'] != null),
-        assert(map['idProveidor'] != null),
+       // assert(map['idProveidor'] != null),
         assert(map['nomProducte'] != null),
         assert(map['nomProveidor'] != null),
         assert(map['dataComanda'] != null),
@@ -22,7 +22,7 @@ class RecordProveidor {
 
         idComanda = map['idComanda'],
         idProducte = map['idProducte'],
-        idProveidor = map['idProveidor'],
+        //idProveidor = map['idProveidor'],
         nomProducte = map['nomProducte'],
         nomProveidor = map['nomProveidor'],
         dataComanda = map['dataComanda'],
@@ -36,5 +36,5 @@ class RecordProveidor {
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
-  String toString() => "Record<$idProveidor:$idProducte>";
+  String toString() => "Record<$idComanda:$idProducte>";
 }

@@ -39,7 +39,7 @@ class StuffInTiles extends StatelessWidget {
           enabled: true,
           isThreeLine: false,
           onLongPress: () => print("long press"),
-          onTap: () => pushPage(context, GestionarComanda(productId: t.id, title: t.title, preu: t.preu)),
+          onTap: () => pushPage(context, GestionarComanda(productId: t.id, title: t.title,proveidor: t.subtitle, preu: t.preu)),
           subtitle: new Text(t.subtitle),
           leading: new Text(t.id),
           selected: true,
@@ -66,7 +66,7 @@ List<MyTile> listOfTiles = <MyTile>[
     <MyTile>[
       new MyTile('Salta Bolas', 'Euro Hinchable', 'SB-015', '2500'),
       new MyTile('Rocódromo','Hinchables España', 'RT-005', '2900' ),
-      new MyTile('Tobogán del espacio', 'Amazón', 'FB-055', '2500'),
+      new MyTile('Tobogán', 'Amazón', 'FB-055', '2500'),
       new MyTile('Fútbol burbuja', 'JB-Hinchables', 'FB-001', '360'),
       new MyTile('Turbina inflador', 'Amazón', 'TB-005', '299'),
     ],

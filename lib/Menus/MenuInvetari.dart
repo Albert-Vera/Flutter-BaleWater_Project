@@ -28,26 +28,26 @@ class MenuInventari extends StatelessWidget{
 
   Widget graella(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 100.0, left: 20.0),
-        height: 300,
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                MenuItem(page: enConstruccio(), text: "xxxxxxx",width: 130, image: "image/recollida2.jpeg" ),
-                MenuItem(page: enConstruccio(), text: "xxxxxxx", width: 130, image: "image/recollida2.jpeg"),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                MenuItem(page: enConstruccio(), text: "Productes", width: 130, image: "image/recollida2.jpeg"),
-                MenuItem(page: enConstruccio(), text: "xxxxxxxx",width: 130, image: "image/recollida2.jpeg"),
-              ],
-            ),
-          ],
-        )
+//        margin: EdgeInsets.only(top: 100.0, left: 20.0),
+//        height: 300,
+//        child: Column(
+//          children: <Widget>[
+//            Row(
+//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//              children: <Widget>[
+//                MenuItem(page: enConstruccio(), text: "xxxxxxx",width: 130, image: "image/recollida2.jpeg" ),
+//                MenuItem(page: enConstruccio(), text: "xxxxxxx", width: 130, image: "image/recollida2.jpeg"),
+//              ],
+//            ),
+//            Row(
+//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//              children: <Widget>[
+//                MenuItem(page: enConstruccio(), text: "Productes", width: 130, image: "image/recollida2.jpeg"),
+//                MenuItem(page: enConstruccio(), text: "xxxxxxxx",width: 130, image: "image/recollida2.jpeg"),
+//              ],
+//            ),
+//          ],
+//        )
     );
   }
 }

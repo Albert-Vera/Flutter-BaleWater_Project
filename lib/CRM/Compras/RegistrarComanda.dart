@@ -8,12 +8,13 @@ import '../../BackGroundPantalla.dart';
 
 class RegistrarComanda extends StatefulWidget {
   String productId;
-  String nomProducte;
+  String nomProducte, proveidor;
   int unitats;
 
   RegistrarComanda({ Key key,
     this.productId,
     this.nomProducte,
+    this.proveidor,
     this.unitats}):super (key: key);
 
   @override
@@ -24,6 +25,7 @@ class _RegistrarComandaState extends State<RegistrarComanda> {
 
   @override
   void initState() {
+    print(" ..............................................................   metodo init.. coamnda escrita  " + widget.proveidor);
     _writeComandaFirebase();
     super.initState();
   }
@@ -47,7 +49,7 @@ class _RegistrarComandaState extends State<RegistrarComanda> {
     String mesEntrega;
     var idComanda = (await Firestore.instance.collection("comandaProveidor").getDocuments()).documents.length + 1;
     var preu = (await Firestore.instance.collection("productes").document(widget.productId).get()).data["precioCoste"];
-    var nomProveidor = (await Firestore.instance.collection("productes").document(widget.productId).get()).data["proveedor"];
+   // var nomProveidor = (await Firestore.instance.collection("proveidors").document(widget.productId).get()).data["empresa"];
     var dia = DateTime.now().day;
     var mes = DateTime.now().month;
     var any = DateTime.now().year;
@@ -61,7 +63,7 @@ class _RegistrarComandaState extends State<RegistrarComanda> {
       'idComanda': idComanda,
       'nomProducte': widget.nomProducte,
       'idProducte': widget.productId,
-      'nomProveidor': nomProveidor,
+      'nomProveidor': widget.proveidor,
       'dataComanda': dataComanda,
       'dataEntrega': dataEntrega,
       'unitats': widget.unitats,

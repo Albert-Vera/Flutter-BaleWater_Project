@@ -90,9 +90,9 @@ Widget mostrarFactura(BuildContext context, Record record ){
                         _dades_Empresa(record),
                         _dades_Client(record),
                         _cabecera(),
-                        dades_Venda(record ),
+                        _dades_Venda(record ),
                         SizedBox(
-                          height: 120.0,
+                          height: 80.0,
                         ),
                         Divider(
                           color: Colors.black,
@@ -101,9 +101,10 @@ Widget mostrarFactura(BuildContext context, Record record ){
                         Row(
                           children: <Widget>[
                             _icone_Print(context),
-                            total_Factura(record, iva, totalFact),
+                            _total_Factura(record, iva, totalFact),
                           ],
                         ),
+                        _icone_Comanda_Rebuda(context, record),
                       ]
                   )
               ),
@@ -177,7 +178,7 @@ Container dataFactura(Record record) {
                       );
 }
 
-Container total_Factura(Record record, double iva, double totalFact) {
+Container _total_Factura(Record record, double iva, double totalFact) {
   return Container(
     margin: EdgeInsets.only(
         top: 0.0,
@@ -195,7 +196,7 @@ Container total_Factura(Record record, double iva, double totalFact) {
 Container _icone_Print(BuildContext context) {
   return Container(
     margin: EdgeInsets.only(
-        top: 30.0,
+        top: 1.0,
         left: 10.0),
     width: 50.0,
     height: 50.0,
@@ -209,8 +210,27 @@ Container _icone_Print(BuildContext context) {
     ),
   );
 }
+Container _icone_Comanda_Rebuda(BuildContext context, Record record) {
+  return Container(
+    margin: EdgeInsets.only(
+        top: 1.0,
+        right: 200.0),
+    width: 100.0,
+    height: 50.0,
+    child:
+    FloatingActionButton.extended(
+      onPressed: () {
+        //Toast.show("Imprimint factura", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+        _alertDialog(context,record);
+      },
+      label: Text("Rebuda"),
+      icon: Icon(Icons.thumb_up),
 
-Container dades_Venda(Record record ) {
+    ),
+  );
+}
+
+Container _dades_Venda(Record record ) {
 
   String nomRetallat;
   if (record.product_Nom.length > 9){ // Controla que el camp no sigui massa gran, si no trenca la factura
@@ -421,6 +441,42 @@ Widget _cabecera(){
           ))
         ],
       )
+
+  );
+}
+AlertDialog _alertDialog(BuildContext context, Record record) {
+  return  AlertDialog(
+    title: Text('El producte ha sigut  ?'),
+    content: SingleChildScrollView(
+      child: ListBody(
+        children: <Widget>[
+          Text('El producte has donará per .'),
+        ],
+      ),
+    ),
+    actions: <Widget>[
+      FlatButton(
+        child: Text('Ok.'),
+        onPressed: () {
+//          Firestore.instance.collection("productes")
+//              .document(record.product_id)
+//              .updateData({"enAlmacen": FieldValue.increment(record.unitats)});
+
+
+          //_cambiarEstatComanda(context, record);
+        //  pushPage(context, ruta);
+          // _buildBody(context);
+          //thisCard.currentState.toggleCard();
+        },
+      ),
+      FlatButton(
+        child: Text('Cancel.'),
+        onPressed: () {
+          Navigator.of(context).pop();
+
+        },
+      ),
+    ],
 
   );
 }

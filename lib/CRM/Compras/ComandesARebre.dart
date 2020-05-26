@@ -1,5 +1,6 @@
 import 'package:Balewaterproject/CRM/Compras/Proveidors.dart';
 import 'package:Balewaterproject/CRM/Facturacion/ClientsFac.dart';
+import 'package:Balewaterproject/CRM/Facturacion/ProveidorsFac.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuCompras.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -145,26 +146,26 @@ Widget _list(List<DocumentSnapshot> documents, bool verFactura) {
         String articulo = documents[index].data['dataEntrega'];
         //return _item( id, empresa, unitats, articulo, documents, index);
 
-        if ( verFactura ) {
+        //if ( verFactura ) {
           return GestureDetector(
             onTap: () {
-              pushPage(context, ClientsFac(texte: "Factura", id: documents[index].data['id']));
+              pushPage(context, ProveidorsFac( id: documents[index].data['id']));
             },
             child: Container(
                 child:
                 _item( id, empresa, unitats, articulo, documents, index)
             ),
           );
-        }else
-          return GestureDetector(
-            onTap: () {
-              pushPage(context, ClientsFac(texte: "Pro-forma", id: documents[index].data['id']));
-            },
-            child: Container(
-                child:
-                _item( id, empresa, unitats, articulo, documents, index)
-            ),
-          );
+      //  }  else
+//          return GestureDetector(
+//            onTap: () {
+//              pushPage(context, ClientsFac(texte: "Pro-forma", id: documents[index].data['id']));
+//            },
+//            child: Container(
+//                child:
+//                _item( id, empresa, unitats, articulo, documents, index)
+//            ),
+//          );
 
 
 

@@ -103,38 +103,38 @@ void writeFirebase(BuildContext context, Record record, String coleccion) {
     print(onError);
   });
 }
-Widget stockProducte(BuildContext context, Record record) {
-  return StreamBuilder(
-      stream: Firestore.instance.collection("productes").document(
-          record.product_id).snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return Text("Loading");
-        return Container(
-          width: double.maxFinite,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 14, right: 5.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text("Disponibles:" ,
-                      textAlign: TextAlign.start),
-                ),
-                Expanded(
-                  child: Text(snapshot.data['enAlmacen'].toString(),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.0
-                      ),
-                      textAlign: TextAlign.end),
-
-                ),
-              ],
-            ),
-          ),
-        );
-      });
-}
+//Widget stockProducte(BuildContext context, Record record) {
+//  return StreamBuilder(
+//      stream: Firestore.instance.collection("productes").document(
+//          record.product_id).snapshots(),
+//      builder: (context, snapshot) {
+//        if (!snapshot.hasData) return Text("Loading");
+//        return Container(
+//          width: double.maxFinite,
+//          child: Padding(
+//            padding: const EdgeInsets.only(top: 14, right: 5.0),
+//            child: Row(
+//              children: <Widget>[
+//                Expanded(
+//                  child: Text("Disponibles:" ,
+//                      textAlign: TextAlign.start),
+//                ),
+//                Expanded(
+//                  child: Text(snapshot.data['enAlmacen'].toString(),
+//                      style: TextStyle(
+//                          color: Colors.black,
+//                          fontWeight: FontWeight.w500,
+//                          fontSize: 14.0
+//                      ),
+//                      textAlign: TextAlign.end),
+//
+//                ),
+//              ],
+//            ),
+//          ),
+//        );
+//      });
+//}
 Widget impresioDades(BuildContext context, Record record, String coleccio) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8.0),
