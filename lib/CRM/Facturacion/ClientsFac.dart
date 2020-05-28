@@ -112,61 +112,60 @@ Widget mostrarFactura(BuildContext context, Record record ){
 
 Container titolFactura() {
   return Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text( text_e,   style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18.0
-                          ),),
-                        ),
-                      );
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text( text_e,   style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: 18.0
+      ),),
+    ),
+  );
 }
-
 Container dataFactura(Record record) {
   return Container(
-                        child: Row(
-                          children: <Widget>[
+    child: Row(
+      children: <Widget>[
 
-                            Container(
-                              margin: EdgeInsets.only(left: 1.0),
-                              width: 140.0,
-                                decoration: new BoxDecoration(boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blueAccent.withOpacity(0.1),
-                                    blurRadius: 2.0,
-                                  ),
-                                ],
-                                    borderRadius: BorderRadius.circular(5.0)
-                                ),
-                             child: Column(
-                               children: <Widget>[
-                                 Text("Data comanda: " + record.dat_comanda,
-                                 style: TextStyle( fontSize: 10.0),),
-                               ],
-                             )
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(left: 6.0),
-                                width: 140.0,
-                                decoration: new BoxDecoration(boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blueAccent.withOpacity(0.1),
-                                    blurRadius: 2.0,
-                                  ),
-                                ],
-                                    borderRadius: BorderRadius.circular(5.0)
-                                ),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text("Data servei: " + record.dat_servei,
-                                      style: TextStyle( fontSize: 10.0),),
-                                  ],
-                                )
-                            ),
-                          ],
-                        ),
-                      );
+        Container(
+            margin: EdgeInsets.only(left: 1.0),
+            width: 140.0,
+            decoration: new BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: Colors.blueAccent.withOpacity(0.1),
+                blurRadius: 2.0,
+              ),
+            ],
+                borderRadius: BorderRadius.circular(5.0)
+            ),
+            child: Column(
+              children: <Widget>[
+                Text("Data comanda: " + record.dat_comanda,
+                  style: TextStyle( fontSize: 10.0),),
+              ],
+            )
+        ),
+        Container(
+            margin: EdgeInsets.only(left: 6.0),
+            width: 140.0,
+            decoration: new BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: Colors.blueAccent.withOpacity(0.1),
+                blurRadius: 2.0,
+              ),
+            ],
+                borderRadius: BorderRadius.circular(5.0)
+            ),
+            child: Column(
+              children: <Widget>[
+                Text("Data servei: " + record.dat_servei,
+                  style: TextStyle( fontSize: 10.0),),
+              ],
+            )
+        ),
+      ],
+    ),
+  );
 }
 
 Container _total_Factura(Record record, double iva, double totalFact) {
@@ -246,12 +245,12 @@ Container _dades_Venda(Record record ) {
                 margin: EdgeInsets.only(left: 0.0),
                 child:
                 Text(record.product_id,
-                style: TextStyle(
-                  fontSize: 10.0
-                ),)
+                  style: TextStyle(
+                      fontSize: 10.0
+                  ),)
             ),
             Center(
-                //margin: EdgeInsets.only(left: 3),
+              //margin: EdgeInsets.only(left: 3),
                 child: Text(nomRetallat )),
             Container(
                 margin: EdgeInsets.only(left: 25),
@@ -317,11 +316,11 @@ Container _dades_Empresa(Record record) {
         ),
         Container(margin: EdgeInsets.only(
             top: 2.0,
-          left: 75.0
+            left: 75.0
         ),
           height: 50.0,
           child: Text("Nº doc: " +record.id.toString(),
-          style: TextStyle(fontSize: 12.0)),
+              style: TextStyle(fontSize: 12.0)),
         )
       ],
     ),
@@ -454,7 +453,7 @@ AlertDialog _alertDialog(BuildContext context, Record record) {
 
 
           //_cambiarEstatComanda(context, record);
-        //  pushPage(context, ruta);
+          //  pushPage(context, ruta);
           // _buildBody(context);
           //thisCard.currentState.toggleCard();
         },
