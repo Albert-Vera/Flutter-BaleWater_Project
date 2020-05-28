@@ -39,7 +39,7 @@ class MenuFactures extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 MenuItem(page: Balance(quieroverBalance: false, verFactura: true,texte: "Factures client"), text: "Clients", width: 130, image: "image/clients.png" ),
-                MenuItem(page: ComandesARebre(verFactura: true,), text: "Proveidors", width: 130, image: "image/proveidors.png"),
+                MenuItem(page: ComandesARebre(verFactura: true, texte: "Factures proveïdors",), text: "Proveïdors", width: 130, image: "image/proveidors.png"),
               ],
             ),
 //            SizedBox(height: 12.0,),

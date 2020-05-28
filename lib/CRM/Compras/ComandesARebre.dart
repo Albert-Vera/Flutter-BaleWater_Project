@@ -10,7 +10,8 @@ import '../../BackGroundPantalla.dart';
 import '../../util.dart';
 class ComandesARebre extends StatelessWidget {
   bool verFactura;
-  ComandesARebre({Key key, this.verFactura}):super(key: key);
+  String texte;
+  ComandesARebre({Key key, this.verFactura, this.texte}):super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -20,7 +21,7 @@ class ComandesARebre extends StatelessWidget {
       body: BackGroundPantalla(
         child:  Column(
           children: <Widget>[
-            BannerBaleWater(texte: "Comandes a rebre"),
+            BannerBaleWater(texte: texte),
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance.collection("comandaProveidor").snapshots(),
               builder: (context, snapshot) {
@@ -146,26 +147,26 @@ Widget _list(List<DocumentSnapshot> documents, bool verFactura) {
         String articulo = documents[index].data['dataEntrega'];
         //return _item( id, empresa, unitats, articulo, documents, index);
 
-        //if ( verFactura ) {
+        if ( verFactura ) {
           return GestureDetector(
             onTap: () {
-              pushPage(context, ProveidorsFac( id: documents[index].data['id']));
+              pushPage(context, ProveidorsFac( id: documents[index].data['id'], texte: "Factures"));
             },
             child: Container(
                 child:
                 _item( id, empresa, unitats, articulo, documents, index)
             ),
           );
-      //  }  else
-//          return GestureDetector(
-//            onTap: () {
-//              pushPage(context, ClientsFac(texte: "Pro-forma", id: documents[index].data['id']));
-//            },
-//            child: Container(
-//                child:
-//                _item( id, empresa, unitats, articulo, documents, index)
-//            ),
-//          );
+        }  else
+          return GestureDetector(
+            onTap: () {
+              pushPage(context, ProveidorsFac( id: documents[index].data['id'], texte: "Albarà d'entrega"));
+            },
+            child: Container(
+                child:
+                _item( id, empresa, unitats, articulo, documents, index)
+            ),
+          );
 
 
 

@@ -37,7 +37,7 @@ Widget _boto(BuildContext context){
     margin: EdgeInsets.only(top: 150, left: 20.0),
     child: RaisedButton(
       onPressed: () {
-        pushPage(context, HomePage());
+        pushPage(context, LoginPage());
       },
       textColor: Colors.white,
       padding: const EdgeInsets.all(0.0),

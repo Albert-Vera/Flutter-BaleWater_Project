@@ -1,4 +1,5 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
+import 'package:Balewaterproject/CRM/Facturacion/ClientsFac.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
 import 'package:Balewaterproject/Menus/MenuFactures.dart';
 import 'package:Balewaterproject/Menus/MenuItem.dart';
@@ -11,10 +12,11 @@ import 'package:toast/toast.dart';
 
 class ProveidorsFac extends StatelessWidget{
   int id;
-  ProveidorsFac({Key key, this.id}):super(key: key);
+  String texte;
+  ProveidorsFac({Key key, this.id, this.texte}):super(key: key);
   @override
   Widget build(BuildContext context) {
-//    text_e = texte;
+    text_e = texte;
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -116,7 +118,7 @@ Container titolFactura() {
   return Container(
     child: Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text( "Albarà d'entrega",   style: TextStyle(
+      child: Text( text_e,   style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w500,
           fontSize: 18.0
