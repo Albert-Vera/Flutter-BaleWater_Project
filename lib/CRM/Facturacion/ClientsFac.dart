@@ -31,8 +31,6 @@ class ClientsFac extends StatelessWidget{
     );
   }
 }
-
-
 Widget _buildBody(BuildContext context, int id ) {
   return StreamBuilder<QuerySnapshot>(
     stream: Firestore.instance
@@ -46,7 +44,6 @@ Widget _buildBody(BuildContext context, int id ) {
   );
 
 }
-
 Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
   return
     ListView(
@@ -55,13 +52,11 @@ Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
           _buildListItem(context, data)).toList(),
     );
 }
-
 Widget _buildListItem(BuildContext context, DocumentSnapshot datos) {
   final record = Record.fromSnapshot(datos);
 
   return  mostrarFactura(context, record);
 }
-
 Widget mostrarFactura(BuildContext context, Record record ){
   final screenSize = MediaQuery.of(context).size;
   double iva = record.importComanda * 21/100;
@@ -220,7 +215,6 @@ Container _icone_Comanda_Rebuda(BuildContext context, Record record) {
     child:
     FloatingActionButton.extended(
       onPressed: () {
-        //Toast.show("Imprimint factura", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
         _alertDialog(context,record);
       },
       label: Text("Rebuda"),
