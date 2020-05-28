@@ -145,8 +145,6 @@ Container dataFactura(Record record) {
                                  style: TextStyle( fontSize: 10.0),),
                                ],
                              )
-
-
                             ),
                             Container(
                                 margin: EdgeInsets.only(left: 6.0),
@@ -165,8 +163,6 @@ Container dataFactura(Record record) {
                                       style: TextStyle( fontSize: 10.0),),
                                   ],
                                 )
-
-
                             ),
                           ],
                         ),
