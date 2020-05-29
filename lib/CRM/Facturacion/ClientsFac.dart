@@ -99,7 +99,7 @@ Widget mostrarFactura(BuildContext context, Record record ){
                             _total_Factura(record, iva, totalFact),
                           ],
                         ),
-                        _icone_Comanda_Rebuda(context, record),
+                        if ( text_e != "Pro-forma" ) _icone_Comanda_Rebuda(context, record),
                       ]
                   )
               ),
@@ -109,7 +109,6 @@ Widget mostrarFactura(BuildContext context, Record record ){
     ),
   );
 }
-
 Container titolFactura() {
   return Container(
     child: Padding(
@@ -167,7 +166,6 @@ Container dataFactura(Record record) {
     ),
   );
 }
-
 Container _total_Factura(Record record, double iva, double totalFact) {
   return Container(
     margin: EdgeInsets.only(
@@ -265,7 +263,6 @@ Container _dades_Venda(Record record ) {
       )
   );
 }
-
 Container _dades_Client(Record record) {
   return Container(
       margin: EdgeInsets.only(
@@ -368,10 +365,6 @@ Widget _cabecera(){
       width: double.maxFinite,
       child: Column(
         children: <Widget>[
-//          SizedBox(
-//            height: 60.0,
-//            width: 50.0,
-//          ),
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: Row(
@@ -430,7 +423,6 @@ Widget _cabecera(){
           ))
         ],
       )
-
   );
 }
 AlertDialog _alertDialog(BuildContext context, Record record) {
