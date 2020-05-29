@@ -1,8 +1,6 @@
 import 'package:Balewaterproject/CRM/Compras/ComandesProveidor.dart';
 import 'package:Balewaterproject/CRM/Compras/GestionarComanda.dart';
 import 'package:Balewaterproject/Menus/HomePage.dart';
-import 'package:Balewaterproject/medio_basura/LoginDiferente.dart';
-import 'package:Balewaterproject/medio_basura/LoginMasBonito.dart';
 import 'package:Balewaterproject/util.dart';
 import 'package:flutter/material.dart';
 

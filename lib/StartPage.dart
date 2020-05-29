@@ -2,8 +2,6 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/HomePage.dart';
 import 'package:Balewaterproject/main.dart';
-import 'package:Balewaterproject/medio_basura/Home.dart';
-import 'package:Balewaterproject/medio_basura/SigninLogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

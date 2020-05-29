@@ -9,7 +9,6 @@ import 'package:Balewaterproject/Menus/MenuVendes.dart';
 import 'package:Balewaterproject/Mostrar/ComandesARecollir.dart';
 import 'package:Balewaterproject/Mostrar/ComandesAServir.dart';
 import 'package:Balewaterproject/NavegadorBarraInferior.dart';
-import 'package:Balewaterproject/medio_basura/Home.dart';
 import 'package:Balewaterproject/model/Record.dart';
 import 'package:Balewaterproject/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

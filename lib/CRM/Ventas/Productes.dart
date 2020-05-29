@@ -1,6 +1,5 @@
 import 'package:Balewaterproject/BackGroundPantalla.dart';
 import 'package:Balewaterproject/Menus/BannerBaleWater.dart';
-import 'package:Balewaterproject/medio_basura/MostrarComandes1.dart';
 import 'package:Balewaterproject/model/RecordProducte.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
