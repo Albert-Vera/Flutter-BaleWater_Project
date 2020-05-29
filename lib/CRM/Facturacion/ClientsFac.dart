@@ -191,7 +191,8 @@ Container _icone_Print(BuildContext context) {
     child:
     FloatingActionButton(
       onPressed: () {
-        Toast.show("Imprimint factura", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+        if ( text_e != "Pro-forma") Toast.show("Imprimint factura", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+        else Toast.show("Imprimint pro-forma", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
       },
       child: Icon(Icons.print),
       mini: true,
