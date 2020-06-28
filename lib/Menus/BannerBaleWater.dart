@@ -7,7 +7,6 @@ class BannerBaleWater extends StatelessWidget {
     this.texte}): super(key: key);
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.only(
           top: 15.0,
@@ -25,12 +24,6 @@ class BannerBaleWater extends StatelessWidget {
             ),
             height: 25.0,
             width: 250.0,
-//            decoration: new BoxDecoration(
-//
-//
-//              borderRadius: new BorderRadius.circular(5.0),
-//              color: Color(0xFFfeb800),
-//            ),
             child: new Center(
               child: new Text(
                 texte,
@@ -45,10 +38,6 @@ class BannerBaleWater extends StatelessWidget {
 
         ],
       )
-
-
-
     );
   }
-
 }
